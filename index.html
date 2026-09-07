@@ -184,6 +184,13 @@ body.simple .console:not(.c3){padding:12px 16px}
   padding:9px 13px;background:var(--surface);border-radius:0 3px 3px 0;max-width:78ch}
 .exnote b{color:var(--ink);font-family:var(--f-mono);font-size:12.5px}
 @media (max-width:700px){.exbtn{width:100%;padding:13px 16px}}
+.pickhint{margin:9px 0 0;font-family:var(--f-mono);font-size:12px;color:var(--ink3);letter-spacing:.02em}
+.pickhint b{color:var(--verd);font-weight:500}
+.pickcard{margin:10px 0 0;font-size:13.5px;line-height:1.6;background:var(--plate);color:var(--plate-ink);
+  border:1px solid #000;border-radius:4px;padding:11px 14px;max-width:78ch}
+.pickcard .pkn{font-family:var(--f-mono);font-size:16px;color:#FFD98A}
+.pickcard .pkd{color:#C7D6CD}
+.pickcard .pks{display:block;margin-top:5px;font-family:var(--f-mono);font-size:11.5px;color:#8FA79A}
 @media (max-width:700px){
   .hint{display:none}
   #c3d{height:min(52vh,380px)}
@@ -259,6 +266,8 @@ body.simple .console:not(.c3){padding:12px 16px}
 </div>
 <div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Scomponi il meccanismo</button></div>
 <p class="exnote" id="exnote" hidden>Le ruote si allontanano lungo l&rsquo;asse della manovella: nel modello stanno su <b>dodici quote diverse</b>, dai +3,0&nbsp;mm della grande <b>b1</b> ai &minus;13,5&nbsp;mm dell&rsquo;ultimo piano. Accendi le &laquo;sigle&raquo; e cerca <b>k1</b> e <b>k2</b>: due ruote da 50 denti su assi non allineati, una porta un perno che scorre nella fenditura dell&rsquo;altra &mdash; &egrave; cos&igrave; che la macchina fa correre la Luna pi&ugrave; veloce vicino al perigeo e pi&ugrave; lenta all&rsquo;apogeo. Le ruote in verde chiaro sono le <b>ipotetiche</b>: nel reperto non ci sono.</p>
+<p class="pickhint">Trascina per girare intorno &middot; pizzica o rotella per avvicinarti &middot; <b>tocca una ruota</b> per la sua scheda, di nuovo per quella dietro</p>
+<div class="pickcard" id="pickcard" hidden></div>
   <div class="console c3">
   <div class="field"><label>manovella</label><div class="btnrow">
     <button class="btn key" id="play" aria-pressed="true">▶ gira</button>
@@ -1417,6 +1426,43 @@ function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(!w||!h)
     if(!userZoom) dist=fitDist();
     placeCam(); } }
 let canvasVisible=true; try{ new IntersectionObserver(en=>{ canvasVisible=en[0].isIntersecting; }).observe(canvas); }catch(_){}
+
+/* ---- esplorazione: tocca una ruota e leggi che cos'e'. Tutti i dati vengono
+   dalle tabelle gia' in pagina (GEO = Tab. S8, GEARS = funzione, RATE = rapporti). ---- */
+const PT={oss:"osservata alla tomografia",hyp:"ipotetica, ricostruita",teeth:"denti",turns:"giri per giro di b1",radius:"raggio esterno",layer:"quota",cw:"orario",ccw:"antiorario",seen:"visto dal fronte"};
+const GDESC=Object.fromEntries(GEARS.map(g=>[g[0],g[3]]));
+const GEOBY=Object.fromEntries(GEO.map(g=>[g[0],g]));
+const rayc=new THREE.Raycaster(); const ndcv=new THREE.Vector2();
+const M_PICK=new THREE.MeshStandardMaterial({color:0xFFD07A,emissive:0x7A5410,metalness:.5,roughness:.35});
+let picked=null;
+function clearPick(){ if(picked){ picked.material=(picked.userData.st==="oss")?M_OSS:M_HYP; picked=null; }
+  const el=document.getElementById("pickcard"); if(el) el.hidden=true; }
+function showPick(mesh){
+  clearPick(); picked=mesh; mesh.material=M_PICK;
+  const n=mesh.userData.name, g=GEOBY[n], rate=RATE[SOLID_OF[n]];
+  const el=document.getElementById("pickcard"); if(!el) return;
+  const spin=(rate===undefined)?"":" &middot; "+Math.abs(rate).toFixed(3)+" "+PT.turns+" ("+(rate<0?PT.cw:PT.ccw)+" "+PT.seen+")";
+  el.innerHTML='<span class="pkn">'+n+'</span> &mdash; '+g[2]+' '+PT.teeth+' &middot; '+(g[7]==="oss"?PT.oss:PT.hyp)+
+    '<br><span class="pkd">'+(GDESC[n]||"")+'</span>'+
+    '<span class="pks">'+PT.radius+' '+g[3].toFixed(1)+' mm &middot; '+PT.layer+' z '+g[6].toFixed(1)+' mm'+spin+'</span>';
+  el.hidden=false;
+}
+function pickAt(cx,cy){
+  const r=canvas.getBoundingClientRect();
+  ndcv.x=((cx-r.left)/r.width)*2-1; ndcv.y=-((cy-r.top)/r.height)*2+1;
+  rayc.setFromCamera(ndcv,camera);
+  const hits=rayc.intersectObjects(Object.values(gears),false);
+  const chain=[]; for(const h of hits) if(!chain.includes(h.object)) chain.push(h.object);
+  if(!chain.length){ clearPick(); return; }
+  // toccando di nuovo lo stesso punto si scende alla ruota successiva lungo il raggio
+  let i=0; if(picked){ const k=chain.indexOf(picked); if(k>=0) i=(k+1)%chain.length; }
+  showPick(chain[i]);
+}
+let tapAt=null;
+canvas.addEventListener("pointerdown",e=>{ tapAt={x:e.clientX,y:e.clientY,t:performance.now()}; });
+canvas.addEventListener("pointerup",e=>{ if(!tapAt) return;
+  const moved=Math.hypot(e.clientX-tapAt.x,e.clientY-tapAt.y), dt=performance.now()-tapAt.t; tapAt=null;
+  if(moved<7&&dt<450&&touches.size<=1) pickAt(e.clientX,e.clientY); });
 
 /* ---- scomposizione con un clic: tutti gli strati si allontanano insieme lungo l'asse
    della manovella e la camera va di tre quarti, altrimenti di fronte non si vedrebbe nulla ---- */
