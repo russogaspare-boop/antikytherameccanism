@@ -1,0 +1,133 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Metodo, fonti e ci&ograve; che resta da verificare &middot; Antikythera Mechanism</title><meta name="description" content="Metodo e fonti del calcolatore di Anticitera: rapporti dai denti, effemeridi, taratura, cosa è misurato e cosa da verificare."><meta property="og:title" content="Metodo, fonti e ci&ograve; che resta da verificare"><meta property="og:description" content="Metodo e fonti del calcolatore di Anticitera: rapporti dai denti, effemeridi, taratura, cosa è misurato e cosa da verificare."><meta property="og:type" content="website"><link rel="canonical" href="https://antikytheramechanism.app/research/"><link rel="alternate" hreflang="it" href="https://antikytheramechanism.app/research/"><link rel="alternate" hreflang="en" href="https://antikytheramechanism.app/en/research/"><link rel="alternate" hreflang="es" href="https://antikytheramechanism.app/es/research/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><style>:root{
+  --ground:#E9ECE8; --surface:#F7F9F5; --surface2:#DFE4DE; --line:#C3CCC5;
+  --ink:#131C18; --ink2:#4A5751; --ink3:#77837C;
+  --verd:#2C7A66; --verd-soft:#CFE3DB; --bronze:#8F6A21; --bronze-soft:#EADFC4;
+  --coral:#B44E3C; --plate:#1B2622; --plate-ink:#E7EFE9;
+  --shadow:0 1px 2px rgba(19,28,24,.08),0 8px 24px -12px rgba(19,28,24,.18);
+  --f-disp:"Bodoni Moda",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1411; --surface:#17211D; --surface2:#1F2A26; --line:#31403A;
+    --ink:#DEE6E0; --ink2:#A2B0A9; --ink3:#76837C;
+    --verd:#55C4A6; --verd-soft:#1D3630; --bronze:#DCA945; --bronze-soft:#332912;
+    --coral:#E0705C; --plate:#080D0B; --plate-ink:#DEE6E0;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1411; --surface:#17211D; --surface2:#1F2A26; --line:#31403A;
+  --ink:#DEE6E0; --ink2:#A2B0A9; --ink3:#76837C;
+  --verd:#55C4A6; --verd-soft:#1D3630; --bronze:#DCA945; --bronze-soft:#332912;
+  --coral:#E0705C; --plate:#080D0B; --plate-ink:#DEE6E0;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+header.top{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;
+  padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:22px}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--verd)}
+.sub{color:var(--ink2);max-width:56ch;margin-top:8px;font-size:14px}
+button,select,input{font-family:inherit;font-size:14px;color:var(--ink)}
+:focus-visible{outline:2px solid var(--verd);outline-offset:2px;border-radius:3px}
+
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+header.top{display:block;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--verd)}
+.sub{color:var(--ink2);max-width:62ch;margin-top:8px;font-size:15px}
+.prose{max-width:82ch;font-size:15.5px}
+.prose h2{font-family:var(--f-disp);font-size:24px;font-weight:400;margin:34px 0 8px}
+.prose h3{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin:22px 0 6px}
+.prose p{margin:0 0 12px}
+.prose ul,.prose ol{padding-left:22px;margin:0 0 12px}
+.prose li{margin-bottom:5px}
+.prose a{color:var(--verd)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:18px;box-shadow:var(--shadow)}
+.warn{border-left:3px solid var(--bronze);background:var(--bronze-soft);padding:12px 14px;border-radius:0 3px 3px 0;font-size:13.5px;margin:14px 0}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.chip.ok{border-color:var(--verd);color:var(--verd)} .chip.hyp{border-color:var(--bronze);color:var(--bronze)} .chip.dev{border-color:var(--coral);color:var(--coral)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface);margin:12px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:500;background:var(--surface2)}
+tr:last-child td{border-bottom:0}
+.btn{background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:9px 14px;cursor:pointer;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.03em;color:var(--ink);text-decoration:none;display:inline-block}
+.btn:hover{background:var(--verd-soft);border-color:var(--verd)}
+.btn.key{background:var(--verd);color:#fff;border-color:var(--verd);font-weight:500}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.field input,.field select,.field textarea{background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-family:inherit;font-size:14px;color:var(--ink);width:100%}
+.cta{background:var(--plate);color:var(--plate-ink);border-radius:4px;padding:26px 24px;margin:26px 0}
+.cta h2{font-family:var(--f-disp);font-weight:400;font-size:26px;margin:0 0 8px;color:#fff}
+.cta p{color:#A9BDB3;margin:0 0 14px;max-width:60ch}
+.cta a.btn{background:var(--verd);color:#fff;border-color:var(--verd)}
+
+.topnav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em}
+.topnav .in{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topnav .brand{font-family:var(--f-disp);font-size:17px;letter-spacing:0;color:var(--ink);text-decoration:none;white-space:nowrap}
+.topnav .brand em{color:var(--verd);font-style:italic}
+.topnav ul{list-style:none;margin:0;padding:0;display:flex;gap:2px 14px;flex-wrap:wrap;flex:1}
+.topnav a{color:var(--ink2);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.topnav a:hover,.topnav a[aria-current]{color:var(--verd);border-bottom-color:var(--verd)}
+.topnav .langs{margin-left:auto;white-space:nowrap;color:var(--ink3)}
+.topnav .langs a[aria-current]{color:var(--ink);font-weight:500}
+.topnav .menubtn{display:none;background:none;border:1px solid var(--line);border-radius:3px;padding:5px 9px;cursor:pointer;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:1024px){
+  .topnav .menubtn{display:inline-block}
+  .topnav ul{display:none;flex-basis:100%;flex-direction:column;gap:0;padding:6px 0 4px}
+  .topnav ul li a{display:block;padding:8px 2px;border-bottom:1px solid var(--line)}
+  .topnav.open ul{display:flex}
+}
+footer.site{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+footer.site .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px}
+footer.site h4{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin:0 0 6px}
+footer.site a{color:var(--verd);text-decoration:none}
+footer.site a:hover{text-decoration:underline}
+footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--line);font-family:var(--f-mono);font-size:11px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 18px}
+.nogl{padding:40px 24px;text-align:center;color:var(--plate-ink);background:var(--plate);border-radius:4px;min-height:260px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.nogl b{font-family:var(--f-disp);font-weight:400;font-size:22px}
+.nogl p{margin:0;font-size:13.5px;color:#A9BDB3;max-width:52ch;margin-inline:auto}
+.btn.wow{background:var(--verd);color:#fff;border-color:var(--verd);font-weight:500}
+.btn.wow:hover{background:var(--verd);filter:brightness(1.12)}
+</style></head><body><nav class="topnav" id="topnav"><div class="in"><a class="brand" href="/">Antikythera Mechanism <em>.app</em></a><button class="menubtn" type="button" aria-expanded="false" aria-controls="navlist" onclick="var n=document.getElementById('topnav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu &#9776;</button><ul id="navlist"><li><a href="/">Esplora</a></li><li><a href="/#prov">Come funziona</a></li><li><a href="/3d/">Ricostruzione 3D</a></li><li><a href="/build/">Costruiscilo</a></li><li><a href="/research/" aria-current="page">Ricerca</a></li><li><a href="/schools/">Scuole e musei</a></li><li><a href="/conference/">Conferenza</a></li><li><a href="/about/">Chi siamo</a></li><li><a href="/join/">Partecipa</a></li></ul><span class="langs"><a href="/" aria-current="page">Italiano</a> · <a href="/en/">English</a> · <a href="/es/">Español</a></span></div></nav><div class="wrap"><header class="top"><div class="eyebrow">Ricerca</div><h1>Metodo, fonti e ci&ograve; che resta <em>da verificare</em></h1><p class="sub">Ogni numero di questo sito ha un&rsquo;origine dichiarata. Questa pagina la riassume; la vista esperta del calcolatore la mostra riga per riga.</p></header><div class="prose">
+<h2>Metodo</h2>
+<p><strong>1. Rapporti dai denti.</strong> Il motore non contiene formule astronomiche per le lancette: contiene i conteggi dei denti delle ruote superstiti e le catene che le collegano. Un giro della manovella fa girare b1 (223 denti); ogni altra ruota ruota del rapporto imposto dagli ingranamenti. La Luna siderale risulta da 254/19 giri per anno, il quadrante metonico da 5/19, il Saros da 940/4237, l&rsquo;Exeligmos da 235/12711, il gruppo delle anomalie (perno-fenditura) da 477/4237.</p>
+<p><strong>2. Confronto con il cielo vero.</strong> Accanto a ogni lancetta il sito calcola la posizione astronomica reale con gli algoritmi di Meeus (Sole a bassa precisione; Luna con ~27 termini in longitudine, 13 in latitudine e i termini in distanza). La differenza &egrave; l&rsquo;errore della macchina, non un&rsquo;approssimazione del sito.</p>
+<p><strong>3. Taratura.</strong> Le lancette possono essere azzerate sulla data immessa (confronto immediato) oppure sull&rsquo;epoca del 28 aprile 205 a.C., inizio del quadrante del Saros secondo Freeth 2014: in questo caso il visitatore vede l&rsquo;errore accumulato in 22 secoli.</p>
+<p><strong>4. Pianeti.</strong> Seguono il modello del Cosmo (Freeth et al. 2021): relazioni di periodo Mercurio (1513, 480) e Venere (289, 462), con i denti pubblicati nel testo; per Marte, Giove e Saturno i denti sono derivati qui dalle stesse relazioni di periodo e marcati come tali.</p>
+<p><strong>5. Cielo locale.</strong> Tempo siderale, obliquit&agrave;, trasformazioni eclittica&rarr;equatoriale&rarr;orizzontale, parallasse topocentrica della Luna, sorgere/tramonto per scansione a 48 ore.</p>
+<h2>Che cosa &egrave; misurato, ipotetico o derivato</h2>
+<div class="tablewrap"><table><thead><tr><th>Elemento</th><th>Origine</th><th>Stato</th></tr></thead><tbody>
+<tr><td>Conteggi dei denti delle 30 ruote superstiti</td><td>Freeth et al. 2006, 2021 (Tab. S8)</td><td><span class="chip ok">misurato</span></td></tr>
+<tr><td>Raggi, spessori, quote delle ruote</td><td>Tab. S8, 2021</td><td><span class="chip ok">misurato</span></td></tr>
+<tr><td>Quadranti posteriori (metonico, Giochi, Saros, Exeligmos)</td><td>Freeth et al. 2008</td><td><span class="chip ok">pubblicato</span></td></tr>
+<tr><td>Perno-fenditura lunare, e/r = 0,1146</td><td>Freeth et al. 2006</td><td><span class="chip ok">pubblicato</span></td></tr>
+<tr><td>Denti di Mercurio e Venere</td><td>Freeth et al. 2021, testo</td><td><span class="chip ok">pubblicato</span></td></tr>
+<tr><td>Denti di Marte, Giove, Saturno</td><td>derivati qui dalle relazioni di periodo</td><td><span class="chip hyp">derivato</span></td></tr>
+<tr><td>Epoca 28 aprile 205 a.C.</td><td>Freeth 2014</td><td><span class="chip hyp">ipotesi</span></td></tr>
+<tr><td>Fenditura solare e/r = 0,0334</td><td>scelta del progetto</td><td><span class="chip hyp">da verificare</span></td></tr>
+<tr><td>Pianta degli assi del 3D</td><td>risolta dagli ingranamenti</td><td><span class="chip hyp">calcolata</span></td></tr>
+<tr><td>Patina e aspetto</td><td>calibrazione cromatica, non fotogrammetria</td><td><span class="chip hyp">estetica</span></td></tr>
+</tbody></table></div>
+<h2>Fonti</h2>
+<ul>
+<li>Freeth, T. et al., &ldquo;Decoding the ancient Greek astronomical calculator known as the Antikythera Mechanism&rdquo;, <em>Nature</em> 444 (2006) 587&ndash;591, and Supplementary Notes.</li>
+<li>Freeth, T., Jones, A., Steele, J. M., Bitsakis, Y., &ldquo;Calendars with Olympiad display and eclipse prediction on the Antikythera Mechanism&rdquo;, <em>Nature</em> 454 (2008) 614&ndash;617.</li>
+<li>Freeth, T., Jones, A., &ldquo;The Cosmos in the Antikythera Mechanism&rdquo;, <em>ISAW Papers</em> 4 (2012).</li>
+<li>Freeth, T., &ldquo;Eclipse Prediction on the Ancient Greek Astronomical Calculating Machine Known as the Antikythera Mechanism&rdquo;, <em>PLOS ONE</em> 9(7) e103275 (2014).</li>
+<li>Freeth, T. et al., &ldquo;A Model of the Cosmos in the ancient Greek Antikythera Mechanism&rdquo;, <em>Scientific Reports</em> 11:5821 (2021), Supplementary Tables S8&ndash;S9.</li>
+<li>Meeus, J., <em>Astronomical Algorithms</em>, 2nd ed., Willmann-Bell 1998, chapters 7, 12, 13, 25, 40, 47.</li>
+<li>Standish, E. M., <em>Keplerian Elements for Approximate Positions of the Major Planets</em>, JPL Solar System Dynamics (elements valid 3000 BC &ndash; 3000 AD).</li>
+</ul>
+<h2>Correzioni</h2>
+<p>Se trovi un errore in un dato o in un rapporto, scrivi a <a href="mailto:russo.gaspare@gmail.com">russo.gaspare@gmail.com</a> indicando la fonte: la correzione sar&agrave; registrata nello <a href="/status/">Stato del progetto</a>.</p>
+</div><footer class="site"><div class="cols"><div><h4>Progetto</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Ricercatore indipendente di archeoastronomia, Siracusa<br><a href="mailto:russo.gaspare@gmail.com">russo.gaspare@gmail.com</a></div><div><h4>Sviluppo</h4>Software e modelli sviluppati da Gaspare Russo con Claude (Anthropic).<br>Versione v1.1 &middot; 8 settembre 2026<br>Codice sorgente su <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Fonti primarie</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Progetto indipendente, non affiliato al Museo Archeologico Nazionale di Atene n&eacute; all&rsquo;Antikythera Mechanism Research Project. Strumento didattico e di ricerca: le posizioni calcolate non sono un&rsquo;effemeride ufficiale.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Testi, codice e modelli 3D: tutti i diritti riservati. Dati degli ingranaggi: propriet&agrave; intellettuale dei rispettivi autori.</span><a href="/status/">Stato del progetto</a><a href="/privacy/">Privacy</a><a href="/terms/">Termini e avvertenze</a></div></footer></div></body></html>
