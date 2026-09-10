@@ -1,0 +1,119 @@
+<!doctype html><html lang="el"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>Ο Υπολογιστής των Αντικυθήρων &middot; Antikythera Mechanism</title><meta name="description" content="Ο μηχανισμός των Αντικυθήρων ως υπολογιστής: δείκτες από τους πραγματικούς λόγους δοντιών, σύγκριση με τον ουρανό, τρισδιάστατη ανακατασκευή. Ελληνική έκδοση."><meta property="og:title" content="Ο Υπολογιστής των Αντικυθήρων"><meta property="og:description" content="Ο μηχανισμός των Αντικυθήρων ως υπολογιστής: δείκτες από τους πραγματικούς λόγους δοντιών, σύγκριση με τον ουρανό, τρισδιάστατη ανακατασκευή. Ελληνική έκδοση."><meta property="og:type" content="website"><link rel="canonical" href="https://antikytheramechanism.app/el/"><link rel="alternate" hreflang="it" href="https://antikytheramechanism.app/"><link rel="alternate" hreflang="en" href="https://antikytheramechanism.app/en/"><link rel="alternate" hreflang="es" href="https://antikytheramechanism.app/es/"><link rel="alternate" hreflang="el" href="https://antikytheramechanism.app/el/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><style>:root{
+  --ground:#E9ECE8; --surface:#F7F9F5; --surface2:#DFE4DE; --line:#C3CCC5;
+  --ink:#131C18; --ink2:#4A5751; --ink3:#77837C;
+  --verd:#2C7A66; --verd-soft:#CFE3DB; --bronze:#8F6A21; --bronze-soft:#EADFC4;
+  --coral:#B44E3C; --plate:#1B2622; --plate-ink:#E7EFE9;
+  --shadow:0 1px 2px rgba(19,28,24,.08),0 8px 24px -12px rgba(19,28,24,.18);
+  --f-disp:"Bodoni Moda",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1411; --surface:#17211D; --surface2:#1F2A26; --line:#31403A;
+    --ink:#DEE6E0; --ink2:#A2B0A9; --ink3:#76837C;
+    --verd:#55C4A6; --verd-soft:#1D3630; --bronze:#DCA945; --bronze-soft:#332912;
+    --coral:#E0705C; --plate:#080D0B; --plate-ink:#DEE6E0;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1411; --surface:#17211D; --surface2:#1F2A26; --line:#31403A;
+  --ink:#DEE6E0; --ink2:#A2B0A9; --ink3:#76837C;
+  --verd:#55C4A6; --verd-soft:#1D3630; --bronze:#DCA945; --bronze-soft:#332912;
+  --coral:#E0705C; --plate:#080D0B; --plate-ink:#DEE6E0;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+header.top{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;
+  padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:22px}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--verd)}
+.sub{color:var(--ink2);max-width:56ch;margin-top:8px;font-size:14px}
+button,select,input{font-family:inherit;font-size:14px;color:var(--ink)}
+:focus-visible{outline:2px solid var(--verd);outline-offset:2px;border-radius:3px}
+
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+header.top{display:block;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--verd)}
+.sub{color:var(--ink2);max-width:62ch;margin-top:8px;font-size:15px}
+.prose{max-width:82ch;font-size:15.5px}
+.prose h2{font-family:var(--f-disp);font-size:24px;font-weight:400;margin:34px 0 8px}
+.prose h3{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin:22px 0 6px}
+.prose p{margin:0 0 12px}
+.prose ul,.prose ol{padding-left:22px;margin:0 0 12px}
+.prose li{margin-bottom:5px}
+.prose a{color:var(--verd)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:18px;box-shadow:var(--shadow)}
+.warn{border-left:3px solid var(--bronze);background:var(--bronze-soft);padding:12px 14px;border-radius:0 3px 3px 0;font-size:13.5px;margin:14px 0}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.chip.ok{border-color:var(--verd);color:var(--verd)} .chip.hyp{border-color:var(--bronze);color:var(--bronze)} .chip.dev{border-color:var(--coral);color:var(--coral)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface);margin:12px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:500;background:var(--surface2)}
+tr:last-child td{border-bottom:0}
+.btn{background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:9px 14px;cursor:pointer;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.03em;color:var(--ink);text-decoration:none;display:inline-block}
+.btn:hover{background:var(--verd-soft);border-color:var(--verd)}
+.btn.key{background:var(--verd);color:#fff;border-color:var(--verd);font-weight:500}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.field input,.field select,.field textarea{background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-family:inherit;font-size:14px;color:var(--ink);width:100%}
+.cta{background:var(--plate);color:var(--plate-ink);border-radius:4px;padding:26px 24px;margin:26px 0}
+.cta h2{font-family:var(--f-disp);font-weight:400;font-size:26px;margin:0 0 8px;color:#fff}
+.cta p{color:#A9BDB3;margin:0 0 14px;max-width:60ch}
+.cta a.btn{background:var(--verd);color:#fff;border-color:var(--verd)}
+
+.topnav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em}
+.topnav .in{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topnav .brand{font-family:var(--f-disp);font-size:17px;letter-spacing:0;color:var(--ink);text-decoration:none;white-space:nowrap}
+.topnav .brand em{color:var(--verd);font-style:italic}
+.topnav ul{list-style:none;margin:0;padding:0;display:flex;gap:2px 14px;flex-wrap:wrap;flex:1}
+.topnav a{color:var(--ink2);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.topnav a:hover,.topnav a[aria-current]{color:var(--verd);border-bottom-color:var(--verd)}
+.topnav .langs{margin-left:auto;white-space:nowrap;color:var(--ink3)}
+.topnav .langs a[aria-current]{color:var(--ink);font-weight:500}
+.topnav .menubtn{display:none;background:none;border:1px solid var(--line);border-radius:3px;padding:5px 9px;cursor:pointer;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:1024px){
+  .topnav .menubtn{display:inline-block}
+  .topnav ul{display:none;flex-basis:100%;flex-direction:column;gap:0;padding:6px 0 4px}
+  .topnav ul li a{display:block;padding:8px 2px;border-bottom:1px solid var(--line)}
+  .topnav.open ul{display:flex}
+}
+footer.site{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+footer.site .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px}
+footer.site h4{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin:0 0 6px}
+footer.site a{color:var(--verd);text-decoration:none}
+footer.site a:hover{text-decoration:underline}
+footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--line);font-family:var(--f-mono);font-size:11px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 18px}
+.nogl{padding:40px 24px;text-align:center;color:var(--plate-ink);background:var(--plate);border-radius:4px;min-height:260px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.nogl b{font-family:var(--f-disp);font-weight:400;font-size:22px}
+.nogl p{margin:0;font-size:13.5px;color:#A9BDB3;max-width:52ch;margin-inline:auto}
+.btn.wow{background:var(--verd);color:#fff;border-color:var(--verd);font-weight:500}
+.btn.wow:hover{background:var(--verd);filter:brightness(1.12)}
+</style><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Serif+Display:ital,wght@0,400;0,600;1,400&display=swap"><style>:root{--f-disp:"Noto Serif Display","Bodoni Moda",Georgia,serif}</style></head><body><nav class="topnav" id="topnav"><div class="in"><a class="brand" href="/el/">Antikythera Mechanism <em>.app</em></a><button class="menubtn" type="button" aria-expanded="false" aria-controls="navlist" onclick="var n=document.getElementById('topnav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Μενού &#9776;</button><ul id="navlist"><li><a href="/en/">Υπολογιστής</a></li><li><a href="/en/#prov">Πώς λειτουργεί</a></li><li><a href="/3d/en/">Τρισδιάστατη ανακατασκευή</a></li><li><a href="/el/build/">Κατασκεύασέ το</a></li><li><a href="/el/research/">Έρευνα</a></li><li><a href="/el/schools/">Σχολεία και μουσεία</a></li><li><a href="/el/conference/">Συνέδριο</a></li><li><a href="/el/about/">Σχετικά</a></li><li><a href="/el/join/">Συμμετοχή</a></li></ul><span class="langs"><a href="/">Italiano</a> · <a href="/en/">English</a> · <a href="/es/">Español</a> · <a href="/el/" aria-current="page">Ελληνικά</a></span></div></nav><div class="wrap"><header class="top"><div class="eyebrow">Υπολογιστική ανακατασκευή βασισμένη σε δημοσιευμένους αριθμούς δοντιών και αστρονομικούς λόγους</div><h1>Ο Υπολογιστής των <em>Αντικυθήρων</em></h1><p class="sub">Ο μηχανισμός είναι <strong>υπολογισμένος</strong>: κάθε δείκτης προκύπτει από τους πραγματικούς λόγους δοντιών (Freeth et al. 2006 / 2008 / 2021) εφαρμοσμένους στον αριθμό στροφών του στροφάλου, και συγκρίνεται με την πραγματική θέση του Ήλιου και της Σελήνης.</p></header><div class="prose">
+<div class="warn"><strong>Ελληνική έκδοση σε εξέλιξη.</strong> Οι σελίδες του έργου είναι διαθέσιμες στα ελληνικά. Ο υπολογιστής και το τρισδιάστατο μοντέλο είναι προς το παρόν στα αγγλικά, ιταλικά και ισπανικά· η ελληνική τους έκδοση βρίσκεται σε προετοιμασία.</div>
+<div class="grid2">
+<div class="panel"><h2 style="margin-top:0">Υπολογιστής</h2><p>Ήλιος, Σελήνη, φάση, εκλείψεις, κλίμακες Μέτωνα και Σάρου, πλανήτες του Κόσμου, τοπικός ουρανός. Απλή όψη και όψη ειδικού.</p><a class="btn key" href="/en/">Άνοιγμα του υπολογιστή (EN) &rarr;</a></div>
+<div class="panel"><h2 style="margin-top:0">Τρισδιάστατη ανακατασκευή</h2><p>Κινηματικό μοντέλο με τις μετρήσεις του Πίνακα S8· ανάπτυξη με ένα κλικ· άγγιγμα ενός τροχού για την καρτέλα του.</p><a class="btn key" href="/3d/en/">Άνοιγμα του 3D (EN) &rarr;</a></div>
+</div>
+<h2>Τι είναι αυτός ο ιστότοπος</h2>
+<p>Ο μηχανισμός των Αντικυθήρων, του 2ου αιώνα π.Χ., είναι ο αρχαιότερος γνωστός αστρονομικός υπολογιστής. Εδώ δεν παρουσιάζεται ως κινούμενη εικόνα αλλά ως μηχανή που υπολογίζει: το λογισμικό περιέχει τους αριθμούς δοντιών των 30 σωζόμενων τροχών και τα γραναζωτά συστήματα που τους συνδέουν, και από αυτά προκύπτουν οι θέσεις των δεικτών. Κάθε θέση συγκρίνεται με τη σύγχρονη αστρονομία, ώστε να φαίνεται πόσο ακριβής ήταν η αρχαία μηχανή και πού απέκλινε.</p>
+<h2>Οι σελίδες του έργου</h2>
+<ul>
+<li><a href="/el/about/">Σχετικά</a> &mdash; ποιος βρίσκεται πίσω από το έργο και γιατί οι Συρακούσες.</li>
+<li><a href="/el/research/">Έρευνα</a> &mdash; μέθοδος, πηγές, τι είναι μετρημένο και τι υποθετικό.</li>
+<li><a href="/el/conference/">Συνέδριο</a> &mdash; Αντικύθηρα και Αρχιμήδης: ένα συνέδριο στις Συρακούσες· Αρχιμήδης, Φειδίας και η αστρονομική παράδοση.</li>
+<li><a href="/el/build/">Κατασκεύασέ το</a> &mdash; από το ψηφιακό μοντέλο σε πραγματικό αντικείμενο.</li>
+<li><a href="/el/schools/">Σχολεία και μουσεία</a> &mdash; έτοιμα πειράματα και διαδραστικός σταθμός.</li>
+<li><a href="/el/status/">Κατάσταση του έργου</a> &mdash; τι είναι διαθέσιμο, σε ανάπτυξη, προς επαλήθευση.</li>
+<li><a href="/el/join/">Συμμετοχή</a> &mdash; σχολεία, μουσεία, ερευνητές, κατασκευαστές, φυσικοί ομιλητές της ελληνικής.</li>
+</ul>
+<div class="cta"><h2>Συμμετοχή στην ανάπτυξη</h2><p>Συμμετάσχετε στην ανάπτυξη της πρώτης επιστημονικά καθοδηγούμενης και κατασκευάσιμης εμπειρίας των Αντικυθήρων: σχολεία, μουσεία, ερευνητές, κατασκευαστές.</p><a class="btn" href="/el/join/">Συμμετοχή στο έργο &rarr;</a></div></div><footer class="site"><div class="cols"><div><h4>Έργο</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Ανεξάρτητος ερευνητής αρχαιοαστρονομίας, Συρακούσες (Σικελία)<br><a href="mailto:info@antikytheramechanism.app">info@antikytheramechanism.app</a></div><div><h4>Ανάπτυξη</h4>Λογισμικό και μοντέλα από τον Gaspare Russo με το Claude (Anthropic).<br>Έκδοση v1.3 &middot; 10 Σεπτεμβρίου 2026<br>Πηγαίος κώδικας στο <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Πρωτογενείς πηγές</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Ανεξάρτητο έργο έρευνας και εκλαΐκευσης. Θέσεις υπολογισμένες από τους δημοσιευμένους λόγους των γραναζιών και συγκρινόμενες με σύγχρονες εφημερίδες.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Κείμενα, κώδικας και τρισδιάστατα μοντέλα: με επιφύλαξη παντός δικαιώματος. Δεδομένα γραναζιών: πνευματική ιδιοκτησία των αντίστοιχων συγγραφέων.</span><a href="/el/status/">Κατάσταση του έργου</a><a href="/el/privacy/">Απόρρητο</a><a href="/el/terms/">Όροι χρήσης</a></div></footer></div></body></html>
