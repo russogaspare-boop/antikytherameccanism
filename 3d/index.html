@@ -65,7 +65,32 @@ td.num,th.num{font-family:var(--f-mono);font-variant-numeric:tabular-nums;white-
 footer{margin-top:40px;padding-top:14px;border-top:1px solid var(--line);font-size:12px;color:var(--ink3)}
 a{color:var(--verd)}
 @media (prefers-reduced-motion:reduce){*{transition:none!important}}
-@media (max-width:640px){.hint{display:none}.legend{right:8px;bottom:8px;gap:9px;font-size:10px}.hud{font-size:10.5px}}
+.prov{margin-top:26px;padding:18px 22px;border:1px solid var(--line);border-radius:4px;background:var(--surface)}
+.prov h2{font-family:var(--f-disp);font-size:22px;font-weight:400;margin:0 0 8px}
+.prov p{max-width:78ch;font-size:14.5px;line-height:1.6;color:var(--ink);margin:0 0 10px}
+.exrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+.exbtn{background:var(--verd);color:#fff;border:1px solid var(--verd);border-radius:4px;padding:11px 18px;
+  cursor:pointer;font-family:var(--f-body);font-size:15px;font-weight:500;transition:filter .15s,transform .15s}
+.exbtn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.exbtn[aria-pressed="true"]{background:var(--surface);color:var(--verd)}
+.exnote{margin:10px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink2);border-left:3px solid var(--verd);
+  padding:9px 13px;background:var(--surface);border-radius:0 3px 3px 0;max-width:78ch}
+.exnote b{color:var(--ink);font-family:var(--f-mono);font-size:12.5px}
+@media (max-width:700px){.exbtn{width:100%;padding:13px 16px}}
+.pickhint{margin:9px 0 0;font-family:var(--f-mono);font-size:12px;color:var(--ink3);letter-spacing:.02em}
+.pickhint b{color:var(--verd);font-weight:500}
+.pickcard{margin:10px 0 0;font-size:13.5px;line-height:1.6;background:var(--plate);color:var(--plate-ink);
+  border:1px solid #000;border-radius:4px;padding:11px 14px;max-width:78ch}
+.pickcard .pkn{font-family:var(--f-mono);font-size:16px;color:#FFD98A}
+.pickcard .pkd{color:#C7D6CD}
+.pickcard .pks{display:block;margin-top:5px;font-family:var(--f-mono);font-size:11.5px;color:#8FA79A}
+@media (max-width:700px){
+  .hint{display:none}
+  #c3d{height:min(52vh,380px)}
+  .hud{position:static;max-width:none;font-size:11px;line-height:1.5;background:transparent;border-radius:0;padding:10px 12px 4px}
+  .hud .d{font-size:16px}
+  .legend{position:static;background:transparent;border-radius:0;padding:2px 12px 10px;font-size:10px;gap:10px 14px;flex-wrap:wrap;justify-content:flex-start}
+}
 
 .topnav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em}
 .topnav .in{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -119,7 +144,6 @@ rotella per avvicinare, tasto destro per spostare.</p>
     <button class="btn" data-step="365.25">+1 anno</button><button class="btn" data-step="-365.25">&minus;1 anno</button></div></div>
   <div class="field"><label for="speed">velocit&agrave; &mdash; <span id="speedlab">30 g/s</span></label><input type="range" id="speed" min="1" max="400" value="30"></div>
   <div class="field"><label for="explode">separa gli strati &mdash; <span id="explab">&times;1</span></label><input type="range" id="explode" min="10" max="50" value="10"></div>
-  <div class="field"><label>&nbsp;</label><button class="btn wow" id="xplode" aria-pressed="false" data-on="&#10022; Esplodi il meccanismo" data-off="&#8635; Ricomponi">&#10022; Esplodi il meccanismo</button></div>
   <div class="field"><label>vista</label><div class="btnrow">
     <button class="btn" id="vFront">fronte</button><button class="btn" id="vBack">retro</button><button class="btn" id="vSide">di taglio</button></div></div>
   <div class="field"><label>mostra</label><div class="btnrow">
@@ -139,6 +163,12 @@ rotella per avvicinare, tasto destro per spostare.</p>
     <span><span class="sw" style="background:#DCA945"></span>Sole</span><span><span class="sw" style="background:#CFE0D8"></span>Luna</span></div>
   <div class="hint">trascina · rotella · tasto destro</div>
 </div>
+<div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Scomponi il meccanismo</button></div>
+<p class="exnote" id="exnote" hidden>Le ruote si allontanano lungo l&rsquo;asse della manovella: nel modello stanno su <b>dodici quote diverse</b>, dai +3,0&nbsp;mm della grande <b>b1</b> ai &minus;13,5&nbsp;mm dell&rsquo;ultimo piano. Accendi le &laquo;sigle&raquo; e cerca <b>k1</b> e <b>k2</b>: due ruote da 50 denti su assi non allineati, una porta un perno che scorre nella fenditura dell&rsquo;altra &mdash; &egrave; cos&igrave; che la macchina fa correre la Luna pi&ugrave; veloce vicino al perigeo e pi&ugrave; lenta all&rsquo;apogeo. Le ruote in verde chiaro sono le <b>ipotetiche</b>: nel reperto non ci sono.</p>
+<p class="pickhint">Trascina per girare intorno &middot; pizzica o rotella per avvicinarti &middot; <b>tocca una ruota</b> per la sua scheda, di nuovo per quella dietro</p>
+<div class="pickcard" id="pickcard" hidden></div>
+
+<section class="prov" id="prov"><h2>Da dove vengono i dati</h2><p>I <strong>conteggi dei denti</strong> e le misure &mdash; raggio, spessore &mdash; delle <strong>30 ruote superstiti</strong> vengono dalla tomografia computerizzata del reperto conservato al Museo Archeologico Nazionale di Atene: Freeth et al., <em>Nature</em> 2006, e Freeth et al., <em>Scientific Reports</em> 2021, Tabella S8. Le <strong>distanze fra gli assi</strong> sono la somma dei raggi primitivi: l&rsquo;unica posizione in cui due ruote possono ingranare davvero. I <strong>rapporti</strong> che fanno girare le lancette sono quelli dei quadranti posteriori pubblicati in Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 2008. Le scelte di progetto &mdash; la disposizione angolare degli assi che i paper non pubblicano, le quote a cui stanno le ruote (dodici piani distinti), la forma delle piastre, la patina &mdash; sono elencate riga per riga nella tabella qui sotto e marcate <span class="chip hyp">derivato</span> o <span class="chip hyp">approssimato</span>.</p></section>
 
 <section class="block">
   <h2>Che cosa &egrave; misurato e che cosa &egrave; scelto</h2>
@@ -148,7 +178,7 @@ rotella per avvicinare, tasto destro per spostare.</p>
     <tr><td>Raggi delle 7 ruote ipotetiche (m3, n1, n2, n3, p1, p2, q1c)</td><td>modulo medio 0,495 &times; denti / 2</td><td><span class="chip hyp">derivato</span></td></tr>
     <tr><td>Distanza fra gli assi di ogni coppia ingranante</td><td>somma dei raggi primitivi</td><td><span class="chip ok">imposto dalla meccanica</span></td></tr>
     <tr><td>Asse metonico (n) sulla verticale sopra b; asse del Saros (g) sulla verticale sotto</td><td>posizione dei due quadranti posteriori</td><td><span class="chip ok">vincolo reale</span></td></tr>
-    <tr><td>Angoli di disposizione degli altri assi (c, d, e, f, h, i, l, m, o, p, q)</td><td>risolti numericamente: ingranamenti esatti, nessuna collisione fra ruote dello stesso strato</td><td><span class="chip hyp">scelta mia &mdash; DA VERIFICARE contro le coordinate TC</span></td></tr>
+    <tr><td>Angoli di disposizione degli altri assi (c, d, e, f, h, i, l, m, o, p, q)</td><td>risolti numericamente: ingranamenti esatti, nessuna collisione fra ruote dello stesso strato</td><td><span class="chip hyp">scelta di progetto &mdash; DA VERIFICARE contro le coordinate TC</span></td></tr>
     <tr><td>Ordine e quota degli strati (z)</td><td>ordine imposto dalle catene; quote mie, passo 1,5 mm</td><td><span class="chip hyp">approssimato</span></td></tr>
     <tr><td>Dimensioni delle piastre, dei quadranti e delle spirali; forma dei puntatori</td><td>copertura anteriore &asymp;128,8 mm; il resto scelto per contenere il treno</td><td><span class="chip hyp">approssimato</span></td></tr>
     <tr><td>Patina del reperto (colore e ruvidit&agrave; delle superfici)</td><td>rumore procedurale calibrato sui colori documentati del bronzo corroso: verderame, cuprite, depositi calcarei; non &egrave; una fotografia</td><td><span class="chip hyp">evocativo</span></td></tr>
@@ -161,7 +191,7 @@ rotella per avvicinare, tasto destro per spostare.</p>
   Non sono ancora modellati: il sistema planetario anteriore (Cosmo 2021), il dispositivo delle fasi lunari (b0, q1), la ruota r1 del Frammento D.</div>
 </section>
 
-<footer class="site"><div class="cols"><div><h4>Progetto</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Ricercatore indipendente di archeoastronomia, Siracusa<br><a href="mailto:russo.gaspare@gmail.com">russo.gaspare@gmail.com</a></div><div><h4>Sviluppo</h4>Software e modelli sviluppati da Gaspare Russo con Claude (Anthropic).<br>Versione v1.1 &middot; 8 settembre 2026<br>Codice sorgente su <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Fonti primarie</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Progetto indipendente, non affiliato al Museo Archeologico Nazionale di Atene n&eacute; all&rsquo;Antikythera Mechanism Research Project. Strumento didattico e di ricerca: le posizioni calcolate non sono un&rsquo;effemeride ufficiale.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Testi, codice e modelli 3D: tutti i diritti riservati. Dati degli ingranaggi: propriet&agrave; intellettuale dei rispettivi autori.</span><a href="/status/">Stato del progetto</a><a href="/privacy/">Privacy</a><a href="/terms/">Termini e avvertenze</a></div></footer>
+<footer class="site"><div class="cols"><div><h4>Progetto</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Ricercatore indipendente di archeoastronomia, Siracusa<br><a href="mailto:info@antikytheramechanism.app">info@antikytheramechanism.app</a></div><div><h4>Sviluppo</h4>Software e modelli sviluppati da Gaspare Russo con Claude (Anthropic).<br>Versione v1.2 &middot; 10 settembre 2026<br>Codice sorgente su <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Fonti primarie</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Progetto indipendente di ricerca e divulgazione. Posizioni calcolate dai rapporti degli ingranaggi pubblicati e confrontate con le effemeridi moderne.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Testi, codice e modelli 3D: tutti i diritti riservati. Dati degli ingranaggi: propriet&agrave; intellettuale dei rispettivi autori.</span><a href="/status/">Stato del progetto</a><a href="/privacy/">Privacy</a><a href="/terms/">Termini d&rsquo;uso</a></div></footer>
 </div>
 
 <script>
@@ -664,7 +694,15 @@ for(const ax in AX){ const zs=zByAx[ax]||[0]; label(ax, AX[ax][0]+3, AX[ax][1]+3
 label("k", AX.e[0]+K1_R, AX.e[1], -4);
 
 /* ---- orbita ---- */
-let theta=0.35, phi=1.15, dist=330, target=new THREE.Vector3(0,-2,-4);
+let theta=0.35, phi=1.15, dist=330, target=new THREE.Vector3(4,-2,-4);
+let userZoom=false;
+/* inquadratura: distanza minima che tiene dentro tutto il meccanismo (semi-ingombro 88 x 98)
+   sia in orizzontale sia in verticale, qualunque sia la forma del riquadro (telefono in verticale compreso) */
+function fitDist(k=1){ const tv=Math.tan(camera.fov*Math.PI/360), a=camera.aspect||1;
+  const ex=(typeof explode==="number"?explode:1);           // scomposto = più profondo: la camera arretra
+  const rh=Math.hypot(92,22*(ex-1)), rv=100+3*(ex-1);
+  const dv=rv/tv, dh=rh/Math.tan(Math.atan(tv*a));
+  return Math.min(1500,Math.max(60,(Math.max(dv,dh)*1.13+20)*k)); }
 function placeCam(){ camera.position.set(target.x+dist*Math.sin(phi)*Math.sin(theta), target.y+dist*Math.cos(phi), target.z+dist*Math.sin(phi)*Math.cos(theta)); camera.up.set(0,1,0); camera.lookAt(target); }
 let drag=null; const touches=new Map(); let pinch=null;
 canvas.addEventListener("pointerdown",e=>{ if(typeof autoOrbit!=="undefined") autoOrbit=false; touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -673,7 +711,7 @@ canvas.addEventListener("pointerdown",e=>{ if(typeof autoOrbit!=="undefined") au
 canvas.addEventListener("pointermove",e=>{
   if(touches.has(e.pointerId)) touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pinch&&touches.size===2){ const [a,b2]=[...touches.values()]; const d=Math.hypot(a.x-b2.x,a.y-b2.y), cx=(a.x+b2.x)/2, cy=(a.y+b2.y)/2;
-    dist=Math.min(900,Math.max(60,dist*pinch.d/d));
+    userZoom=true; dist=Math.min(1500,Math.max(60,dist*pinch.d/d));
     const right=new THREE.Vector3().crossVectors(camera.getWorldDirection(new THREE.Vector3()),camera.up).normalize();
     target.addScaledVector(right,-(cx-pinch.cx)*dist*0.0012); target.addScaledVector(camera.up,(cy-pinch.cy)*dist*0.0012);
     pinch={d,cx,cy}; placeCam(); return; }
@@ -683,26 +721,13 @@ canvas.addEventListener("pointermove",e=>{
   else { theta-=dx*0.006; phi=Math.min(Math.PI-0.05,Math.max(0.05,phi-dy*0.006)); } placeCam(); });
 const endTouch=e=>{ touches.delete(e.pointerId); if(touches.size<2) pinch=null; drag=null; };
 canvas.addEventListener("pointerup",endTouch); canvas.addEventListener("pointercancel",endTouch); canvas.addEventListener("contextmenu",e=>e.preventDefault());
-canvas.addEventListener("wheel",e=>{ e.preventDefault(); dist=Math.min(900,Math.max(60,dist*(1+e.deltaY*0.001))); placeCam(); },{passive:false});
-document.getElementById("vFront").onclick=()=>{theta=0.35;phi=1.15;dist=330;target.set(0,-2,-4);placeCam();};
-document.getElementById("vBack").onclick=()=>{theta=Math.PI-0.3;phi=1.3;dist=330;target.set(0,-2,-4);placeCam();};
-document.getElementById("vSide").onclick=()=>{theta=Math.PI/2;phi=1.5;dist=260;target.set(0,-2,-4);placeCam();};
+canvas.addEventListener("wheel",e=>{ e.preventDefault(); userZoom=true; dist=Math.min(1500,Math.max(60,dist*(1+e.deltaY*0.001))); placeCam(); },{passive:false});
+document.getElementById("vFront").onclick=()=>{theta=0.35;phi=1.15;userZoom=false;dist=fitDist();target.set(4,-2,-4);placeCam();};
+document.getElementById("vBack").onclick=()=>{theta=Math.PI-0.3;phi=1.3;userZoom=false;dist=fitDist();target.set(4,-2,-4);placeCam();};
+document.getElementById("vSide").onclick=()=>{theta=Math.PI/2;phi=1.5;userZoom=false;dist=fitDist(0.82);target.set(4,-2,-4);placeCam();};
 
 /* ---- stato ---- */
 let baseJD=jd(2026,9,6,12), playing=false, speed=30, explode=1, last=performance.now();
-
-let xrad=1;
-function spreadXY(o){ const u=o.userData; if(u.x0===undefined){ u.x0=o.position.x; u.y0=o.position.y; } o.position.x=u.x0*xrad; o.position.y=u.y0*xrad; }
-function applySpread(){ for(const s in solids){ if(solids[s].parent===groupAll) spreadXY(solids[s]); } spreadXY(platform); arbors.forEach(spreadXY); labels.children.forEach(spreadXY); for(const k in P) spreadXY(P[k]); spreadXY(a1g); spreadXY(crank); }
-let xAnim=null;
-function animateExplode(toE,toR,ms=1800){ if(xAnim) cancelAnimationFrame(xAnim.raf); const e0=explode, r0=xrad, d0=dist, dT=toE>1?Math.max(dist,470):330, th0=theta, thT=toE>1?0.95:theta, ph0=phi, phT=toE>1?1.22:phi, t0=performance.now();
-  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-  const step=now=>{ const u=Math.min(1,(now-t0)/ms), k=ease(u); explode=e0+(toE-e0)*k; xrad=r0+(toR-r0)*k; dist=d0+(dT-d0)*k; theta=th0+(thT-th0)*k; phi=ph0+(phT-ph0)*k;
-    document.getElementById("explode").value=Math.round(explode*10); document.getElementById("explab").textContent="×"+explode.toFixed(1);
-    applyExplode(); placeCam(); if(u<1) xAnim={raf:requestAnimationFrame(step)}; else xAnim=null; };
-  xAnim={raf:requestAnimationFrame(step)}; }
-let exploded=false; const xBtn=document.getElementById("xplode");
-xBtn.onclick=()=>{ exploded=!exploded; animateExplode(exploded?4.2:1, exploded?1.7:1); xBtn.innerHTML=exploded?xBtn.dataset.off:xBtn.dataset.on; xBtn.setAttribute("aria-pressed",exploded); };
 function applyExplode(){
   for(const n in gears){ const m=gears[n]; m.position.z=m.userData.z*explode; }
   for(const a of arbors){ const {z0,z1}=a.userData; a.position.z=(z0+z1)/2*explode; a.scale.y=1; a.geometry.parameters && (a.scale.y=explode); }
@@ -712,7 +737,6 @@ function applyExplode(){
   for(const k in P) P[k].position.z=P[k].userData.z*explode;
   a1g.position.z=3.0*explode;
   pin.position.z=-0.9*explode; slot.position.z=0.3*explode;
-  applySpread();
 }
 const D2R=Math.PI/180;
 function setAngles(J){
@@ -738,9 +762,77 @@ function setAngles(J){
    giri di b1 dalla taratura <b>${T.toFixed(3)}</b><br>Sole medio <b>${st.sun.toFixed(1)}°</b> · Luna <b>${st.moonT.toFixed(1)}°</b> · fase <b>${st.phase.toFixed(0)}°</b><br>
    metonica cella <b>${mCell}</b>/235 · Saros cella <b>${sCell}</b>/223 · Exeligmos <b>+${Math.floor(((st.exeligTurns%1)+1)%1*3)*8} h</b>`;
 }
-function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(canvas.width!==w*renderer.getPixelRatio()||canvas.height!==h*renderer.getPixelRatio()){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); } }
+function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(!w||!h) return;
+  if(canvas.width!==Math.round(w*renderer.getPixelRatio())||canvas.height!==Math.round(h*renderer.getPixelRatio())){
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    if(!userZoom) dist=fitDist();
+    placeCam(); } }
 let canvasVisible=true; try{ new IntersectionObserver(en=>{ canvasVisible=en[0].isIntersecting; }).observe(canvas); }catch(_){}
-function frame(now){ const dt=(now-last)/1000; last=now; if(playing){ baseJD+=speed*dt; setAngles(baseJD); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); renderer.render(scene,camera); requestAnimationFrame(frame); }
+
+/* ---- esplorazione: tocca una ruota e leggi che cos'e'. Tutti i dati vengono
+   dalle tabelle gia' in pagina (GEO = Tab. S8, GEARS = funzione, RATE = rapporti). ---- */
+const PT={oss:"osservata alla tomografia",hyp:"ipotetica, ricostruita",teeth:"denti",turns:"giri per giro di b1",radius:"raggio esterno",layer:"quota",cw:"orario",ccw:"antiorario",seen:"visto dal fronte"};
+const GDESC=Object.fromEntries(GEARS.map(g=>[g[0],g[3]]));
+const GEOBY=Object.fromEntries(GEO.map(g=>[g[0],g]));
+const rayc=new THREE.Raycaster(); const ndcv=new THREE.Vector2();
+const M_PICK=new THREE.MeshStandardMaterial({color:0xFFD07A,emissive:0x7A5410,metalness:.5,roughness:.35});
+let picked=null;
+function clearPick(){ if(picked){ picked.material=(picked.userData.st==="oss")?M_OSS:M_HYP; picked=null; }
+  const el=document.getElementById("pickcard"); if(el) el.hidden=true; }
+function showPick(mesh){
+  clearPick(); picked=mesh; mesh.material=M_PICK;
+  const n=mesh.userData.name, g=GEOBY[n], rate=RATE[SOLID_OF[n]];
+  const el=document.getElementById("pickcard"); if(!el) return;
+  const spin=(rate===undefined)?"":" &middot; "+Math.abs(rate).toFixed(3)+" "+PT.turns+" ("+(rate<0?PT.cw:PT.ccw)+" "+PT.seen+")";
+  el.innerHTML='<span class="pkn">'+n+'</span> &mdash; '+g[2]+' '+PT.teeth+' &middot; '+(g[7]==="oss"?PT.oss:PT.hyp)+
+    '<br><span class="pkd">'+(GDESC[n]||"")+'</span>'+
+    '<span class="pks">'+PT.radius+' '+g[3].toFixed(1)+' mm &middot; '+PT.layer+' z '+g[6].toFixed(1)+' mm'+spin+'</span>';
+  el.hidden=false;
+}
+function pickAt(cx,cy){
+  const r=canvas.getBoundingClientRect();
+  ndcv.x=((cx-r.left)/r.width)*2-1; ndcv.y=-((cy-r.top)/r.height)*2+1;
+  rayc.setFromCamera(ndcv,camera);
+  const hits=rayc.intersectObjects(Object.values(gears),false);
+  const chain=[]; for(const h of hits) if(!chain.includes(h.object)) chain.push(h.object);
+  if(!chain.length){ clearPick(); return; }
+  // toccando di nuovo lo stesso punto si scende alla ruota successiva lungo il raggio
+  let i=0; if(picked){ const k=chain.indexOf(picked); if(k>=0) i=(k+1)%chain.length; }
+  showPick(chain[i]);
+}
+let tapAt=null;
+canvas.addEventListener("pointerdown",e=>{ tapAt={x:e.clientX,y:e.clientY,t:performance.now()}; });
+canvas.addEventListener("pointerup",e=>{ if(!tapAt) return;
+  const moved=Math.hypot(e.clientX-tapAt.x,e.clientY-tapAt.y), dt=performance.now()-tapAt.t; tapAt=null;
+  if(moved<7&&dt<450&&touches.size<=1) pickAt(e.clientX,e.clientY); });
+
+/* ---- scomposizione con un clic: tutti gli strati si allontanano insieme lungo l'asse
+   della manovella e la camera va di tre quarti, altrimenti di fronte non si vedrebbe nulla ---- */
+const EXTXT={open:"&#8663; Scomponi il meccanismo",close:"&#8665; Ricomponi"};
+const EX_MAX=4.2, EX_DUR=1600;
+let exTween=null, exOpen=false;
+const exEase=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function exSync(){ const s=document.getElementById("explode"), l=document.getElementById("explab");
+  if(s) s.value=Math.round(explode*10); if(l) l.textContent="\u00d7"+explode.toFixed(1); }
+function exLabel(){ const b=document.getElementById("exBtn"); if(b){ b.innerHTML=exOpen?EXTXT.close:EXTXT.open; b.setAttribute("aria-pressed",exOpen); }
+  const n=document.getElementById("exnote"); if(n) n.hidden=!exOpen; }
+function stepExplode(now){
+  const u=Math.min(1,(now-exTween.t0)/EX_DUR), k=exEase(u);
+  explode=exTween.e0+(exTween.e1-exTween.e0)*k;
+  theta=exTween.th0+(exTween.th1-exTween.th0)*k;
+  phi=exTween.ph0+(exTween.ph1-exTween.ph0)*k;
+  applyExplode(); exSync();
+  dist=exTween.d0+(fitDist(exOpen?0.90:1)-exTween.d0)*k; placeCam();   // scomposto: riempie di più il riquadro
+  if(u>=1) exTween=null;
+}
+function toggleExplode(){
+  exOpen=!exOpen; userZoom=false;
+  exTween={t0:performance.now(), e0:explode, e1:exOpen?EX_MAX:1,
+    th0:theta, th1:exOpen?0.95:0.35, ph0:phi, ph1:exOpen?1.22:1.15, d0:dist};
+  exLabel();
+}
+{ const b=document.getElementById("exBtn"); if(b) b.onclick=toggleExplode; }
+function frame(now){ const dt=(now-last)/1000; last=now; if(exTween) stepExplode(now); if(playing){ baseJD+=speed*dt; setAngles(baseJD); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); renderer.render(scene,camera); requestAnimationFrame(frame); }
 
 /* ---- controlli ---- */
 function readDate(){ const y=+document.getElementById("y").value*(+document.getElementById("era").value); const ay=y>0?y:y+1;
@@ -758,7 +850,7 @@ function setLook(pat){ M_OSS=pat?M_PAT:M_NEW; for(const n in gears) if(gears[n].
   document.getElementById("aNew").setAttribute("aria-pressed",!pat); document.getElementById("aPatina").setAttribute("aria-pressed",pat); }
 document.getElementById("aNew").onclick=()=>setLook(false); document.getElementById("aPatina").onclick=()=>setLook(true);
 
-calibrate(baseJD); applyExplode(); placeCam(); setAngles(baseJD); requestAnimationFrame(frame);
+calibrate(baseJD); applyExplode(); resize(); if(!userZoom) dist=fitDist(); placeCam(); setAngles(baseJD); requestAnimationFrame(frame);
 
 }catch(err){ fail3D(err); } })();
 </script>

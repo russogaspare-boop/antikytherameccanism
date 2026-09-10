@@ -175,7 +175,29 @@ body.simple .console:not(.c3){padding:12px 16px}
 .prov h2{font-family:var(--f-disp);font-size:22px;font-weight:400;margin:0 0 8px}
 .prov p{max-width:78ch;font-size:14.5px;line-height:1.6;color:var(--ink);margin:0 0 10px}
 @media (max-width:480px){ .read{grid-template-columns:1fr} .read .v{text-align:left} }
-@media (max-width:640px){.hint{display:none}.legend{right:8px;bottom:8px;gap:9px;font-size:10px}.hud{font-size:10.5px}}
+.exrow{display:flex;flex-wrap:wrap;gap:12px;align-items:center;margin-top:14px}
+.exbtn{background:var(--verd);color:#fff;border:1px solid var(--verd);border-radius:4px;padding:11px 18px;
+  cursor:pointer;font-family:var(--f-body);font-size:15px;font-weight:500;transition:filter .15s,transform .15s}
+.exbtn:hover{filter:brightness(1.08);transform:translateY(-1px)}
+.exbtn[aria-pressed="true"]{background:var(--surface);color:var(--verd)}
+.exnote{margin:10px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink2);border-left:3px solid var(--verd);
+  padding:9px 13px;background:var(--surface);border-radius:0 3px 3px 0;max-width:78ch}
+.exnote b{color:var(--ink);font-family:var(--f-mono);font-size:12.5px}
+@media (max-width:700px){.exbtn{width:100%;padding:13px 16px}}
+.pickhint{margin:9px 0 0;font-family:var(--f-mono);font-size:12px;color:var(--ink3);letter-spacing:.02em}
+.pickhint b{color:var(--verd);font-weight:500}
+.pickcard{margin:10px 0 0;font-size:13.5px;line-height:1.6;background:var(--plate);color:var(--plate-ink);
+  border:1px solid #000;border-radius:4px;padding:11px 14px;max-width:78ch}
+.pickcard .pkn{font-family:var(--f-mono);font-size:16px;color:#FFD98A}
+.pickcard .pkd{color:#C7D6CD}
+.pickcard .pks{display:block;margin-top:5px;font-family:var(--f-mono);font-size:11.5px;color:#8FA79A}
+@media (max-width:700px){
+  .hint{display:none}
+  #c3d{height:min(52vh,380px)}
+  .hud{position:static;max-width:none;font-size:11px;line-height:1.5;background:transparent;border-radius:0;padding:10px 12px 4px}
+  .hud .d{font-size:16px}
+  .legend{position:static;background:transparent;border-radius:0;padding:2px 12px 10px;font-size:10px;gap:10px 14px;flex-wrap:wrap;justify-content:flex-start}
+}
 
 .topnav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em}
 .topnav .in{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
@@ -212,7 +234,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   <div>
     <div class="eyebrow">Computational reconstruction based on published gear counts and astronomical ratios</div>
     <h1>The <em>Antikythera</em> Calculator</h1>
-    <p class="sub">The mechanism is not animated, it is <strong>computed</strong>. Every pointer follows from the real tooth ratios
+    <p class="sub">The mechanism is <strong>computed</strong>. Every pointer follows from the real tooth ratios
     (Freeth et al. 2006 / 2008 / 2021) applied to the number of turns of the crank. Beside it, the true astronomical
     position, so the machine's error can be measured.</p>
   </div>
@@ -270,6 +292,10 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
     <span><span class="sw" style="background:#DCA945"></span>Sun</span><span><span class="sw" style="background:#CFE0D8"></span>Moon</span></div>
   <div class="hint">drag · scroll · right button</div>
 </div>
+<div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Explode the mechanism</button></div>
+<p class="exnote" id="exnote" hidden>The wheels move apart along the crank axis: in this model they sit on <b>twelve different depths</b>, from +3.0&nbsp;mm for the big <b>b1</b> down to &minus;13.5&nbsp;mm for the last plane. Turn the labels on and look for <b>k1</b> and <b>k2</b>: two 50-tooth wheels on arbors that are not aligned, one carrying a pin that runs in the other&rsquo;s slot &mdash; that is how the machine makes the Moon run faster near perigee and slower near apogee. The pale green wheels are the <b>hypothetical</b> ones: they are not in the artefact.</p>
+<p class="pickhint">Drag to orbit &middot; pinch or scroll to zoom &middot; <b>tap a wheel</b> for its card, tap again for the one behind</p>
+<div class="pickcard" id="pickcard" hidden></div>
   <div class="console c3">
   <div class="field"><label>crank</label><div class="btnrow">
     <button class="btn key" id="play" aria-pressed="true">▶ turn</button>
@@ -277,7 +303,6 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
     <button class="btn" data-step="365.25">+1 year</button><button class="btn" data-step="-365.25">&minus;1 year</button></div></div>
   <div class="field"><label for="speed">speed &mdash; <span id="speedlab">3 d/s</span></label><input type="range" id="speed" min="1" max="400" value="3"></div>
   <div class="field"><label for="explode">separate the layers &mdash; <span id="explab">&times;1</span></label><input type="range" id="explode" min="10" max="50" value="10"></div>
-  <div class="field"><label>&nbsp;</label><button class="btn wow" id="xplode" aria-pressed="false" data-on="&#10022; Explode the mechanism" data-off="&#8635; Reassemble">&#10022; Explode the mechanism</button></div>
   <div class="field"><label>view</label><div class="btnrow">
     <button class="btn" id="vFront">front</button><button class="btn" id="vBack">back</button><button class="btn" id="vSide">edge-on</button></div></div>
   <div class="field"><label>show</label><div class="btnrow">
@@ -344,7 +369,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
 </div>
 
 <section class="prov" id="prov"><h2>Where the data come from</h2><p>Everything this page computes starts from published measurements, not estimates. The <strong>30 surviving gears</strong> &mdash; tooth counts, radii, thicknesses &mdash; come from the CT scan of the artefact kept at the National Archaeological Museum in Athens: counts in Freeth et al., <em>Nature</em> 2006; measurements in millimetres in Table S8 of Freeth et al., <em>Scientific Reports</em> 2021. The back dials &mdash; Metonic calendar, Games, Saros, Exeligmos &mdash; follow Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 2008. The calibration epoch (28 April 205 BC, the start of the Saros dial) is the hypothesis of Freeth, <em>PLOS ONE</em> 2014, and remains a hypothesis. The planets follow the Cosmos model of Freeth et al. 2021 (period relations and Table S9); the tooth counts for Mars, Jupiter and Saturn are not published in readable form and are <em>derived</em> here, and marked as such.</p>
-<p>The comparison with the sky uses Meeus&rsquo;s formulae (<em>Astronomical Algorithms</em>) for Sun and Moon and JPL Keplerian elements for the planets: enough to understand, not a precision ephemeris. Everything that is a choice of whoever built this page &mdash; the 3D layout, the layer depths, the eccentricity of the solar pin, the patina &mdash; is declared as such in the <strong>Expert view</strong>, with the note TO BE VERIFIED wherever confirmation is lacking.</p></section>
+<p>The comparison with the sky uses Meeus&rsquo;s formulae (<em>Astronomical Algorithms</em>) for Sun and Moon and JPL Keplerian elements for the planets: accuracy of a few arc-minutes. The design choices &mdash; the 3D layout, the layer depths, the eccentricity of the solar pin, the patina &mdash; are listed in the <strong>Expert view</strong>.</p></section>
 <details class="expert"><summary>What is measured and what is chosen</summary>
 <section class="block" id="sec3d-note">
   <h2>What is measured and what is chosen</h2>
@@ -354,7 +379,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
     <tr><td>Radii of the 7 hypothetical gears (m3, n1, n2, n3, p1, p2, q1c)</td><td>mean module 0.495 &times; teeth / 2</td><td><span class="chip hyp">derived</span></td></tr>
     <tr><td>Centre distance of every meshing pair</td><td>sum of the pitch radii</td><td><span class="chip ok">imposed by the mechanics</span></td></tr>
     <tr><td>Metonic arbor (n) on the vertical above b; Saros arbor (g) on the vertical below</td><td>position of the two back dials</td><td><span class="chip ok">real constraint</span></td></tr>
-    <tr><td>Angular placement of the other arbors (c, d, e, f, h, i, l, m, o, p, q)</td><td>solved numerically: exact meshing, no collision between gears on the same layer</td><td><span class="chip hyp">chosen here &mdash; TO BE VERIFIED against the CT coordinates</span></td></tr>
+    <tr><td>Angular placement of the other arbors (c, d, e, f, h, i, l, m, o, p, q)</td><td>solved numerically: exact meshing, no collision between gears on the same layer</td><td><span class="chip hyp">design choice &mdash; TO BE VERIFIED against the CT coordinates</span></td></tr>
     <tr><td>Order and depth of the layers (z)</td><td>order imposed by the trains; depths chosen here, 1.5 mm pitch</td><td><span class="chip hyp">approximate</span></td></tr>
     <tr><td>Dimensions of plates, dials and spirals; pointer shapes</td><td>front cover &asymp;128.8 mm; the rest sized to contain the train</td><td><span class="chip hyp">approximate</span></td></tr>
     <tr><td>Artefact patina (surface colour and roughness)</td><td>procedural noise calibrated on the documented colours of corroded bronze: verdigris, cuprite, calcareous deposits; not a photograph</td><td><span class="chip hyp">evocative</span></td></tr>
@@ -395,12 +420,12 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   </tr></thead><tbody></tbody></table></div>
 
   <div class="warn"><b>TO BE VERIFIED &mdash;</b> the tooth counts for Mars (56~71+38~64), Jupiter (56~43+45~64) and
-  Saturn (56~68+61~52) are <strong>not published</strong>. They were derived here by imposing
+  Saturn (56~68+61~52) are <strong>not published</strong>. They are derived by imposing
   (g1&times;g3)/(g2&times;g5) = &Sigma;/Y with g1 = 56 as the shared fixed gear and g5 = 64 (Mars/Jupiter) or 52
   (Saturn/true Sun), as the text prescribes. They are algebraically exact and give plausible tooth counts, but the
   true values appear only in raster figures 3f and S23b of the paper and cannot be extracted from its text. Replace
   them with the printed values as soon as those are read. The eccentricity of the solar pin (0.0334 here, giving an
-  equation of centre of 1.92&deg;) is likewise a choice made here: Table S9 does not report it.</div>
+  equation of centre of 1.92&deg;) is a design choice: Table S9 does not report it.</div>
 </section></details>
 
 <details class="expert"><summary>The mechanism against the sky</summary>
@@ -409,7 +434,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   <p class="lede">The machine computes with fixed whole-number ratios. The sky does not. The deviation below is the
   object's real error, and it depends on how far you are from the <em>calibration</em>: the pointers are set by hand,
   and the operator would reset them. Calibrated to the ancient epoch, the Moon is more than 200&deg; out at today's
-  date and the Sun 14 days out &mdash; not a flaw in the reconstruction, but the price of 22 centuries of cranking.
+  date and the Sun 14 days out &mdash; the effect of 22 centuries of cranking.
   Calibrated to the date entered, the machine is accurate again: that is how it would have been used.</p>
   <div class="tablewrap"><table id="cmp"><thead><tr>
     <th>Quantity</th><th class="num">Mechanism</th><th class="num">Astronomy (Meeus)</th><th class="num">Deviation</th><th>Note</th>
@@ -452,14 +477,13 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   these are two distinct gears.</div>
 </section></details>
 
-<details class="expert"><summary>What this model does not do (yet)</summary>
+<details class="expert"><summary>Scope of the model</summary>
 <section class="block">
-  <h2>What this model does not do (yet)</h2>
+  <h2>Scope of the model</h2>
   <ul class="notes">
     <li><strong>The zodiacal anomaly of the planets.</strong> The Cosmos model is one of concentric circles:
     it reproduces the synodic anomaly (retrogradations included) but not orbital eccentricity. For Mars, the most
-    eccentric of the five, the departure from the ephemeris can exceed 10&deg;. This is not a limitation of the
-    implementation: it is the limit of the reconstructed model.</li>
+    eccentric of the five, the departure from the ephemeris can exceed 10&deg;. It is the limit of the reconstructed model.</li>
     <li><strong>The eclipse glyphs.</strong> On the Saros spiral the eclipses are not computed by the gearing: they are
     <em>inscribed</em>, cell by cell. The eclipse indicator here is a modern astronomical calculation (lunar latitude at
     syzygy), not an epigraphic reading: it shows <em>where</em> the inscription should have carried a glyph.</li>
@@ -471,7 +495,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   </ul>
 </section></details>
 
-<footer class="site"><div class="cols"><div><h4>Project</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Independent archaeoastronomy researcher, Syracuse (Sicily)<br><a href="mailto:russo.gaspare@gmail.com">russo.gaspare@gmail.com</a></div><div><h4>Development</h4>Software and models developed by Gaspare Russo with Claude (Anthropic).<br>Version v1.1 &middot; 8 September 2026<br>Source code on <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Primary sources</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Independent project, not affiliated with the National Archaeological Museum of Athens or the Antikythera Mechanism Research Project. An educational and research tool: computed positions are not an official ephemeris.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Texts, code and 3D models: all rights reserved. Gear data: intellectual property of their respective authors.</span><a href="/en/status/">Project status</a><a href="/en/privacy/">Privacy</a><a href="/en/terms/">Terms &amp; disclaimer</a></div></footer>
+<footer class="site"><div class="cols"><div><h4>Project</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Independent archaeoastronomy researcher, Syracuse (Sicily)<br><a href="mailto:info@antikytheramechanism.app">info@antikytheramechanism.app</a></div><div><h4>Development</h4>Software and models developed by Gaspare Russo with Claude (Anthropic).<br>Version v1.2 &middot; 10 September 2026<br>Source code on <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Primary sources</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Independent research and outreach project. Positions computed from the published gear ratios and compared with modern ephemerides.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Texts, code and 3D models: all rights reserved. Gear data: intellectual property of their respective authors.</span><a href="/en/status/">Project status</a><a href="/en/privacy/">Privacy</a><a href="/en/terms/">Terms of use</a></div></footer>
 </div>
 
 <script>
@@ -1356,7 +1380,15 @@ for(const ax in AX){ const zs=zByAx[ax]||[0]; label(ax, AX[ax][0]+3, AX[ax][1]+3
 label("k", AX.e[0]+K1_R, AX.e[1], -4);
 
 /* ---- orbita ---- */
-let theta=0.35, phi=1.15, dist=330, target=new THREE.Vector3(0,-2,-4);
+let theta=0.35, phi=1.15, dist=330, target=new THREE.Vector3(4,-2,-4);
+let userZoom=false;
+/* inquadratura: distanza minima che tiene dentro tutto il meccanismo (semi-ingombro 88 x 98)
+   sia in orizzontale sia in verticale, qualunque sia la forma del riquadro (telefono in verticale compreso) */
+function fitDist(k=1){ const tv=Math.tan(camera.fov*Math.PI/360), a=camera.aspect||1;
+  const ex=(typeof explode==="number"?explode:1);           // scomposto = più profondo: la camera arretra
+  const rh=Math.hypot(92,22*(ex-1)), rv=100+3*(ex-1);
+  const dv=rv/tv, dh=rh/Math.tan(Math.atan(tv*a));
+  return Math.min(1500,Math.max(60,(Math.max(dv,dh)*1.13+20)*k)); }
 function placeCam(){ camera.position.set(target.x+dist*Math.sin(phi)*Math.sin(theta), target.y+dist*Math.cos(phi), target.z+dist*Math.sin(phi)*Math.cos(theta)); camera.up.set(0,1,0); camera.lookAt(target); }
 let drag=null; const touches=new Map(); let pinch=null;
 canvas.addEventListener("pointerdown",e=>{ autoOrbit=false; touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
@@ -1365,7 +1397,7 @@ canvas.addEventListener("pointerdown",e=>{ autoOrbit=false; touches.set(e.pointe
 canvas.addEventListener("pointermove",e=>{
   if(touches.has(e.pointerId)) touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pinch&&touches.size===2){ const [a,b2]=[...touches.values()]; const d=Math.hypot(a.x-b2.x,a.y-b2.y), cx=(a.x+b2.x)/2, cy=(a.y+b2.y)/2;
-    dist=Math.min(900,Math.max(60,dist*pinch.d/d));
+    userZoom=true; dist=Math.min(1500,Math.max(60,dist*pinch.d/d));
     const right=new THREE.Vector3().crossVectors(camera.getWorldDirection(new THREE.Vector3()),camera.up).normalize();
     target.addScaledVector(right,-(cx-pinch.cx)*dist*0.0012); target.addScaledVector(camera.up,(cy-pinch.cy)*dist*0.0012);
     pinch={d,cx,cy}; placeCam(); return; }
@@ -1375,10 +1407,10 @@ canvas.addEventListener("pointermove",e=>{
   else { theta-=dx*0.006; phi=Math.min(Math.PI-0.05,Math.max(0.05,phi-dy*0.006)); } placeCam(); });
 const endTouch=e=>{ touches.delete(e.pointerId); if(touches.size<2) pinch=null; drag=null; };
 canvas.addEventListener("pointerup",endTouch); canvas.addEventListener("pointercancel",endTouch); canvas.addEventListener("contextmenu",e=>e.preventDefault());
-canvas.addEventListener("wheel",e=>{ e.preventDefault(); dist=Math.min(900,Math.max(60,dist*(1+e.deltaY*0.001))); placeCam(); },{passive:false});
-document.getElementById("vFront").onclick=()=>{theta=0.35;phi=1.15;dist=330;target.set(0,-2,-4);placeCam();};
-document.getElementById("vBack").onclick=()=>{theta=Math.PI-0.3;phi=1.3;dist=330;target.set(0,-2,-4);placeCam();};
-document.getElementById("vSide").onclick=()=>{theta=Math.PI/2;phi=1.5;dist=260;target.set(0,-2,-4);placeCam();};
+canvas.addEventListener("wheel",e=>{ e.preventDefault(); userZoom=true; dist=Math.min(1500,Math.max(60,dist*(1+e.deltaY*0.001))); placeCam(); },{passive:false});
+document.getElementById("vFront").onclick=()=>{theta=0.35;phi=1.15;userZoom=false;dist=fitDist();target.set(4,-2,-4);placeCam();};
+document.getElementById("vBack").onclick=()=>{theta=Math.PI-0.3;phi=1.3;userZoom=false;dist=fitDist();target.set(4,-2,-4);placeCam();};
+document.getElementById("vSide").onclick=()=>{theta=Math.PI/2;phi=1.5;userZoom=false;dist=fitDist(0.82);target.set(4,-2,-4);placeCam();};
 
 /* ---- stato ---- */
 playing=true; let speed=3, explode=1, last=performance.now(), autoOrbit=true;
@@ -1391,21 +1423,7 @@ function applyExplode(){
   for(const k in P) P[k].position.z=P[k].userData.z*explode;
   a1g.position.z=3.0*explode;
   pin.position.z=-0.9*explode; slot.position.z=0.3*explode;
-  applySpread();
 }
-
-let xrad=1;
-function spreadXY(o){ const u=o.userData; if(u.x0===undefined){ u.x0=o.position.x; u.y0=o.position.y; } o.position.x=u.x0*xrad; o.position.y=u.y0*xrad; }
-function applySpread(){ for(const s in solids){ if(solids[s].parent===groupAll) spreadXY(solids[s]); } spreadXY(platform); arbors.forEach(spreadXY); labels.children.forEach(spreadXY); for(const k in P) spreadXY(P[k]); spreadXY(a1g); spreadXY(crank); }
-let xAnim=null;
-function animateExplode(toE,toR,ms=1800){ if(xAnim) cancelAnimationFrame(xAnim.raf); const e0=explode, r0=xrad, d0=dist, dT=toE>1?Math.max(dist,470):330, th0=theta, thT=toE>1?0.95:theta, ph0=phi, phT=toE>1?1.22:phi, t0=performance.now();
-  const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
-  const step=now=>{ const u=Math.min(1,(now-t0)/ms), k=ease(u); explode=e0+(toE-e0)*k; xrad=r0+(toR-r0)*k; dist=d0+(dT-d0)*k; theta=th0+(thT-th0)*k; phi=ph0+(phT-ph0)*k;
-    document.getElementById("explode").value=Math.round(explode*10); document.getElementById("explab").textContent="×"+explode.toFixed(1);
-    applyExplode(); placeCam(); if(u<1) xAnim={raf:requestAnimationFrame(step)}; else xAnim=null; };
-  xAnim={raf:requestAnimationFrame(step)}; }
-let exploded=false; const xBtn=document.getElementById("xplode");
-xBtn.onclick=()=>{ exploded=!exploded; if(typeof autoOrbit!=="undefined") autoOrbit=false; animateExplode(exploded?4.2:1, exploded?1.7:1); xBtn.innerHTML=exploded?xBtn.dataset.off:xBtn.dataset.on; xBtn.setAttribute("aria-pressed",exploded); };
 const D2R=Math.PI/180;
 function setAngles3D(J){
   const st=mechanism(J); const T=st.T;
@@ -1430,9 +1448,78 @@ function setAngles3D(J){
    turns of b1 since calibration <b>${T.toFixed(3)}</b><br>Mean Sun <b>${st.sun.toFixed(1)}°</b> · Moon <b>${st.moonT.toFixed(1)}°</b> · phase <b>${st.phase.toFixed(0)}°</b><br>
    Metonic cell <b>${mCell}</b>/235 · Saros cell <b>${sCell}</b>/223 · Exeligmos <b>+${Math.floor(((st.exeligTurns%1)+1)%1*3)*8} h</b>`;
 }
-function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(canvas.width!==w*renderer.getPixelRatio()||canvas.height!==h*renderer.getPixelRatio()){ renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix(); } }
+function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(!w||!h) return;
+  if(canvas.width!==Math.round(w*renderer.getPixelRatio())||canvas.height!==Math.round(h*renderer.getPixelRatio())){
+    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    if(!userZoom) dist=fitDist();
+    placeCam(); } }
 let canvasVisible=true; try{ new IntersectionObserver(en=>{ canvasVisible=en[0].isIntersecting; }).observe(canvas); }catch(_){}
-function frame(now){ const dt=(now-last)/1000; last=now; if(autoOrbit){ theta+=0.0012; placeCam(); } if(playing){ baseJD+=speed*dt; update(); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); renderer.render(scene,camera); requestAnimationFrame(frame); }
+
+/* ---- esplorazione: tocca una ruota e leggi che cos'e'. Tutti i dati vengono
+   dalle tabelle gia' in pagina (GEO = Tab. S8, GEARS = funzione, RATE = rapporti). ---- */
+const PT={oss:"observed in the CT scan",hyp:"hypothetical, reconstructed",teeth:"teeth",turns:"turns per turn of b1",radius:"outer radius",layer:"depth",cw:"clockwise",ccw:"anticlockwise",seen:"seen from the front"};
+const GDESC=Object.fromEntries(GEARS.map(g=>[g[0],g[3]]));
+const GEOBY=Object.fromEntries(GEO.map(g=>[g[0],g]));
+const rayc=new THREE.Raycaster(); const ndcv=new THREE.Vector2();
+const M_PICK=new THREE.MeshStandardMaterial({color:0xFFD07A,emissive:0x7A5410,metalness:.5,roughness:.35});
+let picked=null;
+function clearPick(){ if(picked){ picked.material=(picked.userData.st==="oss")?M_OSS:M_HYP; picked=null; }
+  const el=document.getElementById("pickcard"); if(el) el.hidden=true; }
+function showPick(mesh){
+  clearPick(); picked=mesh; mesh.material=M_PICK;
+  const n=mesh.userData.name, g=GEOBY[n], rate=RATE[SOLID_OF[n]];
+  const el=document.getElementById("pickcard"); if(!el) return;
+  const spin=(rate===undefined)?"":" &middot; "+Math.abs(rate).toFixed(3)+" "+PT.turns+" ("+(rate<0?PT.cw:PT.ccw)+" "+PT.seen+")";
+  el.innerHTML='<span class="pkn">'+n+'</span> &mdash; '+g[2]+' '+PT.teeth+' &middot; '+(g[7]==="oss"?PT.oss:PT.hyp)+
+    '<br><span class="pkd">'+(GDESC[n]||"")+'</span>'+
+    '<span class="pks">'+PT.radius+' '+g[3].toFixed(1)+' mm &middot; '+PT.layer+' z '+g[6].toFixed(1)+' mm'+spin+'</span>';
+  el.hidden=false;
+}
+function pickAt(cx,cy){
+  const r=canvas.getBoundingClientRect();
+  ndcv.x=((cx-r.left)/r.width)*2-1; ndcv.y=-((cy-r.top)/r.height)*2+1;
+  rayc.setFromCamera(ndcv,camera);
+  const hits=rayc.intersectObjects(Object.values(gears),false);
+  const chain=[]; for(const h of hits) if(!chain.includes(h.object)) chain.push(h.object);
+  if(!chain.length){ clearPick(); return; }
+  // toccando di nuovo lo stesso punto si scende alla ruota successiva lungo il raggio
+  let i=0; if(picked){ const k=chain.indexOf(picked); if(k>=0) i=(k+1)%chain.length; }
+  showPick(chain[i]);
+}
+let tapAt=null;
+canvas.addEventListener("pointerdown",e=>{ tapAt={x:e.clientX,y:e.clientY,t:performance.now()}; });
+canvas.addEventListener("pointerup",e=>{ if(!tapAt) return;
+  const moved=Math.hypot(e.clientX-tapAt.x,e.clientY-tapAt.y), dt=performance.now()-tapAt.t; tapAt=null;
+  if(moved<7&&dt<450&&touches.size<=1) pickAt(e.clientX,e.clientY); });
+
+/* ---- scomposizione con un clic: tutti gli strati si allontanano insieme lungo l'asse
+   della manovella e la camera va di tre quarti, altrimenti di fronte non si vedrebbe nulla ---- */
+const EXTXT={open:"&#8663; Explode the mechanism",close:"&#8665; Reassemble"};
+const EX_MAX=4.2, EX_DUR=1600;
+let exTween=null, exOpen=false;
+const exEase=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;
+function exSync(){ const s=document.getElementById("explode"), l=document.getElementById("explab");
+  if(s) s.value=Math.round(explode*10); if(l) l.textContent="\u00d7"+explode.toFixed(1); }
+function exLabel(){ const b=document.getElementById("exBtn"); if(b){ b.innerHTML=exOpen?EXTXT.close:EXTXT.open; b.setAttribute("aria-pressed",exOpen); }
+  const n=document.getElementById("exnote"); if(n) n.hidden=!exOpen; }
+function stepExplode(now){
+  const u=Math.min(1,(now-exTween.t0)/EX_DUR), k=exEase(u);
+  explode=exTween.e0+(exTween.e1-exTween.e0)*k;
+  theta=exTween.th0+(exTween.th1-exTween.th0)*k;
+  phi=exTween.ph0+(exTween.ph1-exTween.ph0)*k;
+  applyExplode(); exSync();
+  dist=exTween.d0+(fitDist(exOpen?0.90:1)-exTween.d0)*k; placeCam();   // scomposto: riempie di più il riquadro
+  if(u>=1) exTween=null;
+}
+function toggleExplode(){
+  exOpen=!exOpen; userZoom=false;
+  autoOrbit=false;
+  exTween={t0:performance.now(), e0:explode, e1:exOpen?EX_MAX:1,
+    th0:theta, th1:exOpen?0.95:0.35, ph0:phi, ph1:exOpen?1.22:1.15, d0:dist};
+  exLabel();
+}
+{ const b=document.getElementById("exBtn"); if(b) b.onclick=toggleExplode; }
+function frame(now){ const dt=(now-last)/1000; last=now; if(exTween) stepExplode(now); if(autoOrbit){ theta+=0.0012; placeCam(); } if(playing){ baseJD+=speed*dt; update(); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); renderer.render(scene,camera); requestAnimationFrame(frame); }
 
 /* ---- controlli ---- */
 document.querySelectorAll(".c3 [data-step]").forEach(b=>b.onclick=()=>{ baseJD+=+b.dataset.step; update(); });
@@ -1447,7 +1534,7 @@ function setLook(pat){ M_OSS=pat?M_PAT:M_NEW; for(const n in gears) if(gears[n].
   document.getElementById("aNew").setAttribute("aria-pressed",!pat); document.getElementById("aPatina").setAttribute("aria-pressed",pat); }
 document.getElementById("aNew").onclick=()=>setLook(false); document.getElementById("aPatina").onclick=()=>setLook(true);
 
-applyExplode(); placeCam(); requestAnimationFrame(frame);
+applyExplode(); resize(); if(!userZoom) dist=fitDist(); placeCam(); requestAnimationFrame(frame);
 window.setAngles3D=setAngles3D;
 }
 try{ if(typeof THREE==='undefined') throw new Error('three.js non caricato'); init3D(); }catch(err){ fail3D(err); }
