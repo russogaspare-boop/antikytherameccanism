@@ -1,0 +1,113 @@
+<!doctype html><html lang="it"><head><meta charset="utf-8"><meta name="viewport" content="width=device-width,initial-scale=1"><title>La mostra di Xenophon Moussas &middot; Antikythera Mechanism</title><meta name="description" content="La mostra sul meccanismo di Anticitera di Xenophon Moussas (Università di Atene): i ventidue pannelli, la versione italiana e il legame calendariale con Siracusa."><meta property="og:title" content="La mostra di Xenophon Moussas"><meta property="og:description" content="La mostra sul meccanismo di Anticitera di Xenophon Moussas (Università di Atene): i ventidue pannelli, la versione italiana e il legame calendariale con Siracusa."><meta property="og:type" content="website"><link rel="canonical" href="https://antikytheramechanism.app/exhibition/"><link rel="alternate" hreflang="it" href="https://antikytheramechanism.app/exhibition/"><link rel="alternate" hreflang="en" href="https://antikytheramechanism.app/en/exhibition/"><link rel="alternate" hreflang="es" href="https://antikytheramechanism.app/es/exhibition/"><link rel="alternate" hreflang="el" href="https://antikytheramechanism.app/el/exhibition/"><link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin><link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Bodoni+Moda:opsz,wght@6..96,400;6..96,600&family=IBM+Plex+Mono:wght@400;500&family=IBM+Plex+Sans:wght@400;500;600&display=swap"><style>:root{
+  --ground:#E9ECE8; --surface:#F7F9F5; --surface2:#DFE4DE; --line:#C3CCC5;
+  --ink:#131C18; --ink2:#4A5751; --ink3:#77837C;
+  --verd:#2C7A66; --verd-soft:#CFE3DB; --bronze:#8F6A21; --bronze-soft:#EADFC4;
+  --coral:#B44E3C; --plate:#1B2622; --plate-ink:#E7EFE9;
+  --shadow:0 1px 2px rgba(19,28,24,.08),0 8px 24px -12px rgba(19,28,24,.18);
+  --f-disp:"Bodoni Moda",Georgia,"Times New Roman",serif;
+  --f-body:"IBM Plex Sans",system-ui,-apple-system,"Segoe UI",sans-serif;
+  --f-mono:"IBM Plex Mono",ui-monospace,"SF Mono",Menlo,monospace;
+}
+@media (prefers-color-scheme:dark){
+  :root:not([data-theme="light"]){
+    --ground:#0D1411; --surface:#17211D; --surface2:#1F2A26; --line:#31403A;
+    --ink:#DEE6E0; --ink2:#A2B0A9; --ink3:#76837C;
+    --verd:#55C4A6; --verd-soft:#1D3630; --bronze:#DCA945; --bronze-soft:#332912;
+    --coral:#E0705C; --plate:#080D0B; --plate-ink:#DEE6E0;
+    --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+  }
+}
+:root[data-theme="dark"]{
+  --ground:#0D1411; --surface:#17211D; --surface2:#1F2A26; --line:#31403A;
+  --ink:#DEE6E0; --ink2:#A2B0A9; --ink3:#76837C;
+  --verd:#55C4A6; --verd-soft:#1D3630; --bronze:#DCA945; --bronze-soft:#332912;
+  --coral:#E0705C; --plate:#080D0B; --plate-ink:#DEE6E0;
+  --shadow:0 1px 2px rgba(0,0,0,.4),0 8px 24px -12px rgba(0,0,0,.7);
+}
+*{box-sizing:border-box}
+body{margin:0;background:var(--ground);color:var(--ink);font-family:var(--f-body);
+  font-size:15px;line-height:1.55;-webkit-font-smoothing:antialiased}
+.wrap{max-width:1180px;margin:0 auto;padding:28px 20px 80px}
+h1,h2,h3{text-wrap:balance;margin:0}
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+header.top{display:flex;flex-wrap:wrap;gap:18px;align-items:flex-end;justify-content:space-between;
+  padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:22px}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--verd)}
+.sub{color:var(--ink2);max-width:56ch;margin-top:8px;font-size:14px}
+button,select,input{font-family:inherit;font-size:14px;color:var(--ink)}
+:focus-visible{outline:2px solid var(--verd);outline-offset:2px;border-radius:3px}
+
+.eyebrow{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3)}
+header.top{display:block;padding-bottom:18px;border-bottom:1px solid var(--line);margin-bottom:26px}
+h1{font-family:var(--f-disp);font-weight:400;font-size:clamp(30px,5vw,46px);line-height:1.02;letter-spacing:-.01em}
+h1 em{font-style:italic;color:var(--verd)}
+.sub{color:var(--ink2);max-width:62ch;margin-top:8px;font-size:15px}
+.prose{max-width:82ch;font-size:15.5px}
+.prose h2{font-family:var(--f-disp);font-size:24px;font-weight:400;margin:34px 0 8px}
+.prose h3{font-family:var(--f-mono);font-size:11px;letter-spacing:.16em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin:22px 0 6px}
+.prose p{margin:0 0 12px}
+.prose ul,.prose ol{padding-left:22px;margin:0 0 12px}
+.prose li{margin-bottom:5px}
+.prose a{color:var(--verd)}
+.panel{background:var(--surface);border:1px solid var(--line);border-radius:4px;padding:18px;box-shadow:var(--shadow)}
+.warn{border-left:3px solid var(--bronze);background:var(--bronze-soft);padding:12px 14px;border-radius:0 3px 3px 0;font-size:13.5px;margin:14px 0}
+.chip{display:inline-block;font-family:var(--f-mono);font-size:10.5px;letter-spacing:.08em;padding:2px 7px;border-radius:2px;border:1px solid var(--line);color:var(--ink2);white-space:nowrap}
+.chip.ok{border-color:var(--verd);color:var(--verd)} .chip.hyp{border-color:var(--bronze);color:var(--bronze)} .chip.dev{border-color:var(--coral);color:var(--coral)}
+.tablewrap{overflow-x:auto;border:1px solid var(--line);border-radius:4px;background:var(--surface);margin:12px 0 18px}
+table{border-collapse:collapse;width:100%;font-size:13.5px;min-width:560px}
+th,td{text-align:left;padding:9px 12px;border-bottom:1px solid var(--line);vertical-align:top}
+th{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.12em;text-transform:uppercase;color:var(--ink3);font-weight:500;background:var(--surface2)}
+tr:last-child td{border-bottom:0}
+.btn{background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:9px 14px;cursor:pointer;font-family:var(--f-mono);font-size:12.5px;letter-spacing:.03em;color:var(--ink);text-decoration:none;display:inline-block}
+.btn:hover{background:var(--verd-soft);border-color:var(--verd)}
+.btn.key{background:var(--verd);color:#fff;border-color:var(--verd);font-weight:500}
+.grid2{display:grid;grid-template-columns:repeat(auto-fit,minmax(260px,1fr));gap:16px;margin:14px 0}
+.field{display:flex;flex-direction:column;gap:5px;margin-bottom:12px}
+.field label{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3)}
+.field input,.field select,.field textarea{background:var(--ground);border:1px solid var(--line);border-radius:3px;padding:9px 10px;font-family:inherit;font-size:14px;color:var(--ink);width:100%}
+.cta{background:var(--plate);color:var(--plate-ink);border-radius:4px;padding:26px 24px;margin:26px 0}
+.cta h2{font-family:var(--f-disp);font-weight:400;font-size:26px;margin:0 0 8px;color:#fff}
+.cta p{color:#A9BDB3;margin:0 0 14px;max-width:60ch}
+.cta a.btn{background:var(--verd);color:#fff;border-color:var(--verd)}
+
+.topnav{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line);font-family:var(--f-mono);font-size:11.5px;letter-spacing:.05em}
+.topnav .in{max-width:1180px;margin:0 auto;padding:9px 20px;display:flex;align-items:center;gap:14px;flex-wrap:wrap}
+.topnav .brand{font-family:var(--f-disp);font-size:17px;letter-spacing:0;color:var(--ink);text-decoration:none;white-space:nowrap}
+.topnav .brand em{color:var(--verd);font-style:italic}
+.topnav ul{list-style:none;margin:0;padding:0;display:flex;gap:2px 14px;flex-wrap:wrap;flex:1}
+.topnav a{color:var(--ink2);text-decoration:none;padding:4px 0;border-bottom:1px solid transparent}
+.topnav a:hover,.topnav a[aria-current]{color:var(--verd);border-bottom-color:var(--verd)}
+.topnav .langs{margin-left:auto;white-space:nowrap;color:var(--ink3)}
+.topnav .langs a[aria-current]{color:var(--ink);font-weight:500}
+.topnav .menubtn{display:none;background:none;border:1px solid var(--line);border-radius:3px;padding:5px 9px;cursor:pointer;font-family:var(--f-mono);font-size:11px;letter-spacing:.08em;text-transform:uppercase}
+@media (max-width:1024px){
+  .topnav .menubtn{display:inline-block}
+  .topnav ul{display:none;flex-basis:100%;flex-direction:column;gap:0;padding:6px 0 4px}
+  .topnav ul li a{display:block;padding:8px 2px;border-bottom:1px solid var(--line)}
+  .topnav.open ul{display:flex}
+}
+footer.site{margin-top:60px;border-top:1px solid var(--line);padding-top:22px;font-size:12.5px;color:var(--ink2);line-height:1.6}
+footer.site .cols{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:18px 28px}
+footer.site h4{font-family:var(--f-mono);font-size:10.5px;letter-spacing:.14em;text-transform:uppercase;color:var(--ink3);font-weight:500;margin:0 0 6px}
+footer.site a{color:var(--verd);text-decoration:none}
+footer.site a:hover{text-decoration:underline}
+footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--line);font-family:var(--f-mono);font-size:11px;color:var(--ink3);display:flex;flex-wrap:wrap;gap:6px 18px}
+.nogl{padding:40px 24px;text-align:center;color:var(--plate-ink);background:var(--plate);border-radius:4px;min-height:260px;display:flex;flex-direction:column;justify-content:center;gap:10px}
+.nogl b{font-family:var(--f-disp);font-weight:400;font-size:22px}
+.nogl p{margin:0;font-size:13.5px;color:#A9BDB3;max-width:52ch;margin-inline:auto}
+.btn.wow{background:var(--verd);color:#fff;border-color:var(--verd);font-weight:500}
+.btn.wow:hover{background:var(--verd);filter:brightness(1.12)}
+</style></head><body><nav class="topnav" id="topnav"><div class="in"><a class="brand" href="/">Antikythera Mechanism <em>.app</em></a><button class="menubtn" type="button" aria-expanded="false" aria-controls="navlist" onclick="var n=document.getElementById('topnav');n.classList.toggle('open');this.setAttribute('aria-expanded',n.classList.contains('open'))">Menu &#9776;</button><ul id="navlist"><li><a href="/">Esplora</a></li><li><a href="/#prov">Come funziona</a></li><li><a href="/3d/">Ricostruzione 3D</a></li><li><a href="/build/">Costruiscilo</a></li><li><a href="/research/">Ricerca</a></li><li><a href="/schools/">Scuole e musei</a></li><li><a href="/conference/">Conferenza</a></li><li><a href="/exhibition/" aria-current="page">Mostra</a></li><li><a href="/about/">Chi siamo</a></li><li><a href="/join/">Partecipa</a></li></ul><span class="langs"><a href="/" aria-current="page">Italiano</a> · <a href="/en/">English</a> · <a href="/es/">Español</a> · <a href="/el/">Ελληνικά</a></span></div></nav><div class="wrap"><header class="top"><div class="eyebrow">Mostra</div><h1>La mostra di <em>Xenophon Moussas</em></h1><p class="sub">Ventidue pannelli sul meccanismo e sulla scienza greca che lo ha reso possibile. Quali esistono in italiano, e dove trovarli.</p></header><div class="prose">
+<p>Il professor <strong>Xenophon Moussas</strong>, dell&rsquo;Universit&agrave; Nazionale e Capodistriaca di Atene, ha costruito negli anni una mostra sul meccanismo di Anticitera: ventidue pannelli che partono dal reperto e si allargano alla tradizione scientifica greca che lo ha reso possibile &mdash; Pitagora e i primi esperimenti di fisica, l&rsquo;astronomia ionica, la teoria atomica, Aristotele, la scienza ellenistica, la geografia di Tolomeo. La mostra esiste in greco, inglese, italiano, spagnolo, arabo, polacco, russo, svedese e albanese.</p>
+<p>Questa pagina raccoglie i pannelli e segnala quali sono disponibili in italiano. I file sono ospitati sul sito dell&rsquo;Universit&agrave; di Atene: i collegamenti puntano l&agrave;.</p>
+<div class="tablewrap"><table><thead><tr><th>Pannello</th><th>Titolo</th><th>Italiano</th></tr></thead><tbody><tr><td><span class="chip">00</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/00_2024_The_team_BIBLIOGRAPHY%2BThanks_XM2.pdf" rel="noopener">Il gruppo, bibliografia e ringraziamenti</a></td><td><span class="chip">&mdash;</span></td></tr><tr><td><span class="chip">01</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/01_2024_Antikythera_what-is-the-Mechanism.XM2.pdf" rel="noopener">Che cos&rsquo;&egrave; il Meccanismo</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">02</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/02_2025_How%20the%20Antikythera%20Mechanism%20works_XM2.pdf" rel="noopener">Come funziona il Meccanismo</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">03</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/03_2024_Antikythera_SUN_MOON%20dials.XM2.pdf" rel="noopener">I quadranti del Sole e della Luna</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">04</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/04_2024_Prediction%20of%20Eclipses_XM2.pdf" rel="noopener">La previsione delle eclissi</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">05</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/05_2024_HMEPOLOGIA_XM2.pdf" rel="noopener">Il calendario epirota e gli altri calendari</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">06</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/06_2024_OLYMPIC%20dials.XM2.pdf" rel="noopener">I quadranti olimpici</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">08</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/08_2024_Antikythera%20Mechanism_MANUAL.XM2.pdf" rel="noopener">Il manuale del Meccanismo</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">11</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/11_2025_WHO-MADE-THE-MECHANISM%20Archimedes%20and%20Hipparchus_XM2.pdf" rel="noopener">Chi lo ha costruito: Archimede e Ipparco</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">12</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/12_2024%20the%20mysterius%20SHIPWRECK_XM2.pdf" rel="noopener">Il misterioso relitto</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">13</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/13_2025_MIKPO_How%20Humans%20conceived%20to%20create%20a%20mechanical%20Cosmos%20ENG%20GR%20IT.pdf" rel="noopener">Come l&rsquo;uomo concep&igrave; un Cosmo meccanico</a></td><td><span class="chip ok">gi&agrave; disponibile</span></td></tr><tr><td><span class="chip">14</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/14_2025_First%20experiments.pdf" rel="noopener">I primi esperimenti di fisica</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">B</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/B_2024_GREEK-ARCHAEOASTRONOMY.XM2.pdf" rel="noopener">Archeoastronomia dei Greci</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">C</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/C_2024_GREEK-ASTRONOMY-ASTROPHYSICS.XM2.pdf" rel="noopener">Astronomia e astrofisica dei Greci</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">D</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/D_2024_ATOMIC-THEORY.XM2.pdf" rel="noopener">La teoria atomica</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">F</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/F_2025_ARISTOTELES.pdf" rel="noopener">Aristotele</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">G</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/G_2025_ALEXANDER-THE-GREAT.XM2.pdf" rel="noopener">Alessandro Magno</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">H</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/H_2025_Hellenistic%20Science.XM2.pdf" rel="noopener">La scienza ellenistica</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">K</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/K_Antikythera-mechanism-exhibition_Hellenistic%20Geography.pdf" rel="noopener">Geografia e cartografia greca</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">L</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/L_Antikythera-mechanism-exhibition_Hellenistic%20Geography.pdf" rel="noopener">Geografia e cartografia greca (II)</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">M</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/M_Antikythera-mechanism-exhibition_Hellenistic%20Geography.pdf" rel="noopener">L&rsquo;Asia nella geografia greca</a></td><td><span class="chip ok">tradotto 2026</span></td></tr><tr><td><span class="chip">N</span></td><td><a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/N_2025_Hipparchus.pdf" rel="noopener">Ipparco di Rodi</a></td><td><span class="chip ok">tradotto 2026</span></td></tr></tbody></table></div>
+<h2>La versione italiana</h2>
+<p>Sei pannelli esistono gi&agrave; in italiano nella versione bilingue curata dall&rsquo;autore (<a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/ITALIANO_old_2009/ANTIKYTHERA%20MECHANISM%205%20italiano%202026.pdf" rel="noopener">PDF, 2026</a>), e il pannello 13 &egrave; trilingue. Nel settembre 2026 sono stati tradotti in italiano altri quattordici pannelli, quelli che non esistevano in questa lingua, in vista della mostra a Siracusa: teoria atomica, Aristotele, Alessandro, scienza ellenistica, le tre pagine di geografia, archeoastronomia e astronomia greca, i primi esperimenti di fisica, il relitto, Ipparco, il funzionamento del meccanismo e i calendari.</p>
+<div class="warn">I testi tradotti sono destinati alla mostra e non sono pubblicati qui: i diritti sono dell&rsquo;autore. Su questa pagina trovi i collegamenti agli originali.</div>
+<h2>Il calendario del meccanismo e Siracusa</h2>
+<p>Il pannello sui calendari contiene un dato che riguarda direttamente la Sicilia. I nomi dei mesi incisi sul quadrante metonico del meccanismo appartengono alla famiglia corinzia; Moussas segue l&rsquo;identificazione epirota e osserva che quello stesso calendario ha <strong>sette nomi di mese in comune con Siracusa e con Tauromenio</strong>, oltre che con Butrinto, Corf&ugrave; e Ambracia.</p>
+<p>&Egrave; un legame documentario fra il meccanismo e le citt&agrave; greche di Sicilia, indipendente dalla questione di Archimede: Siracusa era colonia corinzia e ne condivideva la tradizione calendariale. L&rsquo;attribuzione geografica precisa del calendario resta discussa (Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 2008, per la famiglia corinzia; Iversen 2017 per l&rsquo;Epiro), ma i nomi condivisi valgono in entrambe le letture. Il tema torna nella pagina <a href="/conference/">Conferenza</a>.</p>
+<h2>Crediti</h2>
+<p>Testi, pannelli e immagini della mostra: &copy; Xenophon Moussas, Universit&agrave; Nazionale e Capodistriaca di Atene. Pubblicati sulle <a href="http://users.uoa.gr/~xmoussas/Exhibitions_Antikythera_Mechanism_all_languages_XM_2024/PDF_English+Greek_2025/" rel="noopener">sue pagine</a>. Questa pagina li indicizza e li traduce; non li ripubblica.</p>
+<div class="cta"><h2>Partecipa allo sviluppo</h2><p>Unisciti allo sviluppo della prima esperienza di Anticitera guidata scientificamente e costruibile: scuole, musei, ricercatori, maker.</p><a class="btn" href="/join/">Partecipa al progetto &rarr;</a></div></div><footer class="site"><div class="cols"><div><h4>Progetto</h4><b>Gaspare Russo</b> &mdash; Founder and Project Director<br>Ricercatore indipendente di archeoastronomia, Siracusa<br><a href="mailto:info@antikytheramechanism.app">info@antikytheramechanism.app</a></div><div><h4>Sviluppo</h4>Software e modelli sviluppati da Gaspare Russo con Claude (Anthropic).<br>Versione v1.4 &middot; 10 settembre 2026<br>Codice sorgente su <a href="https://github.com/russogaspare-boop/antikytherameccanism">GitHub</a></div><div><h4>Fonti primarie</h4>Freeth et al., <em>Nature</em> 444 (2006) &middot; Freeth, Jones, Steele &amp; Bitsakis, <em>Nature</em> 454 (2008) &middot; Freeth, <em>PLOS ONE</em> 9(7) (2014) &middot; Freeth et al., <em>Sci. Rep.</em> 11:5821 (2021) &middot; Meeus, <em>Astronomical Algorithms</em> (1998)</div></div><p style="margin:16px 0 0;font-size:12px;color:var(--ink3)">Progetto indipendente di ricerca e divulgazione. Posizioni calcolate dai rapporti degli ingranaggi pubblicati e confrontate con le effemeridi moderne.</p><div class="legal"><span>&copy; 2026 Gaspare Russo. Testi, codice e modelli 3D: tutti i diritti riservati. Dati degli ingranaggi: propriet&agrave; intellettuale dei rispettivi autori.</span><a href="/status/">Stato del progetto</a><a href="/privacy/">Privacy</a><a href="/terms/">Termini d&rsquo;uso</a></div></footer></div></body></html>
