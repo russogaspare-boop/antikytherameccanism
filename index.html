@@ -294,7 +294,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
 </div>
 <div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Scomponi il meccanismo</button></div>
 <p class="exnote" id="exnote" hidden>Le ruote si allontanano lungo l&rsquo;asse della manovella: nel modello stanno su <b>dodici quote diverse</b>, dai +3,0&nbsp;mm della grande <b>b1</b> ai &minus;13,5&nbsp;mm dell&rsquo;ultimo piano. Accendi le &laquo;sigle&raquo; e cerca <b>k1</b> e <b>k2</b>: due ruote da 50 denti su assi non allineati, una porta un perno che scorre nella fenditura dell&rsquo;altra &mdash; &egrave; cos&igrave; che la macchina fa correre la Luna pi&ugrave; veloce vicino al perigeo e pi&ugrave; lenta all&rsquo;apogeo. Le ruote in verde chiaro sono le <b>ipotetiche</b>: nel reperto non ci sono.</p>
-<p class="pickhint">Trascina per girare intorno &middot; pizzica o rotella per avvicinarti &middot; <b>tocca una ruota</b> per la sua scheda, di nuovo per quella dietro</p>
+<p class="pickhint">Trascina per girare intorno &middot; pizzica o rotella per avvicinarti &middot; <b>tocca un pezzo</b> (ruota, lancetta, manovella, quadrante) per la sua scheda, di nuovo per quello dietro</p>
 <div class="pickcard" id="pickcard" hidden></div>
   <div class="console c3">
   <div class="field"><label>manovella</label><div class="btnrow">
@@ -302,7 +302,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
     <button class="btn" data-step="1">+1 g</button><button class="btn" data-step="29.530589">+1 lun.</button>
     <button class="btn" data-step="365.25">+1 anno</button><button class="btn" data-step="-365.25">&minus;1 anno</button></div></div>
   <div class="field"><label for="speed">velocit&agrave; &mdash; <span id="speedlab">3 g/s</span></label><input type="range" id="speed" min="1" max="400" value="3"></div>
-  <div class="field"><label for="explode">separa gli strati &mdash; <span id="explab">&times;1</span></label><input type="range" id="explode" min="10" max="50" value="10"></div>
+  <div class="field"><label for="explode">separa gli strati &mdash; <span id="explab">&times;1</span></label><input type="range" id="explode" min="10" max="100" value="10"></div>
   <div class="field"><label>vista</label><div class="btnrow">
     <button class="btn" id="vFront">fronte</button><button class="btn" id="vBack">retro</button><button class="btn" id="vSide">di taglio</button></div></div>
   <div class="field"><label>mostra</label><div class="btnrow">
@@ -1417,10 +1417,10 @@ function applyExplode(){
   for(const a of arbors){ const {z0,z1}=a.userData; a.position.z=(z0+z1)/2*explode; a.scale.y=1; a.geometry.parameters && (a.scale.y=explode); }
   plates.children.forEach(p=>p.position.z=p.userData.z*explode); // piani: la loro geometria è a z=0 locale? no: ring/spiral hanno z nei vertici
   plates.children.forEach(p=>{ if(p.isLine){ p.position.z=p.userData.z*(explode-1);} });
-  labels.children.forEach(l=>l.position.z=l.userData.z*explode);
+  labels.children.forEach(l=>l.position.z=(l.userData.z-3)*explode+3);   // la sigla resta 3 mm davanti alla sua ruota
   for(const k in P) P[k].position.z=P[k].userData.z*explode;
-  a1g.position.z=3.0*explode;
-  pin.position.z=-0.9*explode; slot.position.z=0.3*explode;
+  a1g.position.z=3.0*explode; crank.position.z=3.0*explode;
+  pin.position.z=-7.1*explode; pin.scale.y=(0.6*explode+1)/3; slot.position.z=-7.4*explode+0.3;   // il perno unisce k1 (z -6,8) e k2 (z -7,4)
 }
 const D2R=Math.PI/180;
 function setAngles3D(J){
@@ -1453,35 +1453,140 @@ function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(!w||!h)
     placeCam(); } }
 let canvasVisible=true; try{ new IntersectionObserver(en=>{ canvasVisible=en[0].isIntersecting; }).observe(canvas); }catch(_){}
 
-/* ---- esplorazione: tocca una ruota e leggi che cos'e'. Tutti i dati vengono
-   dalle tabelle gia' in pagina (GEO = Tab. S8, GEARS = funzione, RATE = rapporti). ---- */
+/* ---- esplorazione: tocca un pezzo e leggi che cos'e'. Le ruote usano le tabelle gia' in pagina
+   (GEO = Tab. S8, GEARS = funzione, RATE = rapporti); manovella, a1, lancette, perno, fenditura,
+   alberi, quadranti e piastre hanno la loro scheda in PX e AXT, qui sotto. ---- */
 const PT={oss:"osservata alla tomografia",hyp:"ipotetica, ricostruita",teeth:"denti",turns:"giri per giro di b1",radius:"raggio esterno",layer:"quota",cw:"orario",ccw:"antiorario",seen:"visto dal fronte"};
+const PX={
+ crank:{t:"manovella",s:"perduta nel reperto, qui ricostruita",
+  d:"Da qui partiva tutto: chi usava la macchina girava a mano questa manovella. La manovella fa girare la ruota a1, a1 spinge la grande ruota b1, e da b1 il moto passa a tutte le altre ruote e alle lancette.",
+  x:"1 giro di manovella = 48/223 di giro di b1, cioè circa 79 giorni"},
+ a1:{t:"a1",s:"48 denti &middot; ruota d'ingresso",
+  d:"È la ruota fissata sulla manovella, messa di traverso rispetto alle altre: i suoi denti fanno girare la grande ruota b1. È il primo passo di tutta la catena di ingranaggi.",
+  x:"in un anno (un giro di b1) a1 fa 223/48 = 4,65 giri"},
+ sun:{t:"lancetta del Sole",s:"fronte &middot; un giro all'anno",
+  d:"Gira una volta all'anno, insieme alla grande ruota b1. La punta mostra in quale segno dello zodiaco si trova il Sole e, sull'anello esterno, il giorno dell'anno. In questo modello è il Sole medio: va sempre alla stessa velocità, mentre il Sole vero nel cielo accelera e rallenta un poco.",
+  x:"1 giro = 1 anno, circa 365,24 giorni"},
+ moon:{t:"lancetta della Luna",s:"fronte &middot; un giro in circa 27,3 giorni",
+  d:"Mostra in quale segno dello zodiaco si trova la Luna. Fa un giro nel tempo che la Luna impiega a tornare davanti alle stesse stelle. Non va sempre alla stessa velocità: il perno e la fenditura delle ruote k1 e k2 la fanno correre e rallentare, come fa la Luna vera.",
+  x:"mese siderale = 27,32 giorni &middot; la muove la ruota b3"},
+ moonball:{t:"pallina delle fasi lunari",s:"fronte &middot; sulla lancetta della Luna",
+  d:"Nella macchina vera era una piccola sfera, metà bianca e metà nera, incastonata nella lancetta della Luna. Ruotando su sé stessa mostrava la fase: nera alla luna nuova, bianca alla luna piena. Qui è solo accennata: le ruote che la fanno girare (b0 e q1) non sono ancora modellate.",
+  x:"un ciclo completo delle fasi = 29,53 giorni (mese sinodico)"},
+ met:{t:"lancetta della spirale di Metone",s:"retro, in alto &middot; un giro in circa 3,8 anni",
+  d:"Percorre la grande spirale in alto sul retro: cinque giri divisi in 235 caselle, una per ogni mese lunare. 235 mesi lunari fanno quasi esattamente 19 anni: è il ciclo di Metone, dopo il quale le fasi della Luna tornano negli stessi giorni dell'anno. Nella macchina vera un piccolo cursore sulla lancetta seguiva la spirale incisa.",
+  x:"5 giri = 235 mesi lunari &asymp; 19 anni &middot; 1 giro = 47 mesi"},
+ sar:{t:"lancetta della spirale del Saros",s:"retro, in basso &middot; un giro in circa 4,5 anni",
+  d:"Percorre la spirale in basso sul retro: quattro giri divisi in 223 caselle, una per ogni mese lunare, in tutto circa 18 anni e 11 giorni. È il ciclo del Saros: dopo questo tempo le eclissi si ripetono quasi uguali. Nelle caselle in cui era prevista un'eclissi c'è un segno: &Sigma; per la Luna (Selene), &Eta; per il Sole (Helios), con l'ora.",
+  x:"4 giri = 223 mesi lunari &asymp; 18 anni e 11 giorni"},
+ gam:{t:"lancetta dei Giochi",s:"retro, quadrante piccolo &middot; un giro ogni 4 anni",
+  d:"Indica l'anno in corso in un ciclo di quattro anni. Il quadrante ha quattro settori, uno per anno, con i nomi dei giochi che si tenevano in quell'anno: le Olimpiadi, i Giochi Istmici, Nemei e Pitici, e altri due giochi, i Naa e gli Halieia.",
+  x:"1 giro = 4 anni"},
+ cal:{t:"lancetta di Callippo",s:"retro, quadrante piccolo &middot; un giro ogni 76 anni",
+  d:"Fa un giro ogni 76 anni, cioè quattro cicli di Metone. Callippo, astronomo greco del IV secolo a.C., propose questo ciclo più lungo: togliendo un giorno ogni 76 anni, mesi lunari e anni restano d'accordo più a lungo.",
+  x:"1 giro = 76 anni = 4 &times; 19 &middot; le ruote che la muovono (n3, p1, p2, q1c) sono ricostruite"},
+ exe:{t:"lancetta dell'Exeligmos",s:"retro, quadrante piccolo &middot; un giro in circa 54 anni",
+  d:"Un Saros non dura un numero esatto di giorni: ha circa 8 ore in più, quindi ogni eclissi della serie cade 8 ore più tardi della precedente. Questo quadrante, diviso in tre settori (0, 8 e 16 ore), diceva quante ore aggiungere all'ora scritta nella spirale del Saros.",
+  x:"1 giro = 3 Saros = 19.756 giorni, circa 54 anni e 33 giorni"},
+ pin:{t:"perno di k1",s:"il trucco della Luna",
+  d:"Questo perno sporge dalla ruota k1 ed entra nella fenditura della ruota k2. I centri delle due ruote non coincidono, sono spostati di poco: così, a ogni giro, k2 accelera e rallenta rispetto a k1. È l'invenzione con cui la macchina imitava la Luna vera, più veloce quando è vicina alla Terra e più lenta quando è lontana.",
+  x:"nel modello i due centri distano 1,3 mm"},
+ slot:{t:"fenditura di k2",s:"il trucco della Luna",
+  d:"Qui scorre il perno della ruota k1. Le ruote k1 e k2 sono montate sopra la grande ruota e3, che le porta lentamente in giro: un giro in circa 8,9 anni, lo stesso tempo che impiega il punto dell'orbita in cui la Luna è più vicina alla Terra a fare un giro completo.",
+  x:"e3: un giro ogni 8,88 anni nel modello"},
+ plate0:{t:"piastra principale",s:"trasparente nel modello &middot; misure approssimate",
+  d:"È la lastra di bronzo che regge gli assi delle ruote. Nel modello la grande ruota b1 sta davanti, quasi tutte le altre dietro. È trasparente per lasciar vedere gli ingranaggi; il tasto «piastre» nasconde tutte le piastre."},
+ plateF:{t:"piastra anteriore",s:"il fronte &middot; misure approssimate",
+  d:"È il fronte della macchina: qui c'era il grande quadrante con l'anello dello zodiaco e quello del calendario, e al centro le lancette del Sole e della Luna."},
+ plateB:{t:"piastra posteriore",s:"il retro &middot; misure approssimate",
+  d:"È il retro della macchina: qui c'erano le due grandi spirali, quella di Metone in alto e quella del Saros in basso, con i quadranti piccoli dei Giochi, di Callippo e dell'Exeligmos."},
+ zod:{t:"anello dello zodiaco",s:"quadrante anteriore, anello interno",
+  d:"È il cerchio del cielo diviso in dodici parti uguali, una per ogni segno dello zodiaco, con i nomi scritti in greco. Le lancette del Sole e della Luna indicano qui in quale segno si trovano.",
+  x:"12 settori da 30&deg;"},
+ egy:{t:"anello del calendario",s:"quadrante anteriore, anello esterno",
+  d:"Porta i mesi del calendario egiziano, scritti in greco e divisi in giorni: sul reperto si leggono ancora i nomi di alcuni mesi. L'anello era mobile, così si poteva regolare. In questo modello la lancetta del Sole, passando qui sopra, indica il giorno."},
+ metS:{t:"spirale di Metone",s:"retro, in alto &middot; 5 giri, 235 caselle",
+  d:"Ogni casella è un mese lunare: in tutto 235 mesi, cioè 19 anni. Nelle caselle erano scritti i nomi dei mesi di un calendario greco, così si leggeva in che mese ci si trovava.",
+  x:"235 mesi lunari &asymp; 6940 giorni &asymp; 19 anni"},
+ sarS:{t:"spirale del Saros",s:"retro, in basso &middot; 4 giri, 223 caselle",
+  d:"Ogni casella è un mese lunare: in tutto 223 mesi, circa 18 anni e 11 giorni. Nelle caselle dei mesi con un'eclissi prevista è inciso un segno: &Sigma; per un'eclissi di Luna, &Eta; per un'eclissi di Sole, con l'ora. Sul reperto se ne leggono ancora una ventina.",
+  x:"223 mesi lunari &asymp; 6585,3 giorni"},
+ gamD:{t:"quadrante dei Giochi",s:"retro, dentro la spirale di Metone",
+  d:"Quattro settori, uno per ogni anno di un ciclo di quattro anni, con i nomi dei giochi di quell'anno: le Olimpiadi, i Giochi Istmici, Nemei e Pitici, più i Naa e gli Halieia. La sua lancetta fa un giro ogni 4 anni."},
+ calD:{t:"quadrante di Callippo",s:"retro, dentro la spirale di Metone",
+  d:"Segna il ciclo di Callippo: 76 anni, cioè quattro cicli di Metone meno un giorno. Serviva a tenere d'accordo, sul lungo periodo, i mesi lunari e gli anni. Le ruote che lo muovono non si sono conservate: sono ricostruite."},
+ exeD:{t:"quadrante dell'Exeligmos",s:"retro, dentro la spirale del Saros",
+  d:"Tre settori, 0, 8 e 16: dicono quante ore aggiungere all'ora delle eclissi scritta nella spirale del Saros. Dopo tre Saros, circa 54 anni, l'aggiunta torna a zero e il ciclo ricomincia."}
+};
+const AXT={t:"albero dell'asse",
+ d:"L'albero è il perno su cui girano le ruote: quelle unite dal segno + sono fissate insieme e girano alla stessa velocità.",
+ m:"Qui sullo stesso asse ci sono gruppi diversi, e ciascuno gira per conto suo.",
+ x:{b:"È l'asse centrale: sul fronte porta le lancette del Sole e della Luna.",n:"Sul retro porta la lancetta della spirale di Metone.",g:"Sul retro porta la lancetta della spirale del Saros.",o:"Sul retro porta la lancetta dei Giochi.",q:"Sul retro porta la lancetta di Callippo.",i:"Sul retro porta la lancetta dell'Exeligmos."}};
 const GDESC=Object.fromEntries(GEARS.map(g=>[g[0],g[3]]));
 const GEOBY=Object.fromEntries(GEO.map(g=>[g[0],g]));
 const rayc=new THREE.Raycaster(); const ndcv=new THREE.Vector2();
 const M_PICK=new THREE.MeshStandardMaterial({color:0xFFD07A,emissive:0x7A5410,metalness:.5,roughness:.35});
-let picked=null;
-function clearPick(){ if(picked){ picked.material=(picked.userData.st==="oss")?M_OSS:M_HYP; picked=null; }
+const M_PICKP=new THREE.MeshBasicMaterial({color:0xFFD07A,transparent:true,opacity:.16,side:THREE.DoubleSide,depthWrite:false});   // piastra scelta
+const M_PICKG=new THREE.MeshBasicMaterial({color:0xFFD07A,transparent:true,opacity:.30,side:THREE.DoubleSide,depthWrite:false});   // quadrante scelto
+const M_HIDE=new THREE.MeshBasicMaterial({visible:false,side:THREE.DoubleSide});   // sagome invisibili che allargano i pezzi sottili
+/* ogni pezzo cliccabile porta la chiave della sua scheda. Classe 0 = pezzi, 1 = quadranti disegnati a linee,
+   2 = piastre trasparenti: lungo il raggio vengono prima i pezzi, poi i quadranti, per ultime le piastre */
+const PK_LIST=[], PK_HL={}, PK_CLS={};
+function pkReg(m,key,cls){ m.userData.pick=key; PK_LIST.push(m); PK_CLS[key]=cls||0; }
+function pkHL(key,ms){ PK_HL[key]=(PK_HL[key]||[]).concat(ms); for(const m of ms) if(m.userData.mat0===undefined) m.userData.mat0=m.material; }
+function pkProxy(geo,parent,key){ const m=new THREE.Mesh(geo,M_HIDE); parent.add(m); pkReg(m,key,PK_CLS[key]||0); return m; }
+for(const n in gears){ pkReg(gears[n],"g:"+n,0); pkHL("g:"+n,[gears[n]]); }
+pkReg(a1,"a1",0); pkHL("a1",[a1]);
+{ const g=new THREE.CylinderGeometry(14,14,4,24); g.rotateZ(Math.PI/2); g.translate(0.8,0,0); pkProxy(g,a1g,"a1"); }   // a1 di taglio si vede appena
+pkReg(crank,"crank",0); pkHL("crank",[crank]); pkProxy(new THREE.CylinderGeometry(3.5,3.5,26,12),crank,"crank");
+{ const PLEN={sun:62,moon:50,met:50,sar:48,gam:11,cal:11,exe:11};
+  for(const k in P){ const parts=P[k].children.filter(c=>c!==moonBall); for(const c of parts) pkReg(c,k,0); pkHL(k,parts);
+    const L=PLEN[k]+4, g=new THREE.BoxGeometry(L,(k==="sun"||k==="moon")?5:4,2.4); g.translate(L/2,0,0); pkProxy(g,P[k],k); } }
+pkReg(moonBall,"moonball",0); pkHL("moonball",[moonBall]);
+pkReg(pin,"pin",0); pkHL("pin",[pin]); pkProxy(new THREE.CylinderGeometry(2,2,3.4,10),pin,"pin");
+pkReg(slot,"slot",0); pkHL("slot",[slot]); pkProxy(new THREE.BoxGeometry(7.5,3.6,1.2),slot,"slot");
+for(const a of arbors){ const k="ax:"+a.userData.ax; pkReg(a,k,0); pkHL(k,[a]); }
+for(const m of plates.children.filter(c=>c.isMesh)){ const k=m.userData.z>1?"plateF":(m.userData.z<-1?"plateB":"plate0"); m.userData.plate=true; pkReg(m,k,2); pkHL(k,[m]); }
+function pkDial(geo,x,y,z,key){ const m=new THREE.Mesh(geo,M_HIDE); m.position.set(x,y,z); m.userData.z=z; m.userData.ghost=true; plates.add(m); pkReg(m,key,1); pkHL(key,[m]); }
+pkDial(new THREE.RingGeometry(51.5,58,72),0,0,7.6,"zod"); pkDial(new THREE.RingGeometry(58,64.5,72),0,0,7.6,"egy");
+pkDial(new THREE.RingGeometry(18,52,96),AX.n[0],AX.n[1],-16.1,"metS"); pkDial(new THREE.RingGeometry(18,50,96),AX.g[0],AX.g[1],-16.1,"sarS");
+pkDial(new THREE.CircleGeometry(12,40),AX.o[0],AX.o[1],-16.3,"gamD"); pkDial(new THREE.CircleGeometry(12,40),AX.q[0],AX.q[1],-16.3,"calD");
+pkDial(new THREE.CircleGeometry(12,40),AX.i[0],AX.i[1],-16.3,"exeD");
+function pkShown(o){ for(let p=o;p;p=p.parent) if(!p.visible) return false; return true; }   // spenti col tasto = non cliccabili
+function pkBase(m){ const u=m.userData; if(gears[u.name]===m) return u.st==="oss"?M_OSS:M_HYP; if(m===a1) return M_OSS; return u.mat0; }
+function pkHlMat(m){ return m.userData.ghost?M_PICKG:(m.userData.plate?M_PICKP:M_PICK); }
+let pkSel=null;
+function clearPick(){ if(pkSel){ for(const m of pkSel.m) m.material=pkBase(m); pkSel=null; }
   const el=document.getElementById("pickcard"); if(el) el.hidden=true; }
-function showPick(mesh){
-  clearPick(); picked=mesh; mesh.material=M_PICK;
-  const n=mesh.userData.name, g=GEOBY[n], rate=RATE[SOLID_OF[n]];
+function pickRefresh(){ if(pkSel) for(const m of pkSel.m) m.material=pkHlMat(m); }
+function pickRecheck(){ if(pkSel&&!pkSel.m.some(pkShown)) clearPick(); }
+function pkCard(key){
+  if(key.startsWith("g:")){ const n=key.slice(2), g=GEOBY[n], rate=RATE[SOLID_OF[n]];
+    const spin=(rate===undefined)?"":" &middot; "+Math.abs(rate).toFixed(3)+" "+PT.turns+" ("+(rate<0?PT.cw:PT.ccw)+" "+PT.seen+")";
+    return '<span class="pkn">'+n+'</span> &mdash; '+g[2]+' '+PT.teeth+' &middot; '+(g[7]==="oss"?PT.oss:PT.hyp)+
+      '<br><span class="pkd">'+(GDESC[n]||"")+'</span>'+
+      '<span class="pks">'+PT.radius+' '+g[3].toFixed(1)+' mm &middot; '+PT.layer+' z '+g[6].toFixed(1)+' mm'+spin+'</span>'; }
+  if(key.startsWith("ax:")){ const ax=key.slice(3), grp=[];
+    for(const s in SOLIDS){ const g0=GEOBY[SOLIDS[s][0]]; if(g0&&g0[1]===ax) grp.push(SOLIDS[s].join(" + ")); }
+    return '<span class="pkn">'+AXT.t+' '+ax+'</span> &mdash; '+grp.join(" &middot; ")+
+      '<br><span class="pkd">'+AXT.d+(grp.length>1?" "+AXT.m:"")+(AXT.x[ax]?" "+AXT.x[ax]:"")+'</span>'; }
+  const c=PX[key]; if(!c) return "";
+  return '<span class="pkn">'+c.t+'</span>'+(c.s?' &mdash; '+c.s:'')+'<br><span class="pkd">'+c.d+'</span>'+(c.x?'<span class="pks">'+c.x+'</span>':''); }
+function showPick(key){
+  clearPick(); pkSel={key,m:(PK_HL[key]||[]).filter(pkShown)}; pickRefresh();
   const el=document.getElementById("pickcard"); if(!el) return;
-  const spin=(rate===undefined)?"":" &middot; "+Math.abs(rate).toFixed(3)+" "+PT.turns+" ("+(rate<0?PT.cw:PT.ccw)+" "+PT.seen+")";
-  el.innerHTML='<span class="pkn">'+n+'</span> &mdash; '+g[2]+' '+PT.teeth+' &middot; '+(g[7]==="oss"?PT.oss:PT.hyp)+
-    '<br><span class="pkd">'+(GDESC[n]||"")+'</span>'+
-    '<span class="pks">'+PT.radius+' '+g[3].toFixed(1)+' mm &middot; '+PT.layer+' z '+g[6].toFixed(1)+' mm'+spin+'</span>';
-  el.hidden=false;
+  el.innerHTML=pkCard(key); el.hidden=false;
 }
 function pickAt(cx,cy){
   const r=canvas.getBoundingClientRect();
   ndcv.x=((cx-r.left)/r.width)*2-1; ndcv.y=-((cy-r.top)/r.height)*2+1;
+  scene.updateMatrixWorld(); camera.updateMatrixWorld();   // posizioni di adesso, anche se il fotogramma non è ancora stato disegnato
   rayc.setFromCamera(ndcv,camera);
-  const hits=rayc.intersectObjects(Object.values(gears),false);
-  const chain=[]; for(const h of hits) if(!chain.includes(h.object)) chain.push(h.object);
+  const keys=[]; for(const h of rayc.intersectObjects(PK_LIST,false)){ const k=h.object.userData.pick; if(!keys.includes(k)&&pkShown(h.object)) keys.push(k); }
+  const chain=[0,1,2].flatMap(c=>keys.filter(k=>PK_CLS[k]===c));
   if(!chain.length){ clearPick(); return; }
-  // toccando di nuovo lo stesso punto si scende alla ruota successiva lungo il raggio
-  let i=0; if(picked){ const k=chain.indexOf(picked); if(k>=0) i=(k+1)%chain.length; }
+  // toccando di nuovo lo stesso punto si scende al pezzo successivo lungo il raggio
+  let i=0; if(pkSel){ const k=chain.indexOf(pkSel.key); if(k>=0) i=(k+1)%chain.length; }
   showPick(chain[i]);
 }
 let tapAt=null;
@@ -1525,10 +1630,10 @@ const playBtn=document.getElementById("play"); const setPlayLabel=()=>{ playBtn.
 playBtn.onclick=()=>{ playing=!playing; setPlayLabel(); }; setPlayLabel();
 document.getElementById("speed").oninput=e=>{ speed=+e.target.value; document.getElementById("speedlab").textContent=speed+" g/s"; };
 document.getElementById("explode").oninput=e=>{ explode=e.target.value/10; document.getElementById("explab").textContent="×"+explode.toFixed(1); applyExplode(); };
-function toggle(id,fn){ const b=document.getElementById(id); b.onclick=()=>{ const on=b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed",on); fn(on); }; }
+function toggle(id,fn){ const b=document.getElementById(id); b.onclick=()=>{ const on=b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed",on); fn(on); pickRecheck(); }; }
 toggle("tPlates",on=>plates.visible=on); toggle("tLabels",on=>labels.visible=on);
 toggle("tHyp",on=>{ for(const n in gears) if(gears[n].userData.st==="hyp") gears[n].visible=on; });
-function setLook(pat){ M_OSS=pat?M_PAT:M_NEW; for(const n in gears) if(gears[n].userData.st==="oss") gears[n].material=M_OSS; a1.material=M_OSS;
+function setLook(pat){ M_OSS=pat?M_PAT:M_NEW; for(const n in gears) if(gears[n].userData.st==="oss") gears[n].material=M_OSS; a1.material=M_OSS; pickRefresh();
   document.getElementById("aNew").setAttribute("aria-pressed",!pat); document.getElementById("aPatina").setAttribute("aria-pressed",pat); }
 document.getElementById("aNew").onclick=()=>setLook(false); document.getElementById("aPatina").onclick=()=>setLook(true);
 
