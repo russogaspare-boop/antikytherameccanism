@@ -120,7 +120,7 @@ footer{margin-top:48px;padding-top:18px;border-top:1px solid var(--line);font-si
 .console.c3{margin-top:0}
 .console.c3 .field input[type=range]{width:150px;accent-color:var(--verd);padding:0}
 .viewer{position:relative;margin-top:16px;border:1px solid #000;border-radius:4px;overflow:hidden;background:#0B100E}
-#c3d{display:block;width:100%;height:min(72vh,760px);cursor:grab;touch-action:none} #c3d:active{cursor:grabbing}
+#c3d{display:block;width:100%;height:min(72vh,760px);cursor:grab;touch-action:pan-y} #c3d:active{cursor:grabbing}
 .hud{position:absolute;left:14px;top:12px;font-family:var(--f-mono);font-size:11.5px;color:#DEE6E0;
   background:rgba(8,13,11,.72);padding:8px 10px;border-radius:3px;line-height:1.55;pointer-events:none;max-width:min(92%,360px)}
 .hud b{color:#55C4A6;font-weight:500}
@@ -191,9 +191,24 @@ body.simple .console:not(.c3){padding:12px 16px}
 .pickcard .pkn{font-family:var(--f-mono);font-size:16px;color:#FFD98A}
 .pickcard .pkd{color:#C7D6CD}
 .pickcard .pks{display:block;margin-top:5px;font-family:var(--f-mono);font-size:11.5px;color:#8FA79A}
+/* la scheda sta dentro il riquadro 3D, in alto: computer a destra, telefono su tutta la larghezza */
+.c3box{position:relative}
+.c3box .pickcard{position:absolute;top:12px;right:14px;z-index:3;margin:0;width:min(380px,38%);max-height:calc(100% - 64px);overflow:auto;
+  background:rgba(9,14,12,.92);color:#E4ECE7;border:1px solid rgba(255,217,138,.34);border-radius:6px;padding:12px 46px 12px 15px;
+  box-shadow:0 8px 28px rgba(0,0,0,.5);animation:pkin .18s ease-out}
+.pkx{position:absolute;top:7px;right:7px;width:32px;height:32px;border-radius:50%;border:1px solid rgba(255,255,255,.22);
+  background:rgba(255,255,255,.08);color:#E4ECE7;font-size:20px;line-height:1;cursor:pointer;display:grid;place-items:center;padding:0}
+.pkx:hover{background:rgba(255,255,255,.18)}
+@keyframes pkin{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion:reduce){.c3box .pickcard{animation:none}}
+.t-touch{display:none}
+@media (hover:none) and (pointer:coarse){.t-touch{display:inline}.t-mouse{display:none}}
 @media (max-width:700px){
   .hint{display:none}
   #c3d{height:min(52vh,380px)}
+  .c3box .pickcard{top:8px;left:8px;right:8px;width:auto;max-height:52%;font-size:13px;line-height:1.5;padding:10px 48px 10px 12px}
+  .c3box .pickcard .pkn{font-size:15px}
+  .pkx{top:5px;right:5px;width:38px;height:38px}
   .hud{position:static;max-width:none;font-size:11px;line-height:1.5;background:transparent;border-radius:0;padding:10px 12px 4px}
   .hud .d{font-size:16px}
   .legend{position:static;background:transparent;border-radius:0;padding:2px 12px 10px;font-size:10px;gap:10px 14px;flex-wrap:wrap;justify-content:flex-start}
@@ -285,7 +300,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   <h2 style="font-size:28px">Il meccanismo, <em>vivo</em></h2>
   <p class="lede">Questa &egrave; la macchina che gira: ogni ruota con le misure vere lette alla tomografia, mossa dagli stessi rapporti di 2.100 anni fa. Trascina per girarla intorno; sotto, i comandi.</p>
   <div class="viewer">
-  <canvas id="c3d"></canvas>
+  <div class="c3box"><canvas id="c3d"></canvas><div class="pickcard" id="pickcard" hidden aria-live="polite"></div></div>
   <div class="hud" id="hud"></div>
   <div class="legend"><span><span class="sw" style="background:#5C8666"></span>osservata</span>
     <span><span class="sw" style="background:#4FBFA3;opacity:.7"></span>ipotetica</span>
@@ -294,8 +309,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
 </div>
 <div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Scomponi il meccanismo</button></div>
 <p class="exnote" id="exnote" hidden>Le ruote si allontanano lungo l&rsquo;asse della manovella: nel modello stanno su <b>dodici quote diverse</b>, dai +3,0&nbsp;mm della grande <b>b1</b> ai &minus;13,5&nbsp;mm dell&rsquo;ultimo piano. Accendi le &laquo;sigle&raquo; e cerca <b>k1</b> e <b>k2</b>: due ruote da 50 denti su assi non allineati, una porta un perno che scorre nella fenditura dell&rsquo;altra &mdash; &egrave; cos&igrave; che la macchina fa correre la Luna pi&ugrave; veloce vicino al perigeo e pi&ugrave; lenta all&rsquo;apogeo. Le ruote in verde chiaro sono le <b>ipotetiche</b>: nel reperto non ci sono.</p>
-<p class="pickhint">Trascina per girare intorno &middot; pizzica o rotella per avvicinarti &middot; <b>tocca un pezzo</b> (ruota, lancetta, manovella, quadrante) per la sua scheda, di nuovo per quello dietro</p>
-<div class="pickcard" id="pickcard" hidden></div>
+<p class="pickhint"><span class="t-mouse">Trascina per girare intorno &middot; pizzica o rotella per avvicinarti</span><span class="t-touch">Trascina di lato per girare intorno (in su e in gi&ugrave; scorre la pagina) &middot; pizzica per avvicinarti</span> &middot; <b>tocca un pezzo</b> (ruota, lancetta, manovella, quadrante) per la sua scheda, di nuovo per quello dietro</p>
   <div class="console c3">
   <div class="field"><label>manovella</label><div class="btnrow">
     <button class="btn key" id="play" aria-pressed="true">▶ gira</button>
@@ -1389,9 +1403,13 @@ function fitDist(k=1){ const tv=Math.tan(camera.fov*Math.PI/360), a=camera.aspec
   return Math.min(1500,Math.max(60,(Math.max(dv,dh)*1.13+20)*k)); }
 function placeCam(){ camera.position.set(target.x+dist*Math.sin(phi)*Math.sin(theta), target.y+dist*Math.cos(phi), target.z+dist*Math.sin(phi)*Math.cos(theta)); camera.up.set(0,1,0); camera.lookAt(target); }
 let drag=null; const touches=new Map(); let pinch=null;
-canvas.addEventListener("pointerdown",e=>{ autoOrbit=false; touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
-  if(touches.size===2){ const [a,b2]=[...touches.values()]; pinch={d:Math.hypot(a.x-b2.x,a.y-b2.y),cx:(a.x+b2.x)/2,cy:(a.y+b2.y)/2}; drag=null; return; }
-  drag={x:e.clientX,y:e.clientY,b:e.button}; canvas.setPointerCapture(e.pointerId); });
+/* telefono: il dito che va in su o in giu' fa scorrere la pagina (touch-action:pan-y), quello che va di lato gira il modello;
+   si decide dopo i primi 8 px, cosi' chi scorre la pagina non sposta il meccanismo. Due dita: avvicina e sposta. */
+const SLOP=8, stopOrbit=()=>{ if(typeof autoOrbit!=="undefined") autoOrbit=false; };
+canvas.addEventListener("pointerdown",e=>{ touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+  if(touches.size===2){ stopOrbit(); const [a,b2]=[...touches.values()]; pinch={d:Math.hypot(a.x-b2.x,a.y-b2.y),cx:(a.x+b2.x)/2,cy:(a.y+b2.y)/2}; drag=null; return; }
+  const finger=e.pointerType==="touch"; if(!finger) stopOrbit();
+  drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY,b:e.button,rot:!finger}; canvas.setPointerCapture(e.pointerId); });
 canvas.addEventListener("pointermove",e=>{
   if(touches.has(e.pointerId)) touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(pinch&&touches.size===2){ const [a,b2]=[...touches.values()]; const d=Math.hypot(a.x-b2.x,a.y-b2.y), cx=(a.x+b2.x)/2, cy=(a.y+b2.y)/2;
@@ -1399,12 +1417,17 @@ canvas.addEventListener("pointermove",e=>{
     const right=new THREE.Vector3().crossVectors(camera.getWorldDirection(new THREE.Vector3()),camera.up).normalize();
     target.addScaledVector(right,-(cx-pinch.cx)*dist*0.0012); target.addScaledVector(camera.up,(cy-pinch.cy)*dist*0.0012);
     pinch={d,cx,cy}; placeCam(); return; }
-  if(!drag) return; const dx=e.clientX-drag.x, dy=e.clientY-drag.y; drag.x=e.clientX; drag.y=e.clientY;
+  if(!drag) return;
+  if(!drag.rot){ const mx=e.clientX-drag.x0, my=e.clientY-drag.y0; if(Math.hypot(mx,my)<SLOP) return;
+    if(Math.abs(my)>Math.abs(mx)){ drag=null; return; }   // in su o in giu': scorre la pagina, il modello resta fermo
+    drag.rot=true; stopOrbit(); drag.x=e.clientX; drag.y=e.clientY; return; }
+  const dx=e.clientX-drag.x, dy=e.clientY-drag.y; drag.x=e.clientX; drag.y=e.clientY;
   if(drag.b===2||e.shiftKey){ const right=new THREE.Vector3().crossVectors(camera.getWorldDirection(new THREE.Vector3()),camera.up).normalize();
     target.addScaledVector(right,-dx*dist*0.0012); target.addScaledVector(camera.up,dy*dist*0.0012); }
   else { theta-=dx*0.006; phi=Math.min(Math.PI-0.05,Math.max(0.05,phi-dy*0.006)); } placeCam(); });
 const endTouch=e=>{ touches.delete(e.pointerId); if(touches.size<2) pinch=null; drag=null; };
 canvas.addEventListener("pointerup",endTouch); canvas.addEventListener("pointercancel",endTouch); canvas.addEventListener("contextmenu",e=>e.preventDefault());
+canvas.addEventListener("touchmove",e=>{ if(e.cancelable&&(e.touches.length>1||(drag&&drag.rot))) e.preventDefault(); },{passive:false});
 canvas.addEventListener("wheel",e=>{ e.preventDefault(); userZoom=true; dist=Math.min(1500,Math.max(60,dist*(1+e.deltaY*0.001))); placeCam(); },{passive:false});
 document.getElementById("vFront").onclick=()=>{theta=0.35;phi=1.15;userZoom=false;dist=fitDist();target.set(4,-2,-4);placeCam();};
 document.getElementById("vBack").onclick=()=>{theta=Math.PI-0.3;phi=1.3;userZoom=false;dist=fitDist();target.set(4,-2,-4);placeCam();};
@@ -1448,7 +1471,7 @@ function setAngles3D(J){
 }
 function resize(){ const w=canvas.clientWidth, h=canvas.clientHeight; if(!w||!h) return;
   if(canvas.width!==Math.round(w*renderer.getPixelRatio())||canvas.height!==Math.round(h*renderer.getPixelRatio())){
-    renderer.setSize(w,h,false); camera.aspect=w/h; camera.updateProjectionMatrix();
+    renderer.setSize(w,h,false); camera.aspect=w/h; cardGoal(); applyShift();
     if(!userZoom) dist=fitDist();
     placeCam(); } }
 let canvasVisible=true; try{ new IntersectionObserver(en=>{ canvasVisible=en[0].isIntersecting; }).observe(canvas); }catch(_){}
@@ -1456,7 +1479,7 @@ let canvasVisible=true; try{ new IntersectionObserver(en=>{ canvasVisible=en[0].
 /* ---- esplorazione: tocca un pezzo e leggi che cos'e'. Le ruote usano le tabelle gia' in pagina
    (GEO = Tab. S8, GEARS = funzione, RATE = rapporti); manovella, a1, lancette, perno, fenditura,
    alberi, quadranti e piastre hanno la loro scheda in PX e AXT, qui sotto. ---- */
-const PT={oss:"osservata alla tomografia",hyp:"ipotetica, ricostruita",teeth:"denti",turns:"giri per giro di b1",radius:"raggio esterno",layer:"quota",cw:"orario",ccw:"antiorario",seen:"visto dal fronte"};
+const PT={oss:"osservata alla tomografia",hyp:"ipotetica, ricostruita",teeth:"denti",turns:"giri per giro di b1",radius:"raggio esterno",layer:"quota",cw:"orario",ccw:"antiorario",seen:"visto dal fronte",close:"Chiudi"};
 const PX={
  crank:{t:"manovella",s:"perduta nel reperto, qui ricostruita",
   d:"Da qui partiva tutto: chi usava la macchina girava a mano questa manovella. La manovella fa girare la ruota a1, a1 spinge la grande ruota b1, e da b1 il moto passa a tutte le altre ruote e alle lancette.",
@@ -1557,7 +1580,7 @@ function pkBase(m){ const u=m.userData; if(gears[u.name]===m) return u.st==="oss
 function pkHlMat(m){ return m.userData.ghost?M_PICKG:(m.userData.plate?M_PICKP:M_PICK); }
 let pkSel=null;
 function clearPick(){ if(pkSel){ for(const m of pkSel.m) m.material=pkBase(m); pkSel=null; }
-  const el=document.getElementById("pickcard"); if(el) el.hidden=true; }
+  const el=document.getElementById("pickcard"); if(el) el.hidden=true; cardGoal(); }
 function pickRefresh(){ if(pkSel) for(const m of pkSel.m) m.material=pkHlMat(m); }
 function pickRecheck(){ if(pkSel&&!pkSel.m.some(pkShown)) clearPick(); }
 function pkCard(key){
@@ -1575,8 +1598,28 @@ function pkCard(key){
 function showPick(key){
   clearPick(); pkSel={key,m:(PK_HL[key]||[]).filter(pkShown)}; pickRefresh();
   const el=document.getElementById("pickcard"); if(!el) return;
-  el.innerHTML=pkCard(key); el.hidden=false;
+  el.innerHTML='<button type="button" class="pkx" aria-label="'+PT.close+'" title="'+PT.close+'">&times;</button>'+pkCard(key);
+  el.hidden=false; el.scrollTop=0; cardGoal();
 }
+{ const el=document.getElementById("pickcard"); if(el) el.addEventListener("click",e=>{ if(e.target.closest(".pkx")) clearPick(); }); }
+/* scheda aperta: il modello scivola nella parte libera del riquadro e, se non ci sta, rimpicciolisce
+   (telefono: scheda in alto e modello sotto; computer: scheda a destra e modello a sinistra).
+   Chi ha avvicinato il modello con le dita o la rotella lo ritrova grande com'era: si sposta soltanto. */
+const vshift={x:0,y:0,z:1}, vgoal={x:0,y:0,z:1};
+function cardGoal(){ vgoal.x=0; vgoal.y=0; vgoal.z=1;
+  const el=document.getElementById("pickcard"), w=canvas.clientWidth, h=canvas.clientHeight; if(!el||el.hidden||!w||!h) return;
+  const r=el.getBoundingClientRect(), c=canvas.getBoundingClientRect(), tv=Math.tan(camera.fov*Math.PI/360), ex=(typeof explode==="number"?explode:1);
+  if(r.width>w*0.7){ const ch=r.bottom-c.top+6, need=(100+3*(ex-1))*2.3*h/(dist*tv)/2;   // altezza del modello sullo schermo
+    vgoal.y=-ch/2; if(!userZoom) vgoal.z=Math.max(0.45,Math.min(1,(h-ch)/need)); }
+  else { const cw=c.right-r.left+6, need=Math.hypot(92,22*(ex-1))*2.3*h/(dist*tv)/2;   // larghezza del modello sullo schermo
+    vgoal.x=cw/2; if(!userZoom) vgoal.z=Math.max(0.55,Math.min(1,(w-cw)/need)); } }
+function applyShift(){ const w=canvas.clientWidth, h=canvas.clientHeight; camera.zoom=vshift.z;
+  if(w&&h&&(vshift.x||vshift.y)) camera.setViewOffset(w,h,vshift.x,vshift.y,w,h); else camera.clearViewOffset();
+  camera.updateProjectionMatrix(); }
+function stepShift(){ let ch=false;
+  for(const k of ["x","y","z"]){ const d=vgoal[k]-vshift[k]; if(!d) continue; ch=true;
+    vshift[k]=Math.abs(d)<(k==="z"?0.002:0.5)?vgoal[k]:vshift[k]+d*0.2; }
+  if(ch) applyShift(); }
 function pickAt(cx,cy){
   const r=canvas.getBoundingClientRect();
   ndcv.x=((cx-r.left)/r.width)*2-1; ndcv.y=-((cy-r.top)/r.height)*2+1;
@@ -1593,7 +1636,8 @@ let tapAt=null;
 canvas.addEventListener("pointerdown",e=>{ tapAt={x:e.clientX,y:e.clientY,t:performance.now()}; });
 canvas.addEventListener("pointerup",e=>{ if(!tapAt) return;
   const moved=Math.hypot(e.clientX-tapAt.x,e.clientY-tapAt.y), dt=performance.now()-tapAt.t; tapAt=null;
-  if(moved<7&&dt<450&&touches.size<=1) pickAt(e.clientX,e.clientY); });
+  if(moved<7&&dt<450&&touches.size<=1){ stopOrbit(); pickAt(e.clientX,e.clientY); } });
+canvas.addEventListener("pointercancel",()=>{ tapAt=null; });
 
 /* ---- scomposizione con un clic: tutti gli strati si allontanano insieme lungo l'asse
    della manovella e la camera va di tre quarti, altrimenti di fronte non si vedrebbe nulla ---- */
@@ -1622,7 +1666,7 @@ function toggleExplode(){
   exLabel();
 }
 { const b=document.getElementById("exBtn"); if(b) b.onclick=toggleExplode; }
-function frame(now){ const dt=(now-last)/1000; last=now; if(exTween) stepExplode(now); if(autoOrbit){ theta+=0.0012; placeCam(); } if(playing){ baseJD+=speed*dt; update(); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); renderer.render(scene,camera); requestAnimationFrame(frame); }
+function frame(now){ const dt=(now-last)/1000; last=now; if(exTween) stepExplode(now); if(autoOrbit){ theta+=0.0012; placeCam(); } if(playing){ baseJD+=speed*dt; update(); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); stepShift(); renderer.render(scene,camera); requestAnimationFrame(frame); }
 
 /* ---- controlli ---- */
 document.querySelectorAll(".c3 [data-step]").forEach(b=>b.onclick=()=>{ baseJD+=+b.dataset.step; update(); });
@@ -1630,6 +1674,17 @@ const playBtn=document.getElementById("play"); const setPlayLabel=()=>{ playBtn.
 playBtn.onclick=()=>{ playing=!playing; setPlayLabel(); }; setPlayLabel();
 document.getElementById("speed").oninput=e=>{ speed=+e.target.value; document.getElementById("speedlab").textContent=speed+" g/s"; };
 document.getElementById("explode").oninput=e=>{ explode=e.target.value/10; document.getElementById("explab").textContent="×"+explode.toFixed(1); applyExplode(); };
+/* telefono: il dito che si posa su una barra per far scorrere la pagina la sposterebbe subito dove tocca
+   (e il meccanismo si aprirebbe da solo). La barra conta solo se il dito va di lato o se e' un tocco deciso;
+   se invece la pagina scorre, la barra torna dov'era. */
+for(const id of ["speed","explode"]){ const r=document.getElementById(id); if(!r||!r.oninput) continue;
+  const apply=r.oninput; let t=null;
+  r.oninput=e=>{ if(!t||t.ok) apply(e); };
+  r.addEventListener("pointerdown",e=>{ t=e.pointerType==="touch"?{v0:r.value,x:e.clientX,y:e.clientY,ok:false}:null; });
+  r.addEventListener("pointermove",e=>{ if(t&&!t.ok&&Math.abs(e.clientX-t.x)>Math.abs(e.clientY-t.y)+4){ t.ok=true; apply({target:r}); } });
+  r.addEventListener("pointerup",()=>{ if(t&&!t.ok) apply({target:r}); t=null; });
+  r.addEventListener("pointercancel",()=>{ if(t&&!t.ok) r.value=t.v0; t=null; });
+}
 function toggle(id,fn){ const b=document.getElementById(id); b.onclick=()=>{ const on=b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed",on); fn(on); pickRecheck(); }; }
 toggle("tPlates",on=>plates.visible=on); toggle("tLabels",on=>labels.visible=on);
 toggle("tHyp",on=>{ for(const n in gears) if(gears[n].userData.st==="hyp") gears[n].visible=on; });
