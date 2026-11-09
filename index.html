@@ -1353,10 +1353,11 @@ function arbor(ax,z0,z1,r=1.1){ const h=Math.abs(z1-z0); const m=new THREE.Mesh(
 const arbors=[]; const zByAx={}, faceByAx={};
 for(const g of GEO){ if(g[1]==="k") continue; (zByAx[g[1]]=zByAx[g[1]]||[]).push(g[6]);
   const f=faceByAx[g[1]]=faceByAx[g[1]]||[Infinity,-Infinity]; f[0]=Math.min(f[0],g[6]-g[5]/2); f[1]=Math.max(f[1],g[6]+g[5]/2); }
-// ogni albero va da una faccia all'altra delle sue ruote: quello centrale arriva alle lancette, c si appoggia
+// ogni albero va da una faccia all'altra delle sue ruote: quello centrale arriva alla lancetta della Luna e finisce lì,
+// sotto la pallina (anche separando gli strati), c si appoggia
 // alla piastra, quelli delle lancette del retro passano la piastra posteriore
 for(const ax in zByAx){ let [lo,hi]=faceByAx[ax];
-  if(ax==="b") hi=Z.moon+0.4; if(ax==="c") lo=-0.6; if(ax==="n"||ax==="g"||ax==="o"||ax==="q"||ax==="i") lo=Z.backPtr-1;
+  if(ax==="b") hi=Z.moon; if(ax==="c") lo=-0.6; if(ax==="n"||ax==="g"||ax==="o"||ax==="q"||ax==="i") lo=Z.backPtr-1;
   arbors.push(arbor(ax,lo,hi, ax==="b"?2.6:1.1)); }
 
 // manovella: ruota conica a1 sul bordo di b1
