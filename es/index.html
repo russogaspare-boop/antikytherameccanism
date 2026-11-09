@@ -308,7 +308,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
   <div class="hint">arrastra · rueda · bot&oacute;n derecho</div>
 </div>
 <div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Descomponer el mecanismo</button></div>
-<p class="exnote" id="exnote" hidden>Las ruedas se separan a lo largo del eje de la manivela: en este modelo est&aacute;n en <b>doce cotas distintas</b>, desde +3,0&nbsp;mm de la gran <b>b1</b> hasta &minus;13,5&nbsp;mm del &uacute;ltimo plano. Enciende las &laquo;siglas&raquo; y busca <b>k1</b> y <b>k2</b>: dos ruedas de 50 dientes sobre ejes no alineados, una lleva un perno que corre por la ranura de la otra &mdash; as&iacute; la m&aacute;quina hace que la Luna corra m&aacute;s r&aacute;pido cerca del perigeo y m&aacute;s lenta en el apogeo. Las ruedas en verde claro son las <b>hipot&eacute;ticas</b>: no est&aacute;n en la pieza.</p>
+<p class="exnote" id="exnote" hidden>Las ruedas se separan a lo largo del eje de la manivela: en este modelo est&aacute;n en <b>once cotas distintas</b>, desde +6,5&nbsp;mm de la gran <b>b1</b> hasta &minus;12,5&nbsp;mm del &uacute;ltimo plano. Enciende las &laquo;siglas&raquo; y busca <b>k1</b> y <b>k2</b>: dos ruedas de 50 dientes sobre ejes no alineados, una lleva un perno que corre por la ranura de la otra &mdash; as&iacute; la m&aacute;quina hace que la Luna corra m&aacute;s r&aacute;pido cerca del perigeo y m&aacute;s lenta en el apogeo. Las ruedas en verde claro son las <b>hipot&eacute;ticas</b>: no est&aacute;n en la pieza.</p>
 <p class="pickhint"><span class="t-mouse">Arrastra para girar &middot; pellizca o rueda para acercar</span><span class="t-touch">Arrastra de lado para girar (arriba y abajo desplaza la p&aacute;gina) &middot; pellizca para acercar</span> &middot; <b>toca cualquier pieza</b> (rueda, aguja, manivela, cuadrante) para ver su ficha, otra vez para la de detr&aacute;s</p>
   <div class="console c3">
   <div class="field"><label>manivela</label><div class="btnrow">
@@ -394,15 +394,18 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
     <tr><td>Distancia entre ejes de cada par engranado</td><td>suma de los radios primitivos</td><td><span class="chip ok">impuesto por la mec&aacute;nica</span></td></tr>
     <tr><td>Eje met&oacute;nico (n) en la vertical sobre b; eje del Saros (g) en la vertical debajo</td><td>posici&oacute;n de las dos esferas posteriores</td><td><span class="chip ok">restricci&oacute;n real</span></td></tr>
     <tr><td>&Aacute;ngulos de disposici&oacute;n de los dem&aacute;s ejes (c, d, e, f, h, i, l, m, o, p, q)</td><td>resueltos num&eacute;ricamente: engranes exactos, sin colisiones entre ruedas de la misma capa</td><td><span class="chip hyp">elecci&oacute;n de proyecto &mdash; POR VERIFICAR contra las coordenadas TC</span></td></tr>
-    <tr><td>Orden y cota de las capas (z)</td><td>orden impuesto por las cadenas; cotas propias, paso 1,5 mm</td><td><span class="chip hyp">aproximado</span></td></tr>
+    <tr><td>Orden y cota de las capas (z)</td><td>orden de la secci&oacute;n de la tomograf&iacute;a (Freeth 2021, Suppl. Fig. S16f); cotas propias</td><td><span class="chip hyp">aproximado</span></td></tr>
     <tr><td>Dimensiones de placas, esferas y espirales; forma de los punteros</td><td>cubierta frontal &asymp;128,8 mm; el resto elegido para contener el tren</td><td><span class="chip hyp">aproximado</span></td></tr>
     <tr><td>P&aacute;tina del hallazgo (color y rugosidad de las superficies)</td><td>ruido procedural calibrado con los colores documentados del bronce corro&iacute;do: cardenillo, cuprita, dep&oacute;sitos calc&aacute;reos; no es una fotograf&iacute;a</td><td><span class="chip hyp">evocador</span></td></tr>
     <tr><td>Sentido de giro, relaciones, pasador y ranura</td><td>motor de las p&aacute;ginas 2D (probado)</td><td><span class="chip ok">calculado</span></td></tr>
   </tbody></table></div>
-  <div class="warn"><b>POR VERIFICAR &mdash;</b> el art&iacute;culo de 2021 no publica las coordenadas (x, y) de los ejes ni las cotas z capa por capa del tren
-  posterior: solo declara &laquo;cinco capas en unos 8 mm&raquo;. Aqu&iacute; el tren posterior ocupa unos 13 mm porque el grupo epic&iacute;clico
-  (e3, e4, e5, k1, k2, e6, e1) se reparte en capas distintas por legibilidad. Si las coordenadas TC (Freeth 2006 SI, Wright 2005/2006,
-  IAM 2016) resultaran disponibles, la planta debe sustituirse: el c&oacute;digo la lee de una &uacute;nica tabla.
+  <div class="warn"><b>POR VERIFICAR &mdash;</b> el art&iacute;culo de 2021 no publica las coordenadas (x, y) de los ejes ni las cotas z capa por capa:
+  declara &laquo;cinco capas en unos 8 mm&raquo; bajo la placa principal y muestra su orden en una secci&oacute;n de la tomograf&iacute;a (Suppl. Fig. S16f).
+  Aqu&iacute; el orden es el de la secci&oacute;n: b2 delante de la placa, entre la placa y b1; detr&aacute;s, e1 justo despu&eacute;s de la placa, luego e2, e3,
+  e4 con k1 y e5, y por &uacute;ltimo k2 con e6, en unos 7,8 mm. Dos elecciones son deducciones m&iacute;as: c2 y d1 delante de la placa, entre la placa y b2,
+  y e4 hecha como un anillo, con k1 girando en su hueco central. Las ruedas de los cuadrantes traseros (de f2 a q1c) ocupan tres capas m&aacute;s,
+  porque con esta planta de los ejes no caben en las cinco primeras sin choques: por eso la placa trasera est&aacute; a 13,5 mm.
+  Si las coordenadas TC (Freeth 2006 SI, Wright 2005/2006, IAM 2016) resultaran disponibles, la planta debe sustituirse: el c&oacute;digo la lee de una &uacute;nica tabla.
   A&uacute;n no modelados: el sistema planetario frontal (Cosmos 2021), el dispositivo de fases lunares (b0, q1), la rueda r1 del Fragmento D.</div>
 </section></details>
 
@@ -1210,21 +1213,25 @@ function init3D(){
    MODELLO 3D — geometria Tab. S8, pianta risolta dagli ingranamenti
    ============================================================ */
 const GEO = [
- ["b1","b",223,65.0,63.8,2.7,  3.0,"oss"],["b2","b",64,15.7,15.0,2.3,-1.5,"oss"],["b3","b",32,9.2,8.3,1.3,-13.5,"oss"],
- ["c1","c",38,10.3,9.4,1.5,-1.5,"oss"],["c2","c",48,11.0,10.5,1.3,-3.0,"oss"],
- ["d1","d",24,5.8,5.1,2.4,-3.0,"oss"],["d2","d",127,31.7,30.6,1.3,-4.5,"oss"],
- ["e2","e",32,7.8,7.1,1.0,-4.5,"oss"],["e3","e",223,52.4,51.5,1.4,-6.0,"oss"],["e4","e",188,49.9,49.1,1.5,-7.5,"oss"],
- ["e5","e",50,13.1,12.2,0.5,-6.8,"oss"],["e6","e",50,13.9,12.9,0.6,-7.4,"oss"],["e1","e",32,9.7,8.6,1.3,-13.5,"oss"],
- ["k1","k",50,13.3,12.6,0.6,-6.8,"oss"],["k2","k",50,14.0,13.1,0.5,-7.4,"oss"],
- ["f1","f",53,13.6,12.9,1.3,-7.5,"oss"],["f2","f",30,8.2,7.4,1.2,-9.0,"oss"],
- ["g1","g",54,14.4,13.4,1.5,-9.0,"oss"],["g2","g",20,4.9,4.1,1.6,-10.5,"oss"],
- ["h1","h",60,13.7,13.0,1.0,-10.5,"oss"],["h2","h",15,3.8,3.0,1.4,-12.0,"oss"],["i1","i",60,13.2,12.6,1.2,-12.0,"oss"],
- ["l1","l",38,9.0,8.3,1.5,-1.5,"oss"],["l2","l",53,13.3,12.5,1.5,-3.0,"oss"],
- ["m1","m",96,24.7,23.6,2.0,-3.0,"oss"],["m2","m",15,4.0,3.7,1.8,-4.5,"oss"],["m3","m",27,7.18,6.18,1.5,-6.0,"hyp"],
- ["n1","n",53,13.62,12.62,1.5,-4.5,"hyp"],["n2","n",57,14.61,13.61,1.5,-1.5,"hyp"],["n3","n",15,4.21,3.21,1.5,-9.0,"hyp"],
- ["o1","o",60,12.8,12.2,1.1,-1.5,"oss"],["p1","p",60,15.35,14.35,1.5,-9.0,"hyp"],["p2","p",12,3.47,2.47,1.5,-10.5,"hyp"],
- ["q1c","q",60,15.35,14.35,1.5,-10.5,"hyp"]
+ ["b1","b",223,65.0,63.8,2.7,6.5,"oss"],["b2","b",64,15.7,15.0,2.3,3.9,"oss"],["b3","b",32,9.2,8.3,1.3,-0.9,"oss"],
+ ["c1","c",38,10.3,9.4,1.5,3.9,"oss"],["c2","c",48,11.0,10.5,1.3,1.4,"oss"],
+ ["d1","d",24,5.8,5.1,2.4,1.4,"oss"],["d2","d",127,31.7,30.6,1.3,-2.7,"oss"],
+ ["e2","e",32,7.8,7.1,1.0,-2.7,"oss"],["e3","e",223,52.4,51.5,1.4,-4.6,"oss"],["e4","e",188,49.9,49.1,1.5,-6.3,"oss"],
+ ["e5","e",50,13.1,12.2,0.5,-6.3,"oss"],["e6","e",50,13.9,12.9,0.6,-7.5,"oss"],["e1","e",32,9.7,8.6,1.3,-0.9,"oss"],
+ ["k1","k",50,13.3,12.6,0.6,-6.3,"oss"],["k2","k",50,14.0,13.1,0.5,-7.5,"oss"],
+ ["f1","f",53,13.6,12.9,1.3,-6.3,"oss"],["f2","f",30,8.2,7.4,1.2,-8.9,"oss"],
+ ["g1","g",54,14.4,13.4,1.5,-8.9,"oss"],["g2","g",20,4.9,4.1,1.6,-10.8,"oss"],
+ ["h1","h",60,13.7,13.0,1.0,-10.8,"oss"],["h2","h",15,3.8,3.0,1.4,-12.5,"oss"],["i1","i",60,13.2,12.6,1.2,-12.5,"oss"],
+ ["l1","l",38,9.0,8.3,1.5,3.9,"oss"],["l2","l",53,13.3,12.5,1.5,-2.7,"oss"],
+ ["m1","m",96,24.7,23.6,2.0,-2.7,"oss"],["m2","m",15,4.0,3.7,1.8,-8.9,"oss"],["m3","m",27,7.18,6.18,1.5,-4.6,"hyp"],
+ ["n1","n",53,13.62,12.62,1.5,-8.9,"hyp"],["n2","n",57,14.61,13.61,1.5,-12.5,"hyp"],["n3","n",15,4.21,3.21,1.5,-10.8,"hyp"],
+ ["o1","o",60,12.8,12.2,1.1,-12.5,"oss"],["p1","p",60,15.35,14.35,1.5,-10.8,"hyp"],["p2","p",12,3.47,2.47,1.5,-8.9,"hyp"],
+ ["q1c","q",60,15.35,14.35,1.5,-8.9,"hyp"]
 ];
+// Quote fisse (mm). L'ordine degli strati segue la sezione della tomografia (Freeth 2021, Suppl. Fig. S16f);
+// c2 e d1 davanti alla piastra ed e4 ad anello, con k1 nel suo vuoto, sono deduzioni nostre.
+const Z={b1:6.5, front:11.0, sun:12.1, moon:13.1, back:-13.5, backPtr:-14.5};
+const E4_HOLE=41;   // raggio del vuoto centrale di e4
 // posizioni degli assi (mm) — risolte dagli ingranamenti; k è sulla piattaforma e3 (vedi sotto)
 const AX = {b:[0,0],c:[-12.42,-21.81],d:[-4.51,-35.84],e:[17.43,-4.08],f:[-21.23,-53.44],g:[0,-48.96],
  h:[17.06,-54.38],i:[17.61,-38.09],l:[15.78,17.95],m:[3.23,52.76],n:[0,36.05],o:[-21.06,19.79],p:[-11.81,21.73],q:[-29.62,21.02]};
@@ -1296,7 +1303,7 @@ const M_MOON=new THREE.MeshStandardMaterial({color:0xCFE0D8,metalness:.5,roughne
 const M_PTR=new THREE.MeshStandardMaterial({color:0xD8D2C4,metalness:.5,roughness:.45});
 const M_LINE=new THREE.LineBasicMaterial({color:0x5E7A6E,transparent:true,opacity:.8});
 
-function gearShape(n,ro,ri,spokes){
+function gearShape(n,ro,ri,spokes,hole){
   const sh=new THREE.Shape(); const step=2*Math.PI/n, tw=0.42;  // larghezza del dente in frazione di passo
   for(let i=0;i<n;i++){
     const a=i*step, a1=a-step*tw/2, a2=a+step*tw/2, b1=a+step*(0.5-tw/2), b2=a+step*(0.5+tw/2);
@@ -1313,6 +1320,8 @@ function gearShape(n,ro,ri,spokes){
       h.absarc(0,0,hub,s0,s1,false); h.lineTo(rimIn*Math.cos(r1),rimIn*Math.sin(r1));
       h.absarc(0,0,rimIn,r1,r0,true); h.closePath(); sh.holes.push(h);
     }
+  } else if(hole){ // e4: anello con un grande vuoto al centro, dove gira k1 (punti espliciti: absarc qui farebbe un ottagono)
+    const h=new THREE.Path(); for(let i=0;i<96;i++){ const t=-i/96*2*Math.PI, x=hole*Math.cos(t), y=hole*Math.sin(t); i?h.lineTo(x,y):h.moveTo(x,y); } sh.holes.push(h);
   } else { const h=new THREE.Path(); h.absarc(0,0,Math.min(2.2,ri*0.5),0,Math.PI*2,true); sh.holes.push(h); }
   return sh;
 }
@@ -1320,7 +1329,7 @@ const gears={}, solids={}, groupAll=new THREE.Group(); scene.add(groupAll);
 const platform=new THREE.Group(); groupAll.add(platform);   // e3: porta k1, k2
 for(const s in SOLIDS){ solids[s]=new THREE.Group(); }
 for(const [name,ax,n,ro,ri,th,z,st] of GEO){
-  const geo=new THREE.ExtrudeGeometry(gearShape(n,ro,ri,name==="b1"),{depth:th,bevelEnabled:false,curveSegments:4});
+  const geo=new THREE.ExtrudeGeometry(gearShape(n,ro,ri,name==="b1",name==="e4"?E4_HOLE:0),{depth:th,bevelEnabled:false,curveSegments:4});
   geo.translate(0,0,-th/2);
   const mesh=new THREE.Mesh(geo, st==="oss"?M_OSS:M_HYP); mesh.userData={z,ax,st,name};
   gears[name]=mesh;
@@ -1343,46 +1352,49 @@ const slot=new THREE.Mesh(new THREE.BoxGeometry(6,1.3,.2),new THREE.MeshBasicMat
 // alberi
 function arbor(ax,z0,z1,r=1.1){ const h=Math.abs(z1-z0); const m=new THREE.Mesh(new THREE.CylinderGeometry(r,r,h,12),M_ARB);
   m.rotation.x=Math.PI/2; m.position.set(AX[ax][0],AX[ax][1],(z0+z1)/2); m.userData={z0,z1,ax}; groupAll.add(m); return m; }
-const arbors=[]; const zByAx={};
-for(const g of GEO){ if(g[1]==="k") continue; (zByAx[g[1]]=zByAx[g[1]]||[]).push(g[6]); }
-for(const ax in zByAx){ const zs=zByAx[ax]; let lo=Math.min(...zs)-1.5, hi=Math.max(...zs)+1.5;
-  if(ax==="b") { lo=-18; hi=10; } if(ax==="n"||ax==="g"||ax==="o"||ax==="q"||ax==="i") lo=-18;
+const arbors=[]; const zByAx={}, faceByAx={};
+for(const g of GEO){ if(g[1]==="k") continue; (zByAx[g[1]]=zByAx[g[1]]||[]).push(g[6]);
+  const f=faceByAx[g[1]]=faceByAx[g[1]]||[Infinity,-Infinity]; f[0]=Math.min(f[0],g[6]-g[5]/2); f[1]=Math.max(f[1],g[6]+g[5]/2); }
+// ogni albero va da una faccia all'altra delle sue ruote: quello centrale arriva alle lancette, c si appoggia
+// alla piastra, quelli delle lancette del retro passano la piastra posteriore
+for(const ax in zByAx){ let [lo,hi]=faceByAx[ax];
+  if(ax==="b") hi=Z.moon+0.4; if(ax==="c") lo=-0.6; if(ax==="n"||ax==="g"||ax==="o"||ax==="q"||ax==="i") lo=Z.backPtr-1;
   arbors.push(arbor(ax,lo,hi, ax==="b"?2.6:1.1)); }
 
 // manovella: ruota conica a1 sul bordo di b1
 const a1=new THREE.Mesh(new THREE.ExtrudeGeometry(gearShape(48,13.5,12.4,false),{depth:1.6,bevelEnabled:false,curveSegments:3}),M_OSS);
-a1.rotation.y=Math.PI/2; const a1g=new THREE.Group(); a1g.add(a1); a1g.position.set(66.5,0,3.0); groupAll.add(a1g); a1g.userData.z=3.0;
-const crank=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,24,10),M_ARB); crank.rotation.z=Math.PI/2; crank.position.set(78,0,3.0); groupAll.add(crank);
+a1.rotation.y=Math.PI/2; const a1g=new THREE.Group(); a1g.add(a1); a1g.position.set(66.5,0,Z.b1); groupAll.add(a1g); a1g.userData.z=Z.b1;
+const crank=new THREE.Mesh(new THREE.CylinderGeometry(1.1,1.1,24,10),M_ARB); crank.rotation.z=Math.PI/2; crank.position.set(78,0,Z.b1); groupAll.add(crank);
 
 // piastre
 const plates=new THREE.Group(); groupAll.add(plates);
 function plate(w,h,z){ const m=new THREE.Mesh(new THREE.PlaneGeometry(w,h),M_PLATE); m.position.z=z; m.userData.z=z; plates.add(m); return m; }
 plate(140,190,0);        // piastra principale
-plate(140,190,7.5);      // piastra anteriore (~128.8 mm il coperchio)
-plate(140,190,-16);      // piastra posteriore
+plate(140,190,Z.front);  // piastra anteriore (~128.8 mm il coperchio)
+plate(140,190,Z.back);   // piastra posteriore
 // quadranti: anelli anteriori (zodiaco, egizio) e spirali posteriori
 function ring(cx,cy,r,z,segs=180){ const pts=[]; for(let i=0;i<=segs;i++){const a=i/segs*2*Math.PI; pts.push(new THREE.Vector3(cx+r*Math.cos(a),cy+r*Math.sin(a),z));}
   const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),M_LINE); l.userData.z=z; plates.add(l); return l; }
-ring(0,0,52,7.6); ring(0,0,58,7.6); ring(0,0,64,7.6);
-for(let i=0;i<12;i++){ const a=i*Math.PI/6; const pts=[new THREE.Vector3(52*Math.cos(a),52*Math.sin(a),7.6),new THREE.Vector3(64*Math.cos(a),64*Math.sin(a),7.6)];
-  const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),M_LINE); l.userData.z=7.6; plates.add(l); }
+ring(0,0,52,Z.front+0.1); ring(0,0,58,Z.front+0.1); ring(0,0,64,Z.front+0.1);
+for(let i=0;i<12;i++){ const a=i*Math.PI/6; const pts=[new THREE.Vector3(52*Math.cos(a),52*Math.sin(a),Z.front+0.1),new THREE.Vector3(64*Math.cos(a),64*Math.sin(a),Z.front+0.1)];
+  const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),M_LINE); l.userData.z=Z.front+0.1; plates.add(l); }
 function spiral3d(cx,cy,r0,r1,turns,z){ const pts=[]; const Nn=turns*120; for(let i=0;i<=Nn;i++){const t=i/Nn, r=r0+(r1-r0)*t, a=-t*turns*2*Math.PI+Math.PI/2; pts.push(new THREE.Vector3(cx+r*Math.cos(a),cy+r*Math.sin(a),z));}
   const l=new THREE.Line(new THREE.BufferGeometry().setFromPoints(pts),M_LINE); l.userData.z=z; plates.add(l); return l; }
-spiral3d(AX.n[0],AX.n[1],18,52,5,-16.1); spiral3d(AX.g[0],AX.g[1],18,50,4,-16.1);
-ring(AX.o[0],AX.o[1],12,-16.1,60); ring(AX.q[0],AX.q[1],12,-16.1,60); ring(AX.i[0],AX.i[1],12,-16.1,60);
+spiral3d(AX.n[0],AX.n[1],18,52,5,Z.back-0.1); spiral3d(AX.g[0],AX.g[1],18,50,4,Z.back-0.1);
+ring(AX.o[0],AX.o[1],12,Z.back-0.1,60); ring(AX.q[0],AX.q[1],12,Z.back-0.1,60); ring(AX.i[0],AX.i[1],12,Z.back-0.1,60);
 
 // puntatori
 function pointer(len,w,mat){ const g=new THREE.Group(); const bar=new THREE.Mesh(new THREE.BoxGeometry(len,w,.6),mat); bar.position.x=len/2; g.add(bar);
   const tip=new THREE.Mesh(new THREE.ConeGeometry(w*1.4,4,8),mat); tip.rotation.z=-Math.PI/2; tip.position.x=len+2; g.add(tip); return g; }
 const P={};
-P.sun=pointer(62,1.6,M_SUN);  P.sun.position.set(0,0,8.6);   groupAll.add(P.sun);
-P.moon=pointer(50,1.6,M_MOON);P.moon.position.set(0,0,9.6);  groupAll.add(P.moon);
-const moonBall=new THREE.Mesh(new THREE.SphereGeometry(3,16,12),M_MOON); moonBall.position.set(38,0,2.5); P.moon.add(moonBall);
-P.met=pointer(50,1.4,M_PTR);  P.met.position.set(AX.n[0],AX.n[1],-17);  groupAll.add(P.met);
-P.sar=pointer(48,1.4,M_PTR);  P.sar.position.set(AX.g[0],AX.g[1],-17);  groupAll.add(P.sar);
-P.gam=pointer(11,1.1,M_PTR);  P.gam.position.set(AX.o[0],AX.o[1],-17);  groupAll.add(P.gam);
-P.cal=pointer(11,1.1,M_PTR);  P.cal.position.set(AX.q[0],AX.q[1],-17);  groupAll.add(P.cal);
-P.exe=pointer(11,1.1,M_PTR);  P.exe.position.set(AX.i[0],AX.i[1],-17);  groupAll.add(P.exe);
+P.sun=pointer(62,1.6,M_SUN);  P.sun.position.set(0,0,Z.sun);   groupAll.add(P.sun);
+P.moon=pointer(50,1.6,M_MOON);P.moon.position.set(0,0,Z.moon);  groupAll.add(P.moon);
+const moonBall=new THREE.Mesh(new THREE.SphereGeometry(3,16,12),M_MOON); moonBall.position.set(0,0,3.5); P.moon.add(moonBall);   // al centro del quadrante, davanti alla lancetta (Freeth 2021)
+P.met=pointer(50,1.4,M_PTR);  P.met.position.set(AX.n[0],AX.n[1],Z.backPtr);  groupAll.add(P.met);
+P.sar=pointer(48,1.4,M_PTR);  P.sar.position.set(AX.g[0],AX.g[1],Z.backPtr);  groupAll.add(P.sar);
+P.gam=pointer(11,1.1,M_PTR);  P.gam.position.set(AX.o[0],AX.o[1],Z.backPtr);  groupAll.add(P.gam);
+P.cal=pointer(11,1.1,M_PTR);  P.cal.position.set(AX.q[0],AX.q[1],Z.backPtr);  groupAll.add(P.cal);
+P.exe=pointer(11,1.1,M_PTR);  P.exe.position.set(AX.i[0],AX.i[1],Z.backPtr);  groupAll.add(P.exe);
 for(const k in P) P[k].userData.z=P[k].position.z;
 
 // sigle
@@ -1391,7 +1403,7 @@ function label(text,x,y,z){ const c=document.createElement("canvas"); c.width=12
   g.font="500 34px IBM Plex Mono, monospace"; g.fillStyle="#DEE6E0"; g.textAlign="center"; g.textBaseline="middle"; g.fillText(text,64,32);
   const sp=new THREE.Sprite(new THREE.SpriteMaterial({map:new THREE.CanvasTexture(c),transparent:true,depthTest:false})); sp.scale.set(14,7,1); sp.position.set(x,y,z); sp.userData.z=z; labels.add(sp); }
 for(const ax in AX){ const zs=zByAx[ax]||[0]; label(ax, AX[ax][0]+3, AX[ax][1]+3, Math.max(...zs)+3); }
-label("k", AX.e[0]+K1_R, AX.e[1], -4);
+label("k", AX.e[0]+K1_R, AX.e[1], -3.5);
 
 /* ---- orbita ---- */
 let theta=0.35, phi=1.15, dist=330, target=new THREE.Vector3(4,-2,-4);
@@ -1444,8 +1456,9 @@ function applyExplode(){
   plates.children.forEach(p=>{ if(p.isLine){ p.position.z=p.userData.z*(explode-1);} });
   labels.children.forEach(l=>l.position.z=(l.userData.z-3)*explode+3);   // la sigla resta 3 mm davanti alla sua ruota
   for(const k in P) P[k].position.z=P[k].userData.z*explode;
-  a1g.position.z=3.0*explode; crank.position.z=3.0*explode;
-  pin.position.z=-7.1*explode; pin.scale.y=(0.6*explode+1)/3; slot.position.z=-7.4*explode+0.3;   // il perno unisce k1 (z -6,8) e k2 (z -7,4)
+  a1g.position.z=Z.b1*explode; crank.position.z=Z.b1*explode;
+  { const z1=gears.k1.userData.z, z2=gears.k2.userData.z;   // il perno unisce k1 (davanti) e k2 (dietro)
+    pin.position.z=(z1+z2)/2*explode; pin.scale.y=((z1-z2)*explode+0.8)/3; slot.position.z=z2*explode+0.3; }
 }
 const D2R=Math.PI/180;
 function setAngles3D(J){
@@ -1495,8 +1508,8 @@ const PX={
  moon:{t:"aguja de la Luna",s:"frente &middot; una vuelta en unos 27,3 días",
   d:"Muestra en qué signo del zodiaco está la Luna. Da una vuelta en el tiempo que tarda la Luna en volver delante de las mismas estrellas. No va siempre a la misma velocidad: el perno y la ranura de las ruedas k1 y k2 la hacen correr y frenar, como la Luna verdadera.",
   x:"mes sideral = 27,32 días &middot; la mueve la rueda b3"},
- moonball:{t:"bolita de las fases lunares",s:"frente &middot; en la aguja de la Luna",
-  d:"En la máquina real era una pequeña esfera, mitad blanca y mitad negra, engastada en la aguja de la Luna. Al girar sobre sí misma mostraba la fase: negra en luna nueva, blanca en luna llena. Aquí solo está esbozada: las ruedas que la hacen girar (b0 y q1) aún no están modeladas.",
+ moonball:{t:"bolita de las fases lunares",s:"frente &middot; en el centro, donde empieza la aguja de la Luna",
+  d:"En la máquina real era una pequeña esfera, mitad blanca y mitad negra, en el centro del cuadrante, donde empieza la aguja de la Luna. Al girar sobre sí misma mostraba la fase: negra en luna nueva, blanca en luna llena. Aquí solo está esbozada: las ruedas que la hacen girar (b0 y q1) aún no están modeladas.",
   x:"un ciclo completo de fases = 29,53 días (mes sinódico)"},
  met:{t:"aguja de la espiral de Metón",s:"dorso, arriba &middot; una vuelta en unos 3,8 años",
   d:"Recorre la gran espiral de arriba en el dorso: cinco vueltas divididas en 235 casillas, una por cada mes lunar. 235 meses lunares son casi exactamente 19 años: es el ciclo de Metón, tras el cual las fases de la Luna vuelven a caer en los mismos días del año. En la máquina real un pequeño cursor en la aguja seguía la espiral grabada.",
@@ -1573,10 +1586,10 @@ pkReg(slot,"slot",0); pkHL("slot",[slot]); pkProxy(new THREE.BoxGeometry(7.5,3.6
 for(const a of arbors){ const k="ax:"+a.userData.ax; pkReg(a,k,0); pkHL(k,[a]); }
 for(const m of plates.children.filter(c=>c.isMesh)){ const k=m.userData.z>1?"plateF":(m.userData.z<-1?"plateB":"plate0"); m.userData.plate=true; pkReg(m,k,2); pkHL(k,[m]); }
 function pkDial(geo,x,y,z,key){ const m=new THREE.Mesh(geo,M_HIDE); m.position.set(x,y,z); m.userData.z=z; m.userData.ghost=true; plates.add(m); pkReg(m,key,1); pkHL(key,[m]); }
-pkDial(new THREE.RingGeometry(51.5,58,72),0,0,7.6,"zod"); pkDial(new THREE.RingGeometry(58,64.5,72),0,0,7.6,"egy");
-pkDial(new THREE.RingGeometry(18,52,96),AX.n[0],AX.n[1],-16.1,"metS"); pkDial(new THREE.RingGeometry(18,50,96),AX.g[0],AX.g[1],-16.1,"sarS");
-pkDial(new THREE.CircleGeometry(12,40),AX.o[0],AX.o[1],-16.3,"gamD"); pkDial(new THREE.CircleGeometry(12,40),AX.q[0],AX.q[1],-16.3,"calD");
-pkDial(new THREE.CircleGeometry(12,40),AX.i[0],AX.i[1],-16.3,"exeD");
+pkDial(new THREE.RingGeometry(51.5,58,72),0,0,Z.front+0.1,"zod"); pkDial(new THREE.RingGeometry(58,64.5,72),0,0,Z.front+0.1,"egy");
+pkDial(new THREE.RingGeometry(18,52,96),AX.n[0],AX.n[1],Z.back-0.1,"metS"); pkDial(new THREE.RingGeometry(18,50,96),AX.g[0],AX.g[1],Z.back-0.1,"sarS");
+pkDial(new THREE.CircleGeometry(12,40),AX.o[0],AX.o[1],Z.back-0.3,"gamD"); pkDial(new THREE.CircleGeometry(12,40),AX.q[0],AX.q[1],Z.back-0.3,"calD");
+pkDial(new THREE.CircleGeometry(12,40),AX.i[0],AX.i[1],Z.back-0.3,"exeD");
 function pkShown(o){ for(let p=o;p;p=p.parent) if(!p.visible) return false; return true; }   // spenti col tasto = non cliccabili
 function pkBase(m){ const u=m.userData; if(gears[u.name]===m) return u.st==="oss"?M_OSS:M_HYP; if(m===a1) return M_OSS; return u.mat0; }
 function pkHlMat(m){ return m.userData.ghost?M_PICKG:(m.userData.plate?M_PICKP:M_PICK); }
