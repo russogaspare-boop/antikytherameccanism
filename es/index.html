@@ -180,6 +180,7 @@ body.simple .console:not(.c3){padding:12px 16px}
   cursor:pointer;font-family:var(--f-body);font-size:15px;font-weight:500;transition:filter .15s,transform .15s}
 .exbtn:hover{filter:brightness(1.08);transform:translateY(-1px)}
 .exbtn[aria-pressed="true"]{background:var(--surface);color:var(--verd)}
+.exbtn.modo{background:transparent;color:var(--verd)} .exbtn.modo[aria-pressed="true"]{background:var(--verd);color:#fff}
 .exnote{margin:10px 0 0;font-size:13.5px;line-height:1.55;color:var(--ink2);border-left:3px solid var(--verd);
   padding:9px 13px;background:var(--surface);border-radius:0 3px 3px 0;max-width:78ch}
 .exnote b{color:var(--ink);font-family:var(--f-mono);font-size:12.5px}
@@ -307,7 +308,7 @@ footer.site .legal{margin-top:18px;padding-top:12px;border-top:1px dashed var(--
     <span><span class="sw" style="background:#DCA945"></span>Sol</span><span><span class="sw" style="background:#CFE0D8"></span>Luna</span></div>
   <div class="hint">arrastra · rueda · bot&oacute;n derecho</div>
 </div>
-<div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Descomponer el mecanismo</button></div>
+<div class="exrow"><button class="exbtn" id="exBtn" aria-pressed="false">&#8663; Descomponer el mecanismo</button><button class="exbtn modo" id="modoBtn" aria-pressed="false">&#9680; Solo las piezas halladas</button></div>
 <p class="exnote" id="exnote" hidden>Las ruedas se separan a lo largo del eje de la manivela: en este modelo las del calendario y de la Luna est&aacute;n en <b>once cotas distintas</b>, desde +6,5&nbsp;mm de la gran <b>b1</b> hasta &minus;12,5&nbsp;mm del &uacute;ltimo plano; delante de b1, hasta unos 36&nbsp;mm, est&aacute;n las de los planetas. Enciende las &laquo;siglas&raquo; y busca <b>k1</b> y <b>k2</b>: dos ruedas de 50 dientes sobre ejes no alineados, una lleva un perno que corre por la ranura de la otra &mdash; as&iacute; la m&aacute;quina hace que la Luna corra m&aacute;s r&aacute;pido cerca del perigeo y m&aacute;s lenta en el apogeo. Las ruedas en verde claro son las <b>hipot&eacute;ticas</b>: no est&aacute;n en la pieza.</p>
 <p class="pickhint"><span class="t-mouse">Arrastra para girar &middot; pellizca o rueda para acercar</span><span class="t-touch">Arrastra de lado para girar (arriba y abajo desplaza la p&aacute;gina) &middot; pellizca para acercar</span> &middot; <b>toca cualquier pieza</b> (rueda, aguja, manivela, cuadrante) para ver su ficha, otra vez para la de detr&aacute;s</p>
   <div class="console c3">
@@ -1029,38 +1030,50 @@ function currentJD(){ return baseJD + offset; }
 function row(k,sub,v){ return `<div class="read"><div class="k">${k}${sub?`<small>${sub}</small>`:""}</div>
   <div class="v">${v}</div></div>`; }
 
+/* telefono: mentre il meccanismo gira da solo, si ridisegnano solo i quadranti e le tabelle che si vedono sullo schermo
+   (prima si rifacevano tutti a ogni fotogramma, anche quelli lontani); gli altri si rimettono in pari appena tornano in vista */
+const VISTI=new Map(); let OSSERVA=null;
+function inVista(id){
+  if(OSSERVA===null){ OSSERVA=false; try{
+    OSSERVA=new IntersectionObserver(en=>{ let torna=false;
+      for(const e of en){ if(e.isIntersecting&&VISTI.get(e.target.id)===false) torna=true; VISTI.set(e.target.id,e.isIntersecting); }
+      if(torna) update(); },{rootMargin:"80px 0px"});
+    for(const k of ["front","subs","meton","saros","metoncap","saroscap","subscap","reads","cosmo","preads","cmp"]){ const el=document.getElementById(k); if(el) OSSERVA.observe(el); }
+  }catch(_){ OSSERVA=false; } }
+  return !(playing||(typeof travel!=="undefined"&&travel)) || VISTI.get(id)!==false;
+}
 function update(){
   const J = currentJD();
   const st = mechanism(J);
-  const ast = moonLonLat(J), sl = sunLon(J);
+  const vCmp = inVista("cmp"), ast = vCmp ? moonLonLat(J) : {lon:0}, sl = vCmp ? sunLon(J) : 0;
 
-  drawFront(st); drawSubs(st);
+  if(inVista("front")) drawFront(st); if(inVista("subs")) drawSubs(st);
 
   // spirali
   const mCell = Math.floor(((st.syn%235)+235)%235);
   const sCell = Math.floor(((st.syn%223)+223)%223);
-  spiral("meton",5,235,st.metonTurns,null,"var(--verd)");
-  spiral("saros",4,223,st.sarosTurns,null,"var(--coral)");
-  document.getElementById("metoncap").innerHTML =
+  if(inVista("meton")) spiral("meton",5,235,st.metonTurns,null,"var(--verd)");
+  if(inVista("saros")) spiral("saros",4,223,st.sarosTurns,null,"var(--coral)");
+  if(inVista("metoncap")) document.getElementById("metoncap").innerHTML =
     `vuelta <b>${Math.floor(mCell/47)+1}</b>/5 &middot; celda <b>${mCell+1}</b>/235 &middot;
      mes <b>${CORINTH[mCell%12]}</b> <span class="chip hyp">nombres corintios, reconstrucci&oacute;n 2008</span>`;
-  const ecl = eclipseCheck(J);
+  const ecl = inVista("saroscap") ? eclipseCheck(J) : {lunar:{},solar:{}};
   const eclChips = [
     ecl.lunar.hit ? `<span class="chip ecl">eclipse lunar posible — β ${ecl.lunar.lat.toFixed(2)}°, ${dateStr(ecl.lunar.jd)}</span>` : "",
     ecl.solar.hit ? `<span class="chip ecl">eclipse solar posible — β ${ecl.solar.lat.toFixed(2)}°, ${dateStr(ecl.solar.jd)}</span>` : ""
   ].filter(Boolean).join(" ") || `<span class="chip">ninguna sizigia dentro de los l&iacute;mites de eclipse</span>`;
   const exSect = Math.floor(((st.exeligTurns%1)+1)%1*3);
-  document.getElementById("saroscap").innerHTML =
+  if(inVista("saroscap")) document.getElementById("saroscap").innerHTML =
     `vuelta <b>${Math.floor(sCell/55.75)+1}</b>/4 &middot; celda <b>${sCell+1}</b>/223 &middot;
      correcci&oacute;n Exeligmos <b>+${exSect*8} h</b><br>${eclChips}`;
-  document.getElementById("subscap").innerHTML =
+  if(inVista("subscap")) document.getElementById("subscap").innerHTML =
     `Juegos: a&ntilde;o <b>${Math.floor(((st.gamesTurns%1)+1)%1*4)+1}</b>/4 &mdash;
      ${GAMES[Math.floor(((st.gamesTurns%1)+1)%1*4)].join(", ")}<br>
      Cal&iacute;pica: cuadrante <b>${Math.floor(((st.callTurns%1)+1)%1*4)+1}</b>/4 &middot;
      ciclo <b>${Math.floor(st.callTurns)+1}</b> desde la calibraci&oacute;n`;
 
   // letture
-  document.getElementById("reads").innerHTML =
+  if(inVista("reads")) document.getElementById("reads").innerHTML =
     row(`<span class="big">${dateStr(J)}</span>`,`día juliano ${J.toFixed(1)}`,
         `<b>${st.T.toFixed(3)}</b><small style="display:block;font-size:10px;color:var(--ink3)">vueltas de b1</small>`)
   + row("Puntero de la fecha","anillo egipcio, 365 divisiones", egyStr(st.egyptDay))
@@ -1076,10 +1089,10 @@ function update(){
         `${((J-JD_CAL)/YEAR*(YEAR-365.242190)).toFixed(2)} g`);
 
   // ---- Cosmo ----
-  const cos = cosmos(J);
-  drawCosmo(cos, st);
-  const dsun = ((cos.sunTrue-cos.sunVero+540)%360)-180;
-  document.getElementById("preads").innerHTML =
+  const vCos = inVista("cosmo"), vPre = inVista("preads"), cos = (vCos||vPre) ? cosmos(J) : null;
+  if(vCos) drawCosmo(cos, st);
+  const dsun = cos ? ((cos.sunTrue-cos.sunVero+540)%360)-180 : 0;
+  if(vPre) document.getElementById("preads").innerHTML =
     row(`Sol verdadero <span style="color:var(--bronze)">☉</span>`,"pasador y ranura, ápside fijo",
         `${cos.sunTrue.toFixed(2)}°<small style="display:block;font-size:10px;color:${Math.abs(dsun)>1?"var(--coral)":"var(--verd)"}">
          desviación ${dsun>=0?"+":""}${dsun.toFixed(2)}°</small>`)
@@ -1095,7 +1108,7 @@ function update(){
   const d1=((st.sun-sl+540)%360)-180, d2=((st.moonT-ast.lon+540)%360)-180;
   const tb=document.querySelector("#cmp tbody");
   const fmt=x=>`${x>=0?"+":""}${x.toFixed(2)}°`;
-  tb.innerHTML=`
+  if(vCmp) tb.innerHTML=`
    <tr><td>Longitud del Sol</td><td class="num">${st.sun.toFixed(2)}°</td><td class="num">${sl.toFixed(2)}°</td>
    <td class="num" style="color:${Math.abs(d1)>2?"var(--coral)":"var(--verd)"}">${fmt(d1)}</td>
    <td>Dos errores sumados: falta la ecuaci&oacute;n del centro (&plusmn;1,9&deg;, que el Sol verdadero del Cosmos recupera), y el a&ntilde;o
@@ -2130,6 +2143,54 @@ function ritaraPianeti(){ const {R,SUP,PERNO,FASE,RAD}=PIANETI, e0=PCAL.mercurio
   OFF_PL=-(e0+180)*RAD; OFF_SOLE=-CAL.sun*RAD;
   for(const m of PERNI){ const a=FASE[m.userData.perno], d=m.userData.dPerno; m.position.x=d*Math.cos(a); m.position.y=d*Math.sin(a); }
   if(ANELLO_DATA) ANELLO_DATA.rotation.z=OFF_SOLE; PIANETI.azzera(); }
+/* telefono: i pezzi che si muovono sempre insieme (stesso genitore, stesso materiale, stessa quota a ogni
+   scomposizione) diventano un oggetto solo, che si disegna in una volta: il 3D fa molta meno fatica */
+{
+  const EXS=[0.37,1,2.6,4.2], V3=new THREE.Vector3(), S3=new THREE.Vector3(), MB=new THREE.Matrix4();
+  const curva=f=>f?EXS.map(x=>(+f(x)).toFixed(5)).join(","):"-";
+  const firmaGeo=g=>Object.keys(g.attributes).sort().map(k=>{ const a=g.attributes[k]; return k+a.itemSize+(a.normalized?"n":"")+a.array.constructor.name; }).join(" ");
+  const adatto=m=>m.isMesh&&!m.isInstancedMesh&&!m.isSkinnedMesh&&m.visible&&!m.children.length&&!PERNI.includes(m)
+    &&m.scale.x>0&&m.scale.y>0&&m.scale.z>0&&m.material&&!Array.isArray(m.material)&&!m.material.transparent&&m.material.visible!==false
+    &&m.geometry&&m.geometry.isBufferGeometry&&m.geometry.drawRange.start===0&&m.geometry.drawRange.count===Infinity
+    &&!Object.keys(m.geometry.morphAttributes||{}).length&&Object.values(m.geometry.attributes).every(a=>!a.isInterleavedBufferAttribute);
+  function formaIn(m,lf){   // la forma del pezzo già al suo posto: x, y e rotazione; la z solo se place non la sposta
+    const u=m.userData, x=u.x0!==undefined?u.x0:m.position.x, y=u.y0!==undefined?u.y0:m.position.y, z=u.zf?0:m.position.z;
+    MB.compose(V3.set(x,y,z),m.quaternion,S3.set(m.scale.x,m.scale.y,lf?1:m.scale.z));
+    const g=m.geometry.clone(); g.applyMatrix4(MB); return g; }
+  function fondi(geos){
+    let nv=0, ni=0; for(const g of geos){ const n=g.attributes.position.count; nv+=n; ni+=g.index?g.index.count:n; }
+    const out=new THREE.BufferGeometry();
+    for(const k of Object.keys(geos[0].attributes)){ const a0=geos[0].attributes[k], arr=new a0.array.constructor(nv*a0.itemSize); let o=0;
+      for(const g of geos){ arr.set(g.attributes[k].array,o); o+=g.attributes[k].array.length; }
+      out.setAttribute(k,new THREE.BufferAttribute(arr,a0.itemSize,a0.normalized)); }
+    const idx=nv>65535?new Uint32Array(ni):new Uint16Array(ni); let o=0, base=0;
+    for(const g of geos){ const n=g.attributes.position.count;
+      if(g.index){ const a=g.index.array; for(let i=0;i<a.length;i++) idx[o++]=a[i]+base; } else for(let i=0;i<n;i++) idx[o++]=base+i;
+      base+=n; }
+    out.setIndex(new THREE.BufferAttribute(idx,1)); out.computeBoundingBox(); out.computeBoundingSphere(); return out; }
+  function unisci(figli,padre){   // restituisce i figli dopo l'unione: gli oggetti uniti al posto dei loro pezzi
+    const mucchi=new Map(), fuori=[];
+    for(const m of figli){ const u=m.userData;
+      if(!(adatto(m)&&m.parent===padre&&(!u.lf||(Math.abs(m.quaternion.x)<1e-9&&Math.abs(m.quaternion.y)<1e-9)))){ fuori.push(m); continue; }
+      const k=[m.material.uuid,curva(u.zf),curva(u.lf),firmaGeo(m.geometry),m.renderOrder].join("|");
+      if(!mucchi.has(k)) mucchi.set(k,[]); mucchi.get(k).push(m); }
+    const lista=[];
+    for(const parti of mucchi.values()){
+      if(parti.length<2){ lista.push(parti[0]); continue; }
+      const u0=parti[0].userData, lf=!!u0.lf, m=new THREE.Mesh(fondi(parti.map(p=>formaIn(p,lf))),parti[0].material);
+      m.userData=Object.assign({},u0); m.renderOrder=parti[0].renderOrder;
+      if(u0.zf){ if(u0.x0!==undefined){ m.userData.x0=0; m.userData.y0=0; } m.position.z=u0.zf(1); if(lf) m.scale.z=u0.lf(1); }
+      for(const p of parti) padre.remove(p); padre.add(m); lista.push(m); }
+    return lista.concat(fuori); }
+  for(const n of NUOVI){
+    if(n.objs.length&&n.objs[0].userData.c!==undefined){   // pianeti, anelli, anello della data: si uniscono i pezzi dentro ogni gruppo
+      for(const g of n.objs){ const giro=[g]; while(giro.length){ const o=giro.pop(); if(o.children.length>1) unisci(o.children.slice(),o); for(const c of o.children) if(c.children.length) giro.push(c); } }
+      continue; }
+    if(n.spin||n.join) continue;   // pezzi che girano o si legano per conto loro: restano come sono
+    const padre=n.objs[0].parent; if(!n.objs.every(o=>o.parent===padre)) continue;
+    const zLato=n.objs[0].userData.z, dopo=unisci(n.objs.slice(),padre);
+    n.objs.splice(0,n.objs.length,...dopo); n.objs[0].userData.z=zLato; }
+}
 const NUOVI_OSS=[], NUOVI_IPO=[];
 for(const n of NUOVI) for(const o of n.objs){ o.userData.nuovo=true; o.traverse(c=>{
   if(c.isSprite){ c.visible=false; return; }
@@ -2137,6 +2198,15 @@ for(const n of NUOVI) for(const o of n.objs){ o.userData.nuovo=true; o.traverse(
   if(c.material===M_OSS){ c.userData.oss=true; NUOVI_OSS.push(c); } else if(c.material===M_HYP) NUOVI_IPO.push(c);
   if(c.material===M_LASTRA_SITO) c.userData.plate=true; }); }
 const NUOVE_PIASTRE=NUOVI.filter(n=>["traversa","tonda","fori","tacMet","tacSar"].includes(n.id)).flatMap(n=>n.objs);
+/* «Solo i pezzi ritrovati»: dei pezzi nuovi restano quelli che le schede danno come trovati o visti sul reperto
+   (colonnine e blocchetto: segni sul reperto; ruota da 63 e piastrina: Frammento D; q1 col suo asse; staffe, strisce
+   e anellino: tomografia; 354 fori: ricerca del 2020; tacche delle spirali). Gli altri sono ricostruiti: spariscono
+   con le ruote ipotetiche. Traversa e piastra tonda si spengono pezzo per pezzo, perché il tasto delle piastre
+   accende e spegne i loro gruppi. */
+const TROVATI_NUOVI=new Set(["colCorte","colLunghe","bloccoD","ven63","piastrinaD","q1","fasiAsse","spazioD","spaziB1","staffeB1","fori","tacMet","tacSar"]);
+const RICOSTRUITI=[], LASTRE_IPO=[];
+for(const n of NUOVI){ if(TROVATI_NUOVI.has(n.id)) continue;
+  for(const o of n.objs){ if(NUOVE_PIASTRE.includes(o)) o.traverse(c=>{ if(c.isMesh||c.isLine) LASTRE_IPO.push(c); }); else RICOSTRUITI.push(o); } }
 const zCentro=ex=>16.95*ex+3, semiProf=ex=>31.45*ex+4; let ZC_VISTO=zCentro(1);   // centro e mezza profondità del meccanismo
 
 // sigle
@@ -2157,12 +2227,15 @@ function fitDist(k=1){ const tv=Math.tan(camera.fov*Math.PI/360), a=camera.aspec
   const dz=semiProf(ex), rh=Math.hypot(92,dz), rv=Math.hypot(100,0.45*dz);
   const dv=rv/tv, dh=rh/Math.tan(Math.atan(tv*a));
   return Math.min(1500,Math.max(60,(Math.max(dv,dh)*1.13+20)*k)); }
-function placeCam(){ camera.position.set(target.x+dist*Math.sin(phi)*Math.sin(theta), target.y+dist*Math.cos(phi), target.z+dist*Math.sin(phi)*Math.cos(theta)); camera.up.set(0,1,0); camera.lookAt(target); }
+function placeCam(){ { const lim=(v,a,b)=>Math.min(b,Math.max(a,v));   // il centro della vista resta sul meccanismo: col dito non lo si perde
+    target.x=lim(target.x,-80,80); target.y=lim(target.y,-90,90); target.z=lim(target.z,ZC_VISTO-150,ZC_VISTO+150); }
+  camera.position.set(target.x+dist*Math.sin(phi)*Math.sin(theta), target.y+dist*Math.cos(phi), target.z+dist*Math.sin(phi)*Math.cos(theta)); camera.up.set(0,1,0); camera.lookAt(target); }
 let drag=null; const touches=new Map(); let pinch=null;
 /* telefono: il dito che va in su o in giu' fa scorrere la pagina (touch-action:pan-y), quello che va di lato gira il modello;
    si decide dopo i primi 8 px, cosi' chi scorre la pagina non sposta il meccanismo. Due dita: avvicina e sposta. */
 const SLOP=8, stopOrbit=()=>{ if(typeof autoOrbit!=="undefined") autoOrbit=false; };
-canvas.addEventListener("pointerdown",e=>{ touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
+canvas.addEventListener("pointerdown",e=>{ if(e.isPrimary){ touches.clear(); pinch=null; }   // un dito nuovo da solo: via le dita rimaste «appese»
+  touches.set(e.pointerId,{x:e.clientX,y:e.clientY});
   if(touches.size===2){ stopOrbit(); const [a,b2]=[...touches.values()]; pinch={d:Math.hypot(a.x-b2.x,a.y-b2.y),cx:(a.x+b2.x)/2,cy:(a.y+b2.y)/2}; drag=null; return; }
   const finger=e.pointerType==="touch"; if(!finger) stopOrbit();
   drag={x:e.clientX,y:e.clientY,x0:e.clientX,y0:e.clientY,b:e.button,rot:!finger}; canvas.setPointerCapture(e.pointerId); });
@@ -2184,6 +2257,8 @@ canvas.addEventListener("pointermove",e=>{
 const endTouch=e=>{ touches.delete(e.pointerId); if(touches.size<2) pinch=null; drag=null; };
 canvas.addEventListener("pointerup",endTouch); canvas.addEventListener("pointercancel",endTouch); canvas.addEventListener("contextmenu",e=>e.preventDefault());
 canvas.addEventListener("touchmove",e=>{ if(e.cancelable&&(e.touches.length>1||(drag&&drag.rot))) e.preventDefault(); },{passive:false});
+const tuttiSu=e=>{ if(!e.touches.length){ touches.clear(); pinch=null; drag=null; } };   // tutte le dita alzate: si riparte puliti
+canvas.addEventListener("touchend",tuttiSu); canvas.addEventListener("touchcancel",tuttiSu);
 canvas.addEventListener("wheel",e=>{ e.preventDefault(); userZoom=true; dist=Math.min(1500,Math.max(60,dist*(1+e.deltaY*0.001))); placeCam(); },{passive:false});
 document.getElementById("vFront").onclick=()=>{theta=0.35;phi=1.15;userZoom=false;dist=fitDist();target.set(4,-2,zCentro(explode));placeCam();};
 document.getElementById("vBack").onclick=()=>{theta=Math.PI-0.3;phi=1.3;userZoom=false;dist=fitDist();target.set(4,-2,zCentro(explode));placeCam();};
@@ -2415,7 +2490,7 @@ function applyShift(){ const w=canvas.clientWidth, h=canvas.clientHeight; camera
 function stepShift(){ let ch=false;
   for(const k of ["x","y","z"]){ const d=vgoal[k]-vshift[k]; if(!d) continue; ch=true;
     vshift[k]=Math.abs(d)<(k==="z"?0.002:0.5)?vgoal[k]:vshift[k]+d*0.2; }
-  if(ch) applyShift(); }
+  if(ch) applyShift(); return ch; }
 function pickAt(cx,cy){
   const r=canvas.getBoundingClientRect();
   ndcv.x=((cx-r.left)/r.width)*2-1; ndcv.y=-((cy-r.top)/r.height)*2+1;
@@ -2462,7 +2537,13 @@ function toggleExplode(){
   exLabel();
 }
 { const b=document.getElementById("exBtn"); if(b) b.onclick=toggleExplode; }
-function frame(now){ const dt=(now-last)/1000; last=now; if(exTween) stepExplode(now); if(autoOrbit){ theta+=0.0012; placeCam(); } if(playing){ baseJD+=speed*dt; update(); } if(!canvasVisible){ requestAnimationFrame(frame); return; } resize(); stepShift(); renderer.render(scene,camera); requestAnimationFrame(frame); }
+/* telefono: si ridisegna solo quando qualcosa cambia (un dito, un tasto, la data che corre, lo scomposto):
+   da fermo il 3D non lavora e il telefono resta pronto a rispondere al dito */
+let SVEGLIO=90; const sveglia=()=>{ if(SVEGLIO<20) SVEGLIO=20; };
+for(const ev of ["pointerdown","pointermove","pointerup","pointercancel","wheel","keydown","input","change","click","touchstart","touchmove","touchend","touchcancel"]) document.addEventListener(ev,sveglia,{capture:true,passive:true});
+addEventListener("resize",sveglia);
+function frame(now){ const dt=(now-last)/1000; last=now; if(exTween) stepExplode(now); if(autoOrbit){ theta+=0.0012; placeCam(); } if(playing){ baseJD+=speed*dt; update(); } if(!canvasVisible){ requestAnimationFrame(frame); return; } const w0=canvas.width, h0=canvas.height; resize(); if(stepShift()||canvas.width!==w0||canvas.height!==h0) SVEGLIO=Math.max(SVEGLIO,2);
+  if(SVEGLIO>0||playing||exTween||(typeof autoOrbit!=="undefined"&&autoOrbit)){ if(SVEGLIO>0) SVEGLIO--; renderer.render(scene,camera); } requestAnimationFrame(frame); }
 
 /* ---- controlli ---- */
 document.querySelectorAll(".c3 [data-step]").forEach(b=>b.onclick=()=>{ baseJD+=+b.dataset.step; update(); });
@@ -2483,10 +2564,17 @@ for(const id of ["speed","explode"]){ const r=document.getElementById(id); if(!r
 }
 function toggle(id,fn){ const b=document.getElementById(id); b.onclick=()=>{ const on=b.getAttribute("aria-pressed")!=="true"; b.setAttribute("aria-pressed",on); fn(on); pickRecheck(); }; }
 toggle("tPlates",on=>{ plates.visible=on; for(const g of NUOVE_PIASTRE) g.visible=on; }); toggle("tLabels",on=>labels.visible=on);
-toggle("tHyp",on=>{ for(const n in gears) if(gears[n].userData.st==="hyp") gears[n].visible=on; for(const m of NUOVI_IPO) m.visible=on; });
+toggle("tHyp",on=>{ for(const n in gears) if(gears[n].userData.st==="hyp") gears[n].visible=on; for(const m of NUOVI_IPO) m.visible=on;
+  for(const m of LASTRE_IPO) m.visible=on; for(const o of RICOSTRUITI) o.visible=on; });
 function setLook(pat){ M_OSS=pat?M_PAT:M_NEW; for(const n in gears) if(gears[n].userData.st==="oss") gears[n].material=M_OSS; a1.material=M_OSS; for(const m of NUOVI_OSS) m.material=M_OSS; pickRefresh();
   document.getElementById("aNew").setAttribute("aria-pressed",!pat); document.getElementById("aPatina").setAttribute("aria-pressed",pat); }
 document.getElementById("aNew").onclick=()=>setLook(false); document.getElementById("aPatina").onclick=()=>setLook(true);
+/* un clic: solo i pezzi ritrovati (spariscono le ruote ipotetiche e i pezzi ricostruiti) oppure di nuovo la ricostruzione completa;
+   il tasto piccolo delle ipotetiche fa la stessa cosa e i due restano sempre d'accordo */
+{ const mb=document.getElementById("modoBtn"), th=document.getElementById("tHyp");
+  if(mb&&th){ const allinea=()=>{ const soli=th.getAttribute("aria-pressed")!=="true"; mb.setAttribute("aria-pressed",soli);
+      mb.innerHTML=soli?"&#9681; Mostrar la reconstrucci&oacute;n":"&#9680; Solo las piezas halladas"; };
+    mb.onclick=()=>{ th.click(); allinea(); }; th.addEventListener("click",allinea); allinea(); } }
 
 applyExplode(); resize(); if(!userZoom) dist=fitDist(); placeCam(); requestAnimationFrame(frame);
 window.setAngles3D=setAngles3D;
